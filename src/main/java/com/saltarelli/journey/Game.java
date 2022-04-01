@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author Alberto
  */
-public abstract class GameDescription {
+public abstract class Game {
     
     private final String title = "";
     

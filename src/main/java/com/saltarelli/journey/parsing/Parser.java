@@ -1,3 +1,5 @@
+package com.saltarelli.journey.parsing;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -175,6 +177,14 @@ public class Parser {
                                 } else if (object != null || inventoryObject != null) {
                                     return new ParserOutput(command, Optional.ofNullable(object).orElse(inventoryObject));
                                 }
+                            default:
+                                String additionalDescription = tokens.subList(1, tokens.size() - 1).toString();
+                                throw new ParsingException(ParsingException.Kind.LONG_INPUT, additionalDescription, "Long input, invalid tokens: " + additionalDescription);
+                        }
+                    case GAME:
+                        switch (tokens.size()) {
+                            case 0:
+                                return new ParserOutput(command);
                             default:
                                 String additionalDescription = tokens.subList(1, tokens.size() - 1).toString();
                                 throw new ParsingException(ParsingException.Kind.LONG_INPUT, additionalDescription, "Long input, invalid tokens: " + additionalDescription);

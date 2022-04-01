@@ -13,14 +13,14 @@ import java.util.Set;
  * @author Alberto
  */
 public class Command implements Matchable {
-    
+     
     public enum Kind {
     END, INVENTORY, NORD, SOUTH, EAST, WEST, OPEN, CLOSE, PUSH, PULL, 
     WALK_TO, PICK_UP, TALK_TO, GIVE, USE, LOOK_AT, TURN_ON, TURN_OFF
     }
     
     public enum Mode {
-        DIRECTION, PERSON, PERSON_INVENTORY, SINGLE_OBJECT, MULTI_OBJECT, ENVIRONMENT
+        DIRECTION, PERSON, PERSON_INVENTORY, SINGLE_OBJECT, MULTI_OBJECT, ENVIRONMENT, GAME
     }
 
     private final Kind kind;
