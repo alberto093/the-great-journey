@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.saltarelli.journey;
+package com.saltarelli.journey.type;
 
 /**
  *
  * @author Alberto
  */
-public class Command {
+public class Person implements Matchable {
     
+    @Override
+    public Boolean match(String token) {
+        return true;
+    }
 }
