@@ -5,10 +5,12 @@
  */
 package com.saltarelli.journey.parsing;
 
-import com.saltarelli.journey.type.AdvObject;
 import com.saltarelli.journey.type.Command;
-import com.saltarelli.journey.type.Direction;
-import com.saltarelli.journey.type.Person;
+import com.saltarelli.journey.type.InteractiveElement;
+import com.saltarelli.journey.type.Room;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  *
@@ -16,78 +18,48 @@ import com.saltarelli.journey.type.Person;
  */
 public class ParserOutput {
     private final Command command;
-    private final Direction direction;
-    private final Person person;
-    private final AdvObject object;
-    private final AdvObject secondaryObject;
+    private final Room nextRoom;
+    private final InteractiveElement person;
+    private final List<InteractiveElement> objects;
 
-    // Look
     public ParserOutput(Command command) {
         this.command = command;
-        this.direction = null;
+        this.nextRoom = null;
         this.person = null;
-        this.object = null;
-        this.secondaryObject = null;
+        this.objects = Collections.emptyList();
     }
     
-    // Take pillow
-    public ParserOutput(Command command, AdvObject object) {
+    public ParserOutput(Command command, InteractiveElement... objects) {
         this.command = command;
-        this.direction = null;
+        this.nextRoom = null;
         this.person = null;
-        this.object = object;
-        this.secondaryObject = null;
+        this.objects = Arrays.asList(objects);
     }
     
-    // Go to North
-    public ParserOutput(Command command, Direction direction) {
+    public ParserOutput(Command command, Room nextRoom) {
         this.command = command;
-        this.direction = direction;
+        this.nextRoom = nextRoom;
         this.person = null;
-        this.object = null;
-        this.secondaryObject = null;
-    }
-
-    // Use lighter with cigarette
-    public ParserOutput(Command command, AdvObject object, AdvObject secondaryObject) {
-        this.command = command;
-        this.direction = null;
-        this.person = null;
-        this.object = object;
-        this.secondaryObject = secondaryObject;
+        this.objects = Collections.emptyList();
     }
     
     // Speak to Mario
-    public ParserOutput(Command command, Person person) {
+    public ParserOutput(Command command, InteractiveElement person) {
         this.command = command;
-        this.direction = null;
+        this.nextRoom = null;
         this.person = person;
-        this.object = null;
-        this.secondaryObject = null;
+        this.objects = Collections.emptyList();
     }
     
     // Give Mario the lighter
-    public ParserOutput(Command command, Person person, AdvObject object) {
+    public ParserOutput(Command command, InteractiveElement person, InteractiveElement... objects) {
         this.command = command;
-        this.direction = null;
+        this.nextRoom = null;
         this.person = person;
-        this.object = object;
-        this.secondaryObject = null;
+        this.objects = Arrays.asList(objects);
     }
 
     public Command getCommand() {
         return command;
-    }
-    
-    public Direction getDirection() {
-        return direction;
-    }
-
-    public AdvObject getObject() {
-        return object;
-    }
-
-    public AdvObject getSecondaryObject() {
-        return secondaryObject;
     }
 }

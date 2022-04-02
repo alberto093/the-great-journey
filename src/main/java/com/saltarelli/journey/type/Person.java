@@ -9,10 +9,15 @@ package com.saltarelli.journey.type;
  *
  * @author Alberto
  */
-public class Person implements Matchable {
+public class Person extends InteractiveElement {
     
     @Override
     public Boolean match(String token) {
         return true;
+    }
+
+    @Override
+    public String customMessageForCommand(Command.Name command) {
+        return "";
     }
 }

@@ -13,36 +13,38 @@ import java.util.Set;
  * @author Alberto
  */
 public class Command implements Matchable {
-     
-    public enum Kind {
-    END, INVENTORY, NORD, SOUTH, EAST, WEST, OPEN, CLOSE, PUSH, PULL, 
-    WALK_TO, PICK_UP, TALK_TO, GIVE, USE, LOOK_AT, TURN_ON, TURN_OFF
-    }
-    
-    public enum Mode {
-        DIRECTION, PERSON, PERSON_INVENTORY, SINGLE_OBJECT, MULTI_OBJECT, ENVIRONMENT, GAME
+
+    public enum Name {
+        END, 
+        INVENTORY, 
+        NORTH, 
+        SOUTH, 
+        EAST, 
+        WEST, 
+        OPEN, 
+        CLOSE, 
+        PUSH, 
+        PULL, 
+        WALK_TO, 
+        PICK_UP, 
+        GIVE, 
+        USE, 
+        LOOK_AT
     }
 
-    private final Kind kind;
-    
-    private final Mode mode;
+    private final Name name;
 
     private Set<String> alias;
 
-    public Command(Kind kind, Mode mode, String name, Set<String> alias) {
-        this.kind = kind;
-        this.mode = mode;
+    public Command(Name name, Set<String> alias) {
+        this.name = name;
         this.alias = alias;
     }
 
-    public Kind getType() {
-        return kind;
+    public Name getName() {
+        return name;
     }
-    
-    public Mode getMode() {
-        return mode;
-    }
-    
+
     @Override
     public Boolean match(String token) {
         return this.alias.contains(token);
@@ -51,7 +53,7 @@ public class Command implements Matchable {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.kind);
+        hash = 97 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
@@ -67,7 +69,7 @@ public class Command implements Matchable {
             return false;
         }
         final Command other = (Command) obj;
-        if (this.kind != other.kind) {
+        if (this.name != other.name) {
             return false;
         }
         return true;

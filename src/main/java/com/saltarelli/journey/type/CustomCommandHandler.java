@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.saltarelli.journey.output;
-
-import com.saltarelli.journey.parsing.ParserOutput;
+package com.saltarelli.journey.type;
 
 /**
  *
  * @author Alberto
  */
-public interface ParserOutputHandler {
-    String textOutput(ParserOutput output);
+public interface CustomCommandHandler {
+    String customMessageForCommand(Command.Name command);
 }

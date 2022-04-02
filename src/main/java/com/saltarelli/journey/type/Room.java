@@ -13,7 +13,7 @@ import java.util.List;
  * @author Alberto
  */
 public class Room {
- 
+
     private final int id;
 
     private String name;
@@ -31,8 +31,10 @@ public class Room {
     private Room east = null;
 
     private Room west = null;
-    
-    private final List<AdvObject> objects=new ArrayList<>();
+
+    private final List<AdvObject> objects = new ArrayList<>();
+
+    private final List<Person> people = new ArrayList<>();
 
     public Room(int id) {
         this.id = id;
@@ -42,6 +44,21 @@ public class Room {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+    public Room getRoomWithDirection(Direction direction) {
+        switch (direction.getKind()) {
+            case NORTH:
+                return north;
+            case EAST:
+                return east;
+            case SOUTH:
+                return south;
+            case WEST:
+                return west;
+            default:
+                throw new AssertionError(direction.getKind().name());
+        }
     }
 
     public String getName() {
@@ -102,6 +119,10 @@ public class Room {
 
     public List<AdvObject> getObjects() {
         return objects;
+    }
+    
+    public List<Person> getPeople() {
+        return people;
     }
 
     @Override

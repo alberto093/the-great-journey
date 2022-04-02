@@ -9,11 +9,16 @@ package com.saltarelli.journey.type;
  *
  * @author Alberto
  */
-public class AdvObject implements Matchable {
-    
+public class AdvObject extends InteractiveElement {
+
     @Override
     public Boolean match(String token) {
         return true;
     }
-    
+
+    @Override
+    public String customMessageForCommand(Command.Name command) {
+        return "";
+    }
+
 }

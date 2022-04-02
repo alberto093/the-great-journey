@@ -16,17 +16,24 @@ import java.util.List;
 public class Direction implements Matchable {
 
     public enum Kind {
-       NORTH, EAST, SOUTH, OVEST
+       NORTH, EAST, SOUTH, WEST
     }
+    
+    private final Kind kind;
     
     private final List<String> alias;
     
-    Direction() {
-        this.alias = Collections.emptyList();
+    Direction(Kind kind, List<String> alias) {
+        this.kind = kind;
+        this.alias = alias;
     }
-    
-    Direction(String... alias) {
-        this.alias = Arrays.asList(alias); 
+
+    public Kind getKind() {
+        return kind;
+    }
+
+    public List<String> getAlias() {
+        return alias;
     }
 
     @Override
