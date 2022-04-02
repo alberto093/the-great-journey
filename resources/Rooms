@@ -1,0 +1,52 @@
+[
+  {
+    "id": 0,
+    "name": "Depandance privata",
+    "description": "la descrizione della stanza",
+    "objects": [],
+    "ovest": 1,
+    "wrongDirectionMessage": "L'uscita della depandance è a ovest"
+  },
+  {
+    "id": 1,
+    "name": "Giardini del palazzo",
+    "description": "la descrizione della stanza",
+    "objects": [],
+    "north": 2,
+    "south": 3
+  },
+  {
+    "id": 2,
+    "name": "Lavanderia",
+    "description": "la descrizione della stanza",
+    "objects": [],
+    "south": 1,
+    "wrongDirectionMessage": "L'uscita della lavanderia è a sud"
+  },
+  {
+    "id": 3,
+    "name": "Spiaggia",
+    "description": "la descrizione della stanza",
+    "objects": [],
+    "east": 4,
+    "ovest": 5,
+    "north": 2
+  },
+  {
+    "id": 4,
+    "name": "Bar Soleluna",
+    "description": "la descrizione della stanza",
+    "objects": [],
+    "ovest": 3,
+    "wrongDirectionMessage": "L'uscita del bar è a ovest"
+  },
+  {
+    "id": 5,
+    "name": "Noleggio barche",
+    "description": "la descrizione della stanza",
+    "objects": [],
+    "east": 3,
+    "wrongDirectionMessage": "L'uscita del noleggio è a est"
+  }
+
+]

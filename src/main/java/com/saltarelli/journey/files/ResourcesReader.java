@@ -7,6 +7,7 @@ package com.saltarelli.journey.files;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.saltarelli.journey.Game;
 import com.saltarelli.journey.type.AdvObject;
 import com.saltarelli.journey.type.Command;
 import com.saltarelli.journey.type.Direction;
@@ -26,12 +27,26 @@ import java.util.Set;
  */
 public class ResourcesReader {
     private static final String PATH = "./resources/";
-    private static final String ROOMS_FILENAME = "rooms";
-    private static final String OBJECTS_FILENAME = "objects";
-    private static final String COMMANDS_FILENAME = "commands";
-    private static final String DIRECTIONS_FILENAME = "directions";
-    private static final String PEOPLE_FILENAME = "people";
+    private static final String GAME_FILENAME = "Game";
+    private static final String ROOMS_FILENAME = "Rooms";
+    private static final String OBJECTS_FILENAME = "Objects";
+    private static final String COMMANDS_FILENAME = "Commands";
+    private static final String DIRECTIONS_FILENAME = "Directions";
+    private static final String PEOPLE_FILENAME = "People";
 
+    public static Game loadGame() {
+        try {
+            Reader reader = new BufferedReader(new FileReader(new File(PATH + GAME_FILENAME)));
+            Game resource = new Gson().fromJson(reader, Game.class);
+            reader.close();
+            return resource;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
+        return null;
+    }
+    
     public static Set<Room> fetchRooms() {
         return fetchResource(PATH + ROOMS_FILENAME);
     }
@@ -54,7 +69,6 @@ public class ResourcesReader {
     
     private static <T> Set<T> fetchResource(String filePath) {
         try {
-            Gson gson = new Gson();
             Reader reader = new BufferedReader(new FileReader(new File(filePath)));
             Set<T> resource = new Gson().fromJson(reader, new TypeToken<Set<T>>() {}.getType());
             reader.close();

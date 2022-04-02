@@ -1,0 +1,66 @@
+Verbi utilizzati:
+END, INVENTORY, NORTH, SOUTH, EAST, WEST, OPEN, CLOSE, PUSH, PULL, WALK_TO, PICK_UP, GIVE, USE, LOOK_AT
+
+[
+  {
+    "name": "END",
+    "alias": ["end, fine, abbandona, quit, muori"]
+  },
+  {
+    "name": "INVENTORY",
+    "alias": ["i", "inventario", "inv"]
+  },
+  {
+    "name": "NORTH",
+    "alias": ["nord", "n"]
+  },
+  {
+    "name": "SOUTH",
+    "alias": ["sud", "s"]
+  },
+  {
+    "name": "EAST",
+    "alias": ["est", "e"]
+  },
+  {
+    "name": "WEST",
+    "alias": ["ovest", "o"]
+  },
+  {
+    "name": "OPEN",
+    "alias": ["apri"]
+  },
+  {
+    "name": "CLOSE",
+    "alias": ["chiudi"]
+  },
+  {
+    "name": "PUSH",
+    "alias": ["spingi", "premi"]
+  },
+  {
+    "name": "PULL",
+    "alias": ["tira", "rilascia"]
+  },
+  {
+    "name": "WALK_TO",
+    "alias": ["vai", "cammina", "corri"]
+  },
+  {
+    "name": "PICK_UP",
+    "alias": ["prendi", "t", "acchiappa", "raccogli"]
+  },
+  {
+    "name": "GIVE",
+    "alias": ["dai", "offri", "regala", "cedi"]
+  },
+  {
+    "name": "USE",
+    "alias": ["usa", "utilizza", "adopera"]
+  },
+  {
+    "name": "LOOK_AT",
+    "alias": ["osserva", "guarda", "vedi"]
+  }
+
+]
