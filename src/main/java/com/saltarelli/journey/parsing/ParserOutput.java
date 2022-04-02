@@ -5,8 +5,9 @@
  */
 package com.saltarelli.journey.parsing;
 
+import com.saltarelli.journey.type.AdvObject;
 import com.saltarelli.journey.type.Command;
-import com.saltarelli.journey.type.InteractiveElement;
+import com.saltarelli.journey.type.Person;
 import com.saltarelli.journey.type.Room;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,8 +20,8 @@ import java.util.List;
 public class ParserOutput {
     private final Command command;
     private final Room nextRoom;
-    private final InteractiveElement person;
-    private final List<InteractiveElement> objects;
+    private final Person person;
+    private final List<AdvObject> objects;
 
     public ParserOutput(Command command) {
         this.command = command;
@@ -29,7 +30,7 @@ public class ParserOutput {
         this.objects = Collections.emptyList();
     }
     
-    public ParserOutput(Command command, InteractiveElement... objects) {
+    public ParserOutput(Command command, AdvObject... objects) {
         this.command = command;
         this.nextRoom = null;
         this.person = null;
@@ -43,8 +44,7 @@ public class ParserOutput {
         this.objects = Collections.emptyList();
     }
     
-    // Speak to Mario
-    public ParserOutput(Command command, InteractiveElement person) {
+    public ParserOutput(Command command, Person person) {
         this.command = command;
         this.nextRoom = null;
         this.person = person;
@@ -52,7 +52,7 @@ public class ParserOutput {
     }
     
     // Give Mario the lighter
-    public ParserOutput(Command command, InteractiveElement person, InteractiveElement... objects) {
+    public ParserOutput(Command command, Person person, AdvObject... objects) {
         this.command = command;
         this.nextRoom = null;
         this.person = person;

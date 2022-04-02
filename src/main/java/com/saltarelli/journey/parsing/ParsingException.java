@@ -19,11 +19,13 @@ public class ParsingException extends Exception {
         CANT_CLOSE, // Non puoi chiudere \(additionalDescription).
         CANT_PUSH, // Non puoi spingere \(additionalDescription).
         CANT_PULL, // Non puoi tirare \(additionalDescription).
+        CANT_GIVE, // Non puoi dare \(additionalDescription) perchè non è nell'inventario.
         MISSING_OPEN_ELEMENT, // Cosa vuoi aprire? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
         MISSING_CLOSE_ELEMENT, // Cosa vuoi chiudere? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
         MISSING_PUSH_ELEMENT, // Cosa vuoi spingere? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
         MISSING_PULL_ELEMENT, // Cosa vuoi tirare? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
         MISSING_TAKE_ELEMENT, // Cosa puoi prendere? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
+        MISSING_GIVE_ELEMENT, // Cosa vuoi dare? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
         CANT_TAKE, // Non puoi prendere \(additionalDescription).
         TAKE_FROM_INVENTORY, // Già in possesso.
         MISSING_DIRECTION, // Dove vuoi andare? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input

@@ -11,6 +11,7 @@ import com.saltarelli.journey.type.Command;
 import com.saltarelli.journey.type.Direction;
 import com.saltarelli.journey.type.InteractiveElement;
 import com.saltarelli.journey.type.Person;
+import com.saltarelli.journey.type.Player;
 import com.saltarelli.journey.type.Room;
 import java.util.Arrays;
 import java.util.List;
@@ -56,17 +57,18 @@ public class Parser {
                     case INVENTORY:
                         return handleSingleCommand(command, commandAlias, tokens);
                     case NORTH:
-                        return handleDirectionCommand(command, commandAlias, Arrays.asList(commandAlias), directions, currentRoom);
+                        return handleDirectionCommand(command, commandAlias, input, Arrays.asList(commandAlias), directions, currentRoom);
                     case SOUTH:
-                        return handleDirectionCommand(command, commandAlias, Arrays.asList(commandAlias), directions, currentRoom);
+                        return handleDirectionCommand(command, commandAlias, input, Arrays.asList(commandAlias), directions, currentRoom);
                     case EAST:
-                        return handleDirectionCommand(command, commandAlias, Arrays.asList(commandAlias), directions, currentRoom);
+                        return handleDirectionCommand(command, commandAlias, input, Arrays.asList(commandAlias), directions, currentRoom);
                     case WEST:
-                        return handleDirectionCommand(command, commandAlias, Arrays.asList(commandAlias), directions, currentRoom);
+                        return handleDirectionCommand(command, commandAlias, input, Arrays.asList(commandAlias), directions, currentRoom);
                     case OPEN:
                         return handleBooleanCommand(
                                 command,
                                 commandAlias,
+                                input,
                                 tokens,
                                 currentRoom.getPeople(),
                                 currentRoom.getObjects(),
@@ -80,6 +82,7 @@ public class Parser {
                         return handleBooleanCommand(
                                 command,
                                 commandAlias,
+                                input,
                                 tokens,
                                 currentRoom.getPeople(),
                                 currentRoom.getObjects(),
@@ -93,6 +96,7 @@ public class Parser {
                         return handleBooleanCommand(
                                 command,
                                 commandAlias,
+                                input,
                                 tokens,
                                 currentRoom.getPeople(),
                                 currentRoom.getObjects(),
@@ -106,6 +110,7 @@ public class Parser {
                         return handleBooleanCommand(
                                 command,
                                 commandAlias,
+                                input,
                                 tokens,
                                 currentRoom.getPeople(),
                                 currentRoom.getObjects(),
@@ -116,15 +121,13 @@ public class Parser {
                                 ParsingException.Kind.CANT_PULL,
                                 ParsingException.Kind.MISSING_PULL_ELEMENT);
                     case WALK_TO:
-                        return handleDirectionCommand(command, commandAlias, tokens, directions, currentRoom);
+                        return handleDirectionCommand(command, commandAlias, input, tokens, directions, currentRoom);
                     case PICK_UP:
-                        return handlePickupCommand(command, commandAlias, tokens, currentRoom.getPeople(), currentRoom.getObjects(), inventory);
+                        return handlePickupCommand(command, commandAlias, input, tokens, currentRoom.getPeople(), currentRoom.getObjects(), inventory);
                     case GIVE:
-                        break;
-                    case USE:
-                        break;
+                        return handleGiveCommand(command, commandAlias, input, tokens, currentRoom.getPeople(), currentRoom.getObjects(), inventory);
                     case LOOK_AT:
-                        break;
+                        return handleLookCommand(command, input, tokens, currentRoom, inventory);
                 }
             }
         }
@@ -151,6 +154,7 @@ public class Parser {
     private ParserOutput handleBooleanCommand(
             Command command,
             String commandAlias,
+            String input,
             List<String> tokens,
             List<Person> people,
             List<AdvObject> objects,
@@ -160,6 +164,7 @@ public class Parser {
             Boolean checkDo,
             ParsingException.Kind exceptionCant,
             ParsingException.Kind exceptionMissing) throws ParsingException {
+        
         switch (tokens.size()) {
             case 0:
                 if (objects.size() == 1) {
@@ -186,7 +191,7 @@ public class Parser {
                     throw new ParsingException("Unknown element", ParsingException.Kind.UNKNOWN_ELEMENT);
                 }
             default:
-                throw getLongInputException(commandAlias + tokens.get(0));
+                throw getLongInputException(input.substring(0, input.indexOf(tokens.get(0) + tokens.size())));
         }
     }
 
@@ -199,7 +204,11 @@ public class Parser {
             ParsingException.Kind exceptionKind) throws ParsingException {
 
         if (canDoPredicate.test(element) && checkDo != isDonePredicate.test(element)) {
-            return new ParserOutput(command, element);
+            if (element instanceof AdvObject) {
+                return new ParserOutput(command, (AdvObject) element);
+            } else {
+                return new ParserOutput(command, (Person) element);
+            }
         } else {
             throw getCantDoException(element.getName(), exceptionKind, element.customMessageForCommand(command.getName()));
         }
@@ -228,11 +237,13 @@ public class Parser {
     }
 
     private ParserOutput handleDirectionCommand(
-            Command command, 
-            String commandAlias, 
-            List<String> tokens, 
-            List<Direction> directions, 
+            Command command,
+            String commandAlias,
+            String input,
+            List<String> tokens,
+            List<Direction> directions,
             Room currentRoom) throws ParsingException {
+        
         switch (tokens.size()) {
             case 0:
                 throw new ParsingException("Missing direction", ParsingException.Kind.MISSING_DIRECTION, commandAlias, "");
@@ -251,17 +262,19 @@ public class Parser {
                     }
                 }
             default:
-                throw getLongInputException(commandAlias + tokens.get(0));
+                throw getLongInputException(input.substring(0, input.indexOf(tokens.get(0) + tokens.size())));
         }
     }
 
     private ParserOutput handlePickupCommand(
-            Command command, 
-            String commandAlias, 
+            Command command,
+            String commandAlias,
+            String input,
             List<String> tokens,
             List<Person> people,
             List<AdvObject> objects,
             List<AdvObject> inventory) throws ParsingException {
+        
         switch (tokens.size()) {
             case 0:
                 Integer numberOfElements = objects.size() + people.size();
@@ -271,7 +284,11 @@ public class Parser {
                         InteractiveElement element = !objects.isEmpty() ? objects.get(0) : people.get(0);
 
                         if (element.getCanTake()) {
-                            return new ParserOutput(command, element);
+                            if (element instanceof AdvObject) {
+                                return new ParserOutput(command, (AdvObject) element);
+                            } else {
+                                return new ParserOutput(command, (Person) element);
+                            }
                         } else {
                             throw new ParsingException("Element can't be taken", ParsingException.Kind.CANT_TAKE, "", element.customMessageForCommand(command.getName()));
                         }
@@ -294,12 +311,103 @@ public class Parser {
                 } else if (element == inventoryObject) {
                     throw new ParsingException("Can't take object from inventory", ParsingException.Kind.TAKE_FROM_INVENTORY);
                 } else if (element.getCanTake()) {
-                    return new ParserOutput(command, element);
+                    if (element instanceof AdvObject) {
+                        return new ParserOutput(command, (AdvObject) element);
+                    } else {
+                        return new ParserOutput(command, (Person) element);
+                    }
                 } else {
                     throw new ParsingException("Element can't be taken", ParsingException.Kind.CANT_TAKE, "", element.customMessageForCommand(command.getName()));
                 }
             default:
-                throw getLongInputException(commandAlias);
+                throw getLongInputException(input.substring(0, input.indexOf(tokens.get(0) + tokens.size())));
+        }
+    }
+
+    private ParserOutput handleGiveCommand(
+            Command command,
+            String commandAlias,
+            String input,
+            List<String> tokens,
+            List<Person> people,
+            List<AdvObject> objects,
+            List<AdvObject> inventory) throws ParsingException {
+        
+        switch (tokens.size()) {
+            case 0:
+                throw new ParsingException("Missing element", ParsingException.Kind.MISSING_GIVE_ELEMENT, commandAlias, "");
+            case 1:
+                AdvObject object = matchableFromToken(tokens.get(0), objects);
+                Person person = matchableFromToken(tokens.get(0), people);
+                AdvObject inventoryObject = matchableFromToken(tokens.get(0), inventory);
+
+                if (object != null) {
+                    throw new ParsingException("Can't give object from a room", ParsingException.Kind.CANT_GIVE, tokens.get(0), "");
+                } else if (person != null) {
+                    throw new ParsingException(
+                            "Missing element", 
+                            ParsingException.Kind.MISSING_GIVE_ELEMENT, 
+                            input.substring(0, input.indexOf(tokens.get(0) + tokens.size())),
+                            "");
+                } else if (inventoryObject != null) {
+                    return new ParserOutput(command, Player.getInstance(), inventoryObject);
+                } else {
+                    throw new ParsingException("Unknown element", ParsingException.Kind.UNKNOWN_ELEMENT);
+                }
+            case 2:
+                int objectIndex;
+                person = matchableFromToken(tokens.get(0), people);
+
+                if (person == null) {
+                    person = matchableFromToken(tokens.get(1), people);
+
+                    if (person == null) {
+                        throw new ParsingException("Unknown element", ParsingException.Kind.UNKNOWN_ELEMENT);
+                    } else {
+                        objectIndex = 0;
+                    }
+                } else {
+                    objectIndex = 1;
+                }
+
+                inventoryObject = matchableFromToken(tokens.get(objectIndex), inventory);
+
+                if (inventoryObject == null) {
+                    throw new ParsingException("Can't give object from a room", ParsingException.Kind.CANT_GIVE, tokens.get(objectIndex), "");
+                } else {
+                    return new ParserOutput(command, person, inventoryObject);
+                }
+            default:
+                throw getLongInputException(input.substring(0, input.indexOf(tokens.get(1) + tokens.size())));
+        }
+    }
+    
+    private ParserOutput handleLookCommand(
+            Command command,
+            String input,
+            List<String> tokens,
+            Room currentRoom,
+            List<AdvObject> inventory) throws ParsingException {
+        
+        switch (tokens.size()) {
+            case 0:
+                return new ParserOutput(command, currentRoom);
+            case 1:
+                AdvObject object = matchableFromToken(tokens.get(0), currentRoom.getObjects());
+                Person person = matchableFromToken(tokens.get(0), currentRoom.getPeople());
+                AdvObject inventoryObject = matchableFromToken(tokens.get(0), inventory);
+
+                if (object != null) {
+                    return new ParserOutput(command, object);
+                } else if (person != null) {
+                    return new ParserOutput(command, person);
+                } else if (inventoryObject != null) {
+                    return new ParserOutput(command, inventoryObject);
+                } else {
+                    throw new ParsingException("Unknown element", ParsingException.Kind.UNKNOWN_ELEMENT);
+                }
+            default:
+                throw getLongInputException(input.substring(0, input.indexOf(tokens.get(0) + tokens.size())));
         }
     }
 
