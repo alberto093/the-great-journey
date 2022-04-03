@@ -30,7 +30,7 @@
     "objects": [],
     "east": 4,
     "ovest": 5,
-    "north": 2
+    "north": 1
   },
   {
     "id": 4,
@@ -48,5 +48,4 @@
     "east": 3,
     "wrongDirectionMessage": "L'uscita del noleggio è a est"
   }
-
 ]

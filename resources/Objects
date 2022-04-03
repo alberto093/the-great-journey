@@ -1,0 +1,39 @@
+[
+  {
+    "id": 0,
+    "name": "muro",
+    "alias": ["muri", "parete", "pareti"],
+    "description": "Niente di interessante."
+  },
+  {
+    "id": 1,
+    "name": "finestra",
+    "alias": [],
+    "description": "Dalla finestra pullano di colori i magnifici giardini del palazzo reale."
+  },
+  {
+    "id": 2,
+    "name": "cucina",
+    "alias": ["cucinino", "stufa", "tavolo", "sedia", "sedie", "tv", "televisione", "televisore", "cestino", "divano"],
+    "description": "L'arredamento di casa non ha alcuna importanza per lo svolgimento della tua missione."
+  },
+  {
+    "id": 3,
+    "name": "letto",
+    "alias": [],
+    "description": "Il letto è disfatto, si vede che non è ancora passata la colf! Ci sono dei vestiti sporchi... non farei una bella figura a lasciarli lì."
+  },
+
+]
+
+
+
+private final String name = "";
+private final String description = "";
+private final Boolean canOpen = false;
+private final Boolean canClose = false;
+private final Boolean isOpen = false;
+private final Boolean canTake = false;
+private final Boolean canPush = false;
+private final Boolean canPull = false;
+private final Boolean isPush = false;

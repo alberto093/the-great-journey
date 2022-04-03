@@ -1,6 +1,7 @@
 [
   {
-    "command": "END, INVENTORY, NORTH, SOUTH, EAST, WEST, OPEN, CLOSE, PUSH, PULL, WALK_TO, PICK_UP, GIVE, LOOK_AT",
+    "command": "END, INVENTORY, NORTH, SOUTH, EAST, WEST, OPEN, CLOSE, PUSH, PULL, PICK_UP, GIVE, LOOK_AT",
+    "roomID": 0,
     "person": 0,
     "objects": [0],
     "outputMessage": "",
@@ -12,6 +13,11 @@
     "editPerson": {
       "id": 0,
       "roomID": 0
+    },
+    "editDescription": {
+      "objectID": 0,
+      "personID": 0,
+      "newDescription": ""
     },
     "isLast": false
   }
