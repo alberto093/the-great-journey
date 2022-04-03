@@ -7,7 +7,7 @@ package com.saltarelli.journey.files;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.saltarelli.journey.GameDescription;
+import com.saltarelli.journey.Game;
 import com.saltarelli.journey.type.AdvObject;
 import com.saltarelli.journey.type.Command;
 import com.saltarelli.journey.type.Direction;
@@ -38,10 +38,10 @@ public class ResourcesReader {
     private static final String PEOPLE_FILENAME = "People";
     private static final String STOPWORDS_FILENAME = "Stopwords";
 
-    public static GameDescription loadGame() {
+    public static Game loadGame() {
         try {
             Reader reader = new BufferedReader(new FileReader(new File(PATH + GAME_FILENAME)));
-            GameDescription resource = new Gson().fromJson(reader, GameDescription.class);
+            Game resource = new Gson().fromJson(reader, Game.class);
             reader.close();
             return resource;
         } catch (Exception ex) {

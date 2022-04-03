@@ -12,14 +12,9 @@ import java.lang.reflect.InvocationTargetException;
  * @author Alberto
  */
 public class Main {
+
     public static void main(String[] args) {
-        try {
-            Class classTemp = Class.forName(args[0]);
-            GameDescription game = (GameDescription) classTemp.getDeclaredConstructor().newInstance();
-            Engine engine = new Engine(game);
-            engine.start();
-        } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException x) {
-            x.printStackTrace();
-        }
+        Engine engine = new Engine(new Game());
+        engine.start();
     }
 }

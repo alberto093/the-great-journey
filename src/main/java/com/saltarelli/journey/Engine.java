@@ -22,7 +22,7 @@ import java.util.Optional;
  */
 public class Engine {
 
-    private final GameDescription game;
+    private final Game game;
 
     private final Parser parser;
 
@@ -30,9 +30,8 @@ public class Engine {
 
     private final PrintStream console;
 
-    public Engine(GameDescription game) {
+    public Engine(Game game) {
         this.game = game;
-        game.init();
         this.parser = new Parser(ResourcesReader.fetchStopwords());
         this.console = System.out;
     }

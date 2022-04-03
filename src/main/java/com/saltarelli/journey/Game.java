@@ -18,7 +18,7 @@ import java.util.Set;
  *
  * @author Alberto
  */
-public abstract class GameDescription {
+public class Game {
     
     private final String title = "";
     
@@ -95,7 +95,4 @@ public abstract class GameDescription {
     public GamePlay getGameplay() {
         return gameplay;
     }
-
-    public abstract void init();
-
 }
