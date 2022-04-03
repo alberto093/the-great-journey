@@ -20,6 +20,8 @@ import java.util.Set;
  */
 public abstract class Game {
     
+    private final String introduction = "";
+    
     private final String title = "";
     
     private final String description = "";
@@ -44,6 +46,10 @@ public abstract class Game {
     
     private GamePlay gameplay;
 
+    public String getIntroduction() {
+        return introduction;
+    }
+    
     public String getTitle() {
         return title;
     }
