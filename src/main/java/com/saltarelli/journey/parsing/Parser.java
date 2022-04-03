@@ -513,10 +513,12 @@ public class Parser {
             default:
                 Stream<AdvObject> stream = tokens.stream()
                         .map(t -> matchableFromToken(t, inventory));
-                
-                if ()
-                
-                
+
+                if (stream.anyMatch(o -> o != null)) {
+                    return new ParserOutput(command, (AdvObject[]) stream.toArray());
+                } else {
+                    throw new ParserException("Can't combine objects/people not in inventory", ParserException.Kind.CANT_COMBINE, "", "");
+                }
         }
     }
 

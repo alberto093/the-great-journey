@@ -1,0 +1,110 @@
+[
+  {
+    "name": "EMPTY_INPUT",
+    "message": "Sei in silenzio stampa?"
+  },
+  {
+    "name": "UNKNOWN_COMMAND",
+    "message": "Non conosco questo verbo.""
+  },
+  {
+    "name": "LONG_INPUT",
+    "message": "Ho capito la frase solo fino a: %s"
+  },
+  {
+    "name": "CANT_OPEN",
+    "message": "Non puoi aprire %s"
+  },
+  {
+    "name": "CANT_CLOSE",
+    "message": "Non puoi chiudere %s"
+  },
+  {
+    "name": "CANT_PUSH",
+    "message": "Non puoi spingere %s"
+  },
+  {
+    "name": "CANT_PULL",
+    "message": "Non puoi tirare %s"
+  },
+  {
+    "name": "CANT_GIVE",
+    "message": "Non puoi dare %s perchè non è nell'inventario.
+  },
+  {
+    "name": "CANT_SPEAK",
+    "message": "Ehi! Puoi farlo solo con esseri viventi."
+  },
+  {
+    "name": "MISSING_OPEN_ELEMENT",
+    "message": "Cosa vuoi aprire?"
+  },
+  {
+    "name": "MISSING_CLOSE_ELEMENT",
+    "message": "Cosa vuoi chiudere?"
+  },
+  {
+    "name": "MISSING_PUSH_ELEMENT",
+    "message": "Cosa vuoi spingere?"
+  },
+  {
+    "name": "MISSING_PULL_ELEMENT",
+    "message": "Cosa vuoi tirare?"
+  },
+  {
+    "name": "MISSING_TAKE_ELEMENT",
+    "message": "Cosa vuoi prendere?"
+  },
+  {
+    "name": "MISSING_GIVE_ELEMENT",
+    "message": "Cosa vuoi dare?"
+  },
+  {
+    "name": "MISSING_USE_ELEMENT",
+    "message": "Cosa vuoi usare?"
+  },
+  {
+    "name": "MISSING_READ_ELEMENT",
+    "message": "Cosa vuoi leggere?"
+  },
+  {
+    "name": "MISSING_SPEAK_ELEMENT",
+    "message": "Con chi vuoi parlare?"
+  },
+  {
+    "name": "MISSING_COMBINE_ELEMENT",
+    "message": "Cosa vuoi unire?"
+  },
+  {
+    "name": "MISSING_DIRECTION",
+    "message": "Cosa vuoi aprire?"
+  },
+  {
+    "name": "MINIMUM_COMBINE",
+    "message": "Non puoi combinare un oggetto con se stesso."
+  },
+  {
+    "name": "CANT_COMBINE",
+    "message": "Puoi farlo solo con oggetti nel tuo inventario."
+  },
+  {
+    "name": "CANT_TAKE",
+    "message": "Non puoi prendere %s."
+  },
+  {
+    "name": "TAKE_FROM_INVENTORY",
+    "message": "Già in possesso."
+  },
+  {
+    "name": "INVALID_DIRECTION",
+    "message": "Non è qualcosa in cui puoi entrare."
+  },
+  {
+    "name": "WRONG_DIRECTION",
+    "message": "A %s non c'è niente di interessante"
+  },
+  {
+    "name": "UNKNOWN_ELEMENT",
+    "message": "Non vedi nulla del genere."
+  }
+}

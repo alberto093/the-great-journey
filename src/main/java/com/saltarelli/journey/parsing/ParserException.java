@@ -5,6 +5,8 @@
  */
 package com.saltarelli.journey.parsing;
 
+import java.util.Objects;
+
 /**
  *
  * @author Alberto
@@ -20,6 +22,7 @@ public class ParserException extends Exception {
         CANT_PUSH, // Non puoi spingere \(additionalDescription).
         CANT_PULL, // Non puoi tirare \(additionalDescription).
         CANT_GIVE, // Non puoi dare \(additionalDescription) perchè non è nell'inventario.
+        CANT_SPEAK, // Ehi! Puoi farlo solo con esseri viventi.
         MISSING_OPEN_ELEMENT, // Cosa vuoi aprire? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
         MISSING_CLOSE_ELEMENT, // Cosa vuoi chiudere? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
         MISSING_PUSH_ELEMENT, // Cosa vuoi spingere? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
@@ -29,13 +32,15 @@ public class ParserException extends Exception {
         MISSING_USE_ELEMENT, // Cosa vuoi usare? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
         MISSING_READ_ELEMENT, // Cosa vuoi leggere? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
         MISSING_SPEAK_ELEMENT, // Con chi vuoi parlare? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
+        MISSING_COMBINE_ELEMENT, // Cosa vuoi unire? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
+        MINIMUM_COMBINE, // Non puoi combinare un oggetto con se stesso.
+        CANT_COMBINE, // Puoi farlo solo con oggetti nel tuo inventario.
         CANT_TAKE, // Non puoi prendere \(additionalDescription).
         TAKE_FROM_INVENTORY, // Già in possesso.
         MISSING_DIRECTION, // Dove vuoi andare? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
         INVALID_DIRECTION, // Non è qualcosa in cui puoi entrare.
         WRONG_DIRECTION, // Se la stanza è ha il wrongDirectionMessage mostro quello altrimenti dico: "A (additionalDescription) non c'è niente di interessante."
-        UNKNOWN_ELEMENT, // Non vedi nulla del genere.
-        
+        UNKNOWN_ELEMENT // Non vedi nulla del genere.
     }
     
     private final Kind kind;
@@ -66,5 +71,30 @@ public class ParserException extends Exception {
 
     public String getCustomOutputMessage() {
         return customOutputMessage;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 31 * hash + Objects.hashCode(this.kind);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ParserException other = (ParserException) obj;
+        if (this.kind != other.kind) {
+            return false;
+        }
+        return true;
     }
 }

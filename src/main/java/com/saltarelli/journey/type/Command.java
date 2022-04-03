@@ -29,7 +29,9 @@ public class Command implements Matchable {
         PICK_UP, 
         GIVE, 
         LOOK_AT,
-        READ
+        READ,
+        SPEAK,
+        COMBINE
     }
 
     private final Name name;

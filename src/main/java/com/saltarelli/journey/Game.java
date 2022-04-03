@@ -43,8 +43,6 @@ public abstract class Game {
     private final List<AdvObject> inventory = new ArrayList<>();
 
     private Room currentRoom;
-    
-    private GamePlay gameplay;
 
     public String getIntroduction() {
         return introduction;
@@ -97,8 +95,6 @@ public abstract class Game {
     public List<AdvObject> getInventory() {
         return inventory;
     }
-
-    public GamePlay getGameplay() {
-        return gameplay;
-    }
+    
+    public abstract void init() throws Exception;
 }

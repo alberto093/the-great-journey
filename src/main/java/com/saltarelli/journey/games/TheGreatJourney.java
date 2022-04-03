@@ -13,4 +13,10 @@ import com.saltarelli.journey.Game;
  */
 public class TheGreatJourney extends Game {
 
+    @Override
+    public void init() throws Exception {
+        // read resources
+        // populate attributes
+    }
+
 }

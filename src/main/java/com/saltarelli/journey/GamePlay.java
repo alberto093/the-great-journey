@@ -5,10 +5,21 @@
  */
 package com.saltarelli.journey;
 
+import com.saltarelli.journey.parsing.ParserOutput;
+
 /**
  *
  * @author Alberto
  */
-public class GamePlay {
+public class Gameplay {
     
+    private final Game game;
+    
+    public Gameplay(Game game) {
+        this.game = game;
+    }
+    
+    public String processOutput(ParserOutput output) {
+        return "";
+    }
 }

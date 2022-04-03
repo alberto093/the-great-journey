@@ -23,6 +23,8 @@ import java.util.Optional;
 public class Engine {
 
     private final Game game;
+    
+    private final Gameplay gameplay;
 
     private final Parser parser;
 
@@ -32,6 +34,7 @@ public class Engine {
 
     public Engine(Game game) {
         this.game = game;
+        this.gameplay = new Gameplay(game);
         this.parser = new Parser(ResourcesReader.fetchStopwords());
         this.console = System.out;
     }
@@ -66,12 +69,16 @@ public class Engine {
         startGame();
     }
 
-    public void restartGame() {
+    private void restartGame() {
 
     }
 
-    public void endGame() {
+    private void endGame() {
 
+    }
+    
+    private void printInventory() {
+    
     }
 
     private void startGame() {
@@ -90,15 +97,19 @@ public class Engine {
                         game.getDirections(),
                         game.getInventory(),
                         game.getCurrentRoom());
-/*
-                if (p.getCommand() != null && p.getCommand().getType() == CommandType.END) {
-                    System.out.println("Addio!");
-                    break;
-                } else {
-                    game.nextMove(p, System.out);
-                    System.out.println();
+                
+                switch (output.getCommand().getName()) {
+                    case END:
+                        endGame();
+                        break;
+                    case INVENTORY:
+                        printInventory();
+                        break;
+                    default:
+                        String outputMessage = gameplay.processOutput(output);
+                        console.print(outputMessage);
+                        console.println();
                 }
-*/
             } catch (ParserException ex) {
                 handleParserException(ex);
             }
@@ -106,6 +117,9 @@ public class Engine {
     }
 
     private void handleParserException(ParserException ex) {
-
+        switch (ex.getKind()) {
+        
+        }
+        
     }
 }
