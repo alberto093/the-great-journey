@@ -28,7 +28,6 @@ public class Command implements Matchable {
         WALK_TO, 
         PICK_UP, 
         GIVE, 
-        USE, 
         LOOK_AT
     }
 

@@ -19,34 +19,34 @@ import java.util.List;
  */
 public class ParserOutput {
     private final Command command;
-    private final Room nextRoom;
+    private final Room room;
     private final Person person;
     private final List<AdvObject> objects;
 
     public ParserOutput(Command command) {
         this.command = command;
-        this.nextRoom = null;
+        this.room = null;
         this.person = null;
         this.objects = Collections.emptyList();
     }
     
     public ParserOutput(Command command, AdvObject... objects) {
         this.command = command;
-        this.nextRoom = null;
+        this.room = null;
         this.person = null;
         this.objects = Arrays.asList(objects);
     }
     
-    public ParserOutput(Command command, Room nextRoom) {
+    public ParserOutput(Command command, Room room) {
         this.command = command;
-        this.nextRoom = nextRoom;
+        this.room = room;
         this.person = null;
         this.objects = Collections.emptyList();
     }
     
     public ParserOutput(Command command, Person person) {
         this.command = command;
-        this.nextRoom = null;
+        this.room = null;
         this.person = person;
         this.objects = Collections.emptyList();
     }
@@ -54,12 +54,24 @@ public class ParserOutput {
     // Give Mario the lighter
     public ParserOutput(Command command, Person person, AdvObject... objects) {
         this.command = command;
-        this.nextRoom = null;
+        this.room = null;
         this.person = person;
         this.objects = Arrays.asList(objects);
     }
 
     public Command getCommand() {
         return command;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public List<AdvObject> getObjects() {
+        return objects;
     }
 }

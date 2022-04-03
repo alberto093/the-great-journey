@@ -9,7 +9,7 @@ package com.saltarelli.journey.parsing;
  *
  * @author Alberto
  */
-public class ParsingException extends Exception {
+public class ParserException extends Exception {
 
     public enum Kind {
         EMPTY_INPUT, // Sei in silenzio stampa?
@@ -26,6 +26,7 @@ public class ParsingException extends Exception {
         MISSING_PULL_ELEMENT, // Cosa vuoi tirare? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
         MISSING_TAKE_ELEMENT, // Cosa puoi prendere? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
         MISSING_GIVE_ELEMENT, // Cosa vuoi dare? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
+        MISSING_USE_ELEMENT, // Cosa vuoi usar? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
         CANT_TAKE, // Non puoi prendere \(additionalDescription).
         TAKE_FROM_INVENTORY, // Già in possesso.
         MISSING_DIRECTION, // Dove vuoi andare? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
@@ -39,14 +40,14 @@ public class ParsingException extends Exception {
     private final String additionalDescription;
     private final String customOutputMessage;
 
-    public ParsingException(String message, Kind kind) {
+    public ParserException(String message, Kind kind) {
         super(message);
         this.kind = kind;
         this.additionalDescription = null;
         this.customOutputMessage = null;
     }
     
-    public ParsingException(String message, Kind kind, String additionalDescription, String customOutputMessage) {
+    public ParserException(String message, Kind kind, String additionalDescription, String customOutputMessage) {
         super(message);
         this.kind = kind;
         this.additionalDescription = additionalDescription;

@@ -7,21 +7,32 @@ package com.saltarelli.journey;
 
 import com.saltarelli.journey.type.AdvObject;
 import com.saltarelli.journey.type.Command;
+import com.saltarelli.journey.type.Direction;
 import com.saltarelli.journey.type.Room;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
  * @author Alberto
  */
-public abstract class Game {
+public abstract class GameDescription {
     
     private final String title = "";
     
     private final String description = "";
     
+    private final String helpQuestion = "";
+    
     private final String help = "";
+    
+    private final Set<String> yesAlias = new HashSet<>();
+    
+    private final Set<String> noAlias = new HashSet<>();
+    
+    private final List<Direction> directions = new ArrayList<>();
 
     private final List<Room> rooms = new ArrayList<>();
 
@@ -30,6 +41,8 @@ public abstract class Game {
     private final List<AdvObject> inventory = new ArrayList<>();
 
     private Room currentRoom;
+    
+    private GamePlay gameplay;
 
     public String getTitle() {
         return title;
@@ -39,8 +52,24 @@ public abstract class Game {
         return description;
     }
 
+    public String getHelpQuestion() {
+        return helpQuestion;
+    }
+
     public String getHelp() {
         return help;
+    }
+
+    public Set<String> getYesAlias() {
+        return yesAlias;
+    }
+
+    public Set<String> getNoAlias() {
+        return noAlias;
+    }
+
+    public List<Direction> getDirections() {
+        return directions;
     }
 
     public List<Room> getRooms() {
@@ -63,6 +92,10 @@ public abstract class Game {
         return inventory;
     }
 
-    public abstract void init() throws Exception;
+    public GamePlay getGameplay() {
+        return gameplay;
+    }
+
+    public abstract void init();
 
 }

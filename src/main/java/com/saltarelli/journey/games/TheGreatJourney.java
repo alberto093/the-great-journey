@@ -5,10 +5,16 @@
  */
 package com.saltarelli.journey.games;
 
+import com.saltarelli.journey.GameDescription;
+
 /**
  *
  * @author Alberto
  */
-public class TheGreatJourney {
-    
+public class TheGreatJourney extends GameDescription {
+
+    @Override
+    public void init() {
+        
+    }
 }
