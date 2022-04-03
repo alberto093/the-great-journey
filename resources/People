@@ -4,20 +4,20 @@
     "room": 1,
     "name": "Guardia del palazzo",
     "description": "Descrizione della guardia",
-    "alias": ["guardia, guardiano, poliziotto, gendarme"]
+    "alias": ["guardia", "guardiano", "poliziotto", "gendarme"]
   },
   {
     "id": 1,
     "room": 2,
     "name": "Mariola la lavandaia",
-    "description": "Descrizione di Mariola,
-    "alias": ["lavandaia, donna, mariola"]
+    "description": "Descrizione di Mariola",
+    "alias": ["lavandaia", "donna", "mariola"]
   },
   {
     "id": 2,
     "room": 4,
     "name": "Barista",
     "description": "Descrizione del barista",
-    "alias": ["barista, barman, garzone"]
+    "alias": ["barista", "barman", "garzone"]
   }
 ]

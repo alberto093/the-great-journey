@@ -126,6 +126,10 @@ public class Parser {
                         return handleLookCommand(command, input, tokens, currentRoom, inventory);
                     case READ:
                         return handleReadCommand(command, commandAlias, input, tokens, currentRoom.getPeople(), currentRoom.getObjects(), inventory);
+                    case SPEAK:
+                        return handleSpeakCommand(command, commandAlias, input, tokens, currentRoom.getPeople(), currentRoom.getObjects(), inventory);
+                    case COMBINE:
+                        return handleCombineCommand(command, commandAlias, input, tokens, inventory);
                 }
             }
         }
@@ -455,6 +459,64 @@ public class Parser {
                 }
             default:
                 throw getLongInputException(input.substring(0, input.indexOf(tokens.get(0) + tokens.size())));
+        }
+    }
+
+    private ParserOutput handleSpeakCommand(
+            Command command,
+            String commandAlias,
+            String input,
+            List<String> tokens,
+            List<Person> people,
+            List<AdvObject> objects,
+            List<AdvObject> inventory) throws ParserException {
+
+        switch (tokens.size()) {
+            case 0:
+                switch (people.size()) {
+                    case 0:
+                        return new ParserOutput(command, Player.getInstance());
+                    case 1:
+                        return new ParserOutput(command, people.get(0));
+                    default:
+                        throw new ParserException("Missing person", ParserException.Kind.MISSING_SPEAK_ELEMENT, input, "");
+                }
+            case 1:
+                AdvObject object = matchableFromToken(tokens.get(0), objects);
+                Person person = matchableFromToken(tokens.get(0), people);
+                AdvObject inventoryObject = matchableFromToken(tokens.get(0), inventory);
+
+                if (object != null || inventoryObject != null) {
+                    throw new ParserException("Can't speak within an object", ParserException.Kind.CANT_SPEAK, "", "");
+                } else if (person != null) {
+                    return new ParserOutput(command, person);
+                } else {
+                    throw new ParserException("Unknown element", ParserException.Kind.UNKNOWN_ELEMENT);
+                }
+            default:
+                throw getLongInputException(input.substring(0, input.indexOf(tokens.get(1) + tokens.size())));
+        }
+    }
+
+    private ParserOutput handleCombineCommand(
+            Command command,
+            String commandAlias,
+            String input,
+            List<String> tokens,
+            List<AdvObject> inventory) throws ParserException {
+
+        switch (tokens.size()) {
+            case 0:
+                throw new ParserException("Missing elements", ParserException.Kind.MISSING_COMBINE_ELEMENT, input, "");
+            case 1:
+                throw new ParserException("Minimum two elements", ParserException.Kind.MINIMUM_COMBINE, "", "");
+            default:
+                Stream<AdvObject> stream = tokens.stream()
+                        .map(t -> matchableFromToken(t, inventory));
+                
+                if ()
+                
+                
         }
     }
 
