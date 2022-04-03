@@ -37,6 +37,7 @@ public class ResourcesReader {
     private static final String DIRECTIONS_FILENAME = "Directions";
     private static final String PEOPLE_FILENAME = "People";
     private static final String STOPWORDS_FILENAME = "Stopwords";
+    private static final String EXCEPTIONS_FILENAME = "Exceptions";
 
     public static Game loadGame() {
         try {

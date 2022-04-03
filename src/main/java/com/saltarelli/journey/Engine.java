@@ -118,6 +118,62 @@ public class Engine {
 
     private void handleParserException(ParserException ex) {
         switch (ex.getKind()) {
+            case EMPTY_INPUT:
+                break;
+            case UNKNOWN_COMMAND:
+                break;
+            case LONG_INPUT:
+                break;
+            case CANT_OPEN:
+                break;
+            case CANT_CLOSE:
+                break;
+            case CANT_PUSH:
+                break;
+            case CANT_PULL:
+                break;
+            case CANT_GIVE:
+                break;
+            case CANT_SPEAK:
+                break;
+            case MISSING_OPEN_ELEMENT:
+                break;
+            case MISSING_CLOSE_ELEMENT:
+                break;
+            case MISSING_PUSH_ELEMENT:
+                break;
+            case MISSING_PULL_ELEMENT:
+                break;
+            case MISSING_TAKE_ELEMENT:
+                break;
+            case MISSING_GIVE_ELEMENT:
+                break;
+            case MISSING_USE_ELEMENT:
+                break;
+            case MISSING_READ_ELEMENT:
+                break;
+            case MISSING_SPEAK_ELEMENT:
+                break;
+            case MISSING_COMBINE_ELEMENT:
+                break;
+            case MINIMUM_COMBINE:
+                break;
+            case CANT_COMBINE:
+                break;
+            case CANT_TAKE:
+                break;
+            case TAKE_FROM_INVENTORY:
+                break;
+            case MISSING_DIRECTION:
+                break;
+            case INVALID_DIRECTION:
+                break;
+            case WRONG_DIRECTION:
+                break;
+            case UNKNOWN_ELEMENT:
+                break;
+            default:
+                throw new AssertionError(ex.getKind().name());
         
         }
         

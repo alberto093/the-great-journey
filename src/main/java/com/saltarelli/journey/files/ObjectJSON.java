@@ -5,10 +5,24 @@
  */
 package com.saltarelli.journey.files;
 
+import com.saltarelli.journey.type.Command;
+import java.util.Set;
+
 /**
  *
  * @author Alberto
  */
 public class ObjectJSON {
     
+    private class CommandOutput {
+        private Command.Name command;
+        private String description;
+    }
+    
+    private int id;
+    private int room;
+    private String name;
+    private Set<String> alias;
+    private String description;
+    private Set<CommandOutput> commandOutput;
 }

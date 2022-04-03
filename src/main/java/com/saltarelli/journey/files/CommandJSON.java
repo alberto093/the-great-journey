@@ -5,10 +5,14 @@
  */
 package com.saltarelli.journey.files;
 
+import com.saltarelli.journey.type.Command;
+import java.util.Set;
+
 /**
  *
  * @author Alberto
  */
 public class CommandJSON {
-    
+    private Command.Name name;
+    private Set<String> alias;
 }
