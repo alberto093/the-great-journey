@@ -35,9 +35,9 @@ public class Parser {
 
     public ParserOutput parse(
             String input,
-            List<Command> commands,
-            List<Direction> directions,
-            List<AdvObject> inventory,
+            Set<Command> commands,
+            Set<Direction> directions,
+            Set<AdvObject> inventory,
             Room currentRoom) throws ParserException {
 
         List<String> tokens = Arrays.asList(input.split("\\s+"));
@@ -158,9 +158,9 @@ public class Parser {
             String commandAlias,
             String input,
             List<String> tokens,
-            List<Person> people,
-            List<AdvObject> objects,
-            List<AdvObject> inventory,
+            Set<Person> people,
+            Set<AdvObject> objects,
+            Set<AdvObject> inventory,
             Predicate<? super InteractiveElement> canDoPredicate,
             Predicate<? super InteractiveElement> isDonePredicate,
             Boolean checkDo,
@@ -170,9 +170,9 @@ public class Parser {
         switch (tokens.size()) {
             case 0:
                 if (objects.size() == 1) {
-                    return handleBooleanElement(command, objects.get(0), canDoPredicate, isDonePredicate, checkDo, exceptionCant);
+                    return handleBooleanElement(command, objects.iterator().next(), canDoPredicate, isDonePredicate, checkDo, exceptionCant);
                 } else if (people.size() == 1) {
-                    throw getCantDoException(people.get(0).getName(), exceptionCant, people.get(0).customMessageForCommand(command.getName()));
+                    throw getCantDoException(people.iterator().next().getName(), exceptionCant, people.iterator().next().customMessageForCommand(command.getName()));
                 } else {
                     throw new ParserException("Missing element", exceptionMissing, commandAlias, "");
                 }
@@ -243,7 +243,7 @@ public class Parser {
             String commandAlias,
             String input,
             List<String> tokens,
-            List<Direction> directions,
+            Set<Direction> directions,
             Room currentRoom) throws ParserException {
 
         switch (tokens.size()) {
@@ -273,9 +273,9 @@ public class Parser {
             String commandAlias,
             String input,
             List<String> tokens,
-            List<Person> people,
-            List<AdvObject> objects,
-            List<AdvObject> inventory) throws ParserException {
+            Set<Person> people,
+            Set<AdvObject> objects,
+            Set<AdvObject> inventory) throws ParserException {
 
         switch (tokens.size()) {
             case 0:
@@ -283,7 +283,7 @@ public class Parser {
 
                 switch (numberOfElements) {
                     case 1:
-                        InteractiveElement element = !objects.isEmpty() ? objects.get(0) : people.get(0);
+                        InteractiveElement element = !objects.isEmpty() ? objects.iterator().next() : people.iterator().next();
 
                         if (element.getCanTake()) {
                             if (element instanceof AdvObject) {
@@ -331,9 +331,9 @@ public class Parser {
             String commandAlias,
             String input,
             List<String> tokens,
-            List<Person> people,
-            List<AdvObject> objects,
-            List<AdvObject> inventory) throws ParserException {
+            Set<Person> people,
+            Set<AdvObject> objects,
+            Set<AdvObject> inventory) throws ParserException {
 
         switch (tokens.size()) {
             case 0:
@@ -389,7 +389,7 @@ public class Parser {
             String input,
             List<String> tokens,
             Room currentRoom,
-            List<AdvObject> inventory) throws ParserException {
+            Set<AdvObject> inventory) throws ParserException {
 
         switch (tokens.size()) {
             case 0:
@@ -418,9 +418,9 @@ public class Parser {
             String commandAlias,
             String input,
             List<String> tokens,
-            List<Person> people,
-            List<AdvObject> objects,
-            List<AdvObject> inventory) throws ParserException {
+            Set<Person> people,
+            Set<AdvObject> objects,
+            Set<AdvObject> inventory) throws ParserException {
 
         switch (tokens.size()) {
             case 0:
@@ -428,7 +428,7 @@ public class Parser {
 
                 switch (numberOfElements) {
                     case 1:
-                        InteractiveElement element = !objects.isEmpty() ? objects.get(0) : people.get(0);
+                        InteractiveElement element = !objects.isEmpty() ? objects.iterator().next() : people.iterator().next();
                         if (element instanceof AdvObject) {
                             return new ParserOutput(command, (AdvObject) element);
                         } else {
@@ -467,9 +467,9 @@ public class Parser {
             String commandAlias,
             String input,
             List<String> tokens,
-            List<Person> people,
-            List<AdvObject> objects,
-            List<AdvObject> inventory) throws ParserException {
+            Set<Person> people,
+            Set<AdvObject> objects,
+            Set<AdvObject> inventory) throws ParserException {
 
         switch (tokens.size()) {
             case 0:
@@ -477,7 +477,7 @@ public class Parser {
                     case 0:
                         return new ParserOutput(command, Player.getInstance());
                     case 1:
-                        return new ParserOutput(command, people.get(0));
+                        return new ParserOutput(command, people.iterator().next());
                     default:
                         throw new ParserException("Missing person", ParserException.Kind.MISSING_SPEAK_ELEMENT, input, "");
                 }
@@ -503,7 +503,7 @@ public class Parser {
             String commandAlias,
             String input,
             List<String> tokens,
-            List<AdvObject> inventory) throws ParserException {
+            Set<AdvObject> inventory) throws ParserException {
 
         switch (tokens.size()) {
             case 0:
@@ -522,7 +522,7 @@ public class Parser {
         }
     }
 
-    private <T extends Matchable> T matchableFromToken(String token, List<T> items) {
+    private <T extends Matchable> T matchableFromToken(String token, Set<T> items) {
         return items.stream()
                 .filter(c -> c.match(token.toLowerCase()))
                 .findFirst()

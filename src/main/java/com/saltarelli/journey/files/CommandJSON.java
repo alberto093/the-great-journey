@@ -15,4 +15,14 @@ import java.util.Set;
 public class CommandJSON {
     private Command.Name name;
     private Set<String> alias;
+
+    public Command.Name getName() {
+        return name;
+    }
+
+    public Set<String> getAlias() {
+        return alias;
+    }
+    
+    
 }

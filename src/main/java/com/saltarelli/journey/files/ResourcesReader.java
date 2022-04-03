@@ -6,6 +6,8 @@
 package com.saltarelli.journey.files;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.saltarelli.journey.Game;
 import com.saltarelli.journey.type.AdvObject;
@@ -31,45 +33,41 @@ public class ResourcesReader {
 
     private static final String PATH = "./resources/";
     private static final String GAME_FILENAME = "Game";
+    private static final String GAMEPLAY_FILENAME = "Gameplay";
     private static final String ROOMS_FILENAME = "Rooms";
     private static final String OBJECTS_FILENAME = "Objects";
     private static final String COMMANDS_FILENAME = "Commands";
-    private static final String DIRECTIONS_FILENAME = "Directions";
     private static final String PEOPLE_FILENAME = "People";
-    private static final String STOPWORDS_FILENAME = "Stopwords";
     private static final String EXCEPTIONS_FILENAME = "Exceptions";
+    private static final String STOPWORDS_FILENAME = "Stopwords";
+    
 
-    public static Game loadGame() {
-        try {
-            Reader reader = new BufferedReader(new FileReader(new File(PATH + GAME_FILENAME)));
-            Game resource = new Gson().fromJson(reader, Game.class);
-            reader.close();
-            return resource;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        return null;
+    public static GameJSON fetchGame() {
+        return fetchJSON(PATH + GAME_FILENAME);
+    }
+    
+    public static Set<Gameplay> fetchGameplay() {
+        return fetchJSON(PATH + GAMEPLAY_FILENAME);
     }
 
-    public static Set<Room> fetchRooms() {
-        return fetchResource(PATH + ROOMS_FILENAME);
+    public static Set<RoomJSON> fetchRooms() {
+        return fetchJSON(PATH + ROOMS_FILENAME);
     }
 
-    public static Set<AdvObject> fetchObjects() {
-        return fetchResource(PATH + OBJECTS_FILENAME);
+    public static Set<AdvObjectJSON> fetchObjects() {
+        return fetchJSON(PATH + OBJECTS_FILENAME);
     }
 
-    public static Set<Command> fetchCommands() {
-        return fetchResource(PATH + COMMANDS_FILENAME);
+    public static Set<CommandJSON> fetchCommands() {
+        return fetchJSON(PATH + COMMANDS_FILENAME);
     }
 
-    public static Set<Direction> fetchDirections() {
-        return fetchResource(PATH + DIRECTIONS_FILENAME);
+    public static Set<PersonJSON> fetchPeople() {
+        return fetchJSON(PATH + PEOPLE_FILENAME);
     }
-
-    public static Set<Person> fetchPeople() {
-        return fetchResource(PATH + PEOPLE_FILENAME);
+    
+    public static Set<ExceptionDescription> fetchExceptions() {
+        return fetchJSON(PATH + EXCEPTIONS_FILENAME);
     }
 
     public static Set<String> fetchStopwords() {
@@ -84,21 +82,21 @@ public class ResourcesReader {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        
+
         return Collections.emptySet();
     }
 
-    private static <T> Set<T> fetchResource(String filePath) {
+    private static <T> T fetchJSON(String filePath) {
         try {
             Reader reader = new BufferedReader(new FileReader(new File(filePath)));
-            Set<T> resource = new Gson().fromJson(reader, new TypeToken<Set<T>>() {
+            T resource = new Gson().fromJson(reader, new TypeToken<T>() {
             }.getType());
             reader.close();
             return resource;
-        } catch (Exception ex) {
+        } catch (JsonIOException | JsonSyntaxException | IOException ex) {
             ex.printStackTrace();
         }
 
-        return Collections.emptySet();
+        return null;
     }
 }

@@ -46,7 +46,8 @@
     "room": 0,
     "name": "vestiti",
     "alias": ["vestito", "mutande", "calzini", "magliette", "abiti", "indumenti", "vesti", "vestiario"],
-    "description": "Per quanto sono sporchi e puzzolenti saranno quì da settimane. Dovrebbero proprio essere lavati."
+    "description": "Per quanto sono sporchi e puzzolenti saranno quì da settimane. Dovrebbero proprio essere lavati.",
+    "inventoryDescription": "Dei vestiti sporchi"
   },
   {
     "id": 7,
@@ -68,6 +69,7 @@
     "name": "libro",
     "alias": ["tomo", "giornale", "opera", "romanzo", "tomo", "testo", "manuale"],
     "description": "Un libro che sembri parlare di un continente al di là del mare...potrei arrivarci con una barca e realizzare il mio sogno!",
+    "inventoryDescription": "Un libro che parla di mare",
     "commandOutput": [
       {
         "command": "PICK_UP",
@@ -113,6 +115,7 @@
     "name": "lenzuola",
     "alias": [],
     "description": "Sembrano lenzuola enormi, ma quindi esistono davvero i letti double king size?",
+    "inventoryDescription": "Delle lenzuola rigide e giganti",
     "commandOutput": [
       {
         "command": "PICK_UP",
@@ -161,6 +164,7 @@
     "name": "ponticello",
     "alias": ["ponte"],
     "description": "Descrizione del ponte di legno.",
+    "inventoryDescription": "Un ponticello di legno",
     "commandOutput": [
       {
         "command": "PICK_UP",
@@ -202,6 +206,7 @@
     "name": "antenna",
     "alias": ["palo", "asta", "pilone", "pennone", "stanga", "sostegno"],
     "description": "Descrizione dell'antenna radio.",
+    "inventoryDescription": "Un palo di un'antenna radio",
     "commandOutput": [
       {
         "command": "PICK_UP",
@@ -236,6 +241,7 @@
     "name": "attrezzi",
     "alias": ["cassetta", "cassa"],
     "description": "Descrizione della cassetta degli attrezzi",
+    "inventoryDescription": "Una cassetta degli attrezzi",
     "commandOutput": [
       {
         "command": "PICK_UP",

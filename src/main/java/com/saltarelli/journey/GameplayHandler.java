@@ -5,18 +5,22 @@
  */
 package com.saltarelli.journey;
 
+import com.saltarelli.journey.files.Gameplay;
 import com.saltarelli.journey.parsing.ParserOutput;
+import java.util.Set;
 
 /**
  *
  * @author Alberto
  */
-public class Gameplay {
+public class GameplayHandler {
     
     private final Game game;
+    private final Set<Gameplay> gameplay;
     
-    public Gameplay(Game game) {
+    public GameplayHandler(Game game, Set<Gameplay> gameplay) {
         this.game = game;
+        this.gameplay = gameplay;
     }
     
     public String processOutput(ParserOutput output) {

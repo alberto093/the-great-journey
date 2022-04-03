@@ -5,19 +5,19 @@
  */
 package com.saltarelli.journey.type;
 
+import com.saltarelli.journey.files.PersonJSON;
+
 /**
  *
  * @author Alberto
  */
 public class Person extends InteractiveElement {
-    
-    @Override
-    public Boolean match(String token) {
-        return true;
-    }
 
-    @Override
-    public String customMessageForCommand(Command.Name command) {
-        return "";
+    public Person(PersonJSON json) {
+        this.id = json.getId();
+        this.name = json.getName();
+        this.description = json.getDescription();
+        this.alias = json.getAlias();
+        this.customCommandMessages = json.getCustomCommandMessages();
     }
 }

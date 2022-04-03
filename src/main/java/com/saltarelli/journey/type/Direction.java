@@ -8,6 +8,7 @@ package com.saltarelli.journey.type;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -40,4 +41,31 @@ public class Direction implements Matchable {
     public Boolean match(String token) {
         return alias.contains(token.toLowerCase());
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.kind);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Direction other = (Direction) obj;
+        if (this.kind != other.kind) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

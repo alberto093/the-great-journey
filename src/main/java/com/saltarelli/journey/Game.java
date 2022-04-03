@@ -5,6 +5,7 @@
  */
 package com.saltarelli.journey;
 
+import com.saltarelli.journey.files.GameJSON;
 import com.saltarelli.journey.type.AdvObject;
 import com.saltarelli.journey.type.Command;
 import com.saltarelli.journey.type.Direction;
@@ -18,83 +19,185 @@ import java.util.Set;
  *
  * @author Alberto
  */
-public abstract class Game {
+public class Game {
     
-    private final String introduction = "";
+    private String introduction = "";
     
-    private final String title = "";
+    private String title = "";
     
-    private final String description = "";
+    private String description = "";
     
-    private final String helpQuestion = "";
+    private String helpQuestion = "";
     
-    private final String help = "";
+    private String restartQuestion = "";
     
-    private final Set<String> yesAlias = new HashSet<>();
+    private String endQuestion = "";
     
-    private final Set<String> noAlias = new HashSet<>();
+    private String inventoryEmpty = "";
     
-    private final List<Direction> directions = new ArrayList<>();
+    private String inventoryFull = "";
+    
+    private String help = "";
+    
+    private Set<String> yesAlias = new HashSet<>();
+    
+    private Set<String> noAlias = new HashSet<>();
+    
+    private Set<Direction> directions = new HashSet<>();
 
-    private final List<Room> rooms = new ArrayList<>();
+    private Set<Room> rooms = new HashSet<>();
 
-    private final List<Command> commands = new ArrayList<>();
+    private Set<Command> commands = new HashSet<>();
 
-    private final List<AdvObject> inventory = new ArrayList<>();
+    private Set<AdvObject> inventory = new HashSet<>();
 
     private Room currentRoom;
+    
+    private int maxScore;
+    
+    public Game(GameJSON json) {
+        this.introduction = json.getIntroduction();
+        this.title = json.getTitle();
+        this.description = json.getDescription();
+        this.helpQuestion = json.getHelpQuestion();
+        this.restartQuestion = json.getRestartQuestion();
+        this.endQuestion = json.getEndQuestion();
+        this.inventoryEmpty = json.getInventoryEmpty();
+        this.inventoryFull = json.getInventoryFull();
+        this.help = json.getHelp();
+        this.yesAlias = json.getYesAlias();
+        this.noAlias = json.getNoAlias();
+        this.maxScore = json.getMaxScore();
+    }
 
     public String getIntroduction() {
         return introduction;
     }
-    
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getHelpQuestion() {
         return helpQuestion;
+    }
+
+    public String getRestartQuestion() {
+        return restartQuestion;
+    }
+
+    public void setRestartQuestion(String restartQuestion) {
+        this.restartQuestion = restartQuestion;
+    }
+
+    public String getInventoryEmpty() {
+        return inventoryEmpty;
+    }
+
+    public void setInventoryEmpty(String inventoryEmpty) {
+        this.inventoryEmpty = inventoryEmpty;
+    }
+
+    public String getInventoryFull() {
+        return inventoryFull;
+    }
+
+    public void setInventoryFull(String inventoryFull) {
+        this.inventoryFull = inventoryFull;
+    }
+    
+    
+
+    public void setHelpQuestion(String helpQuestion) {
+        this.helpQuestion = helpQuestion;
     }
 
     public String getHelp() {
         return help;
     }
 
+    public void setHelp(String help) {
+        this.help = help;
+    }
+
     public Set<String> getYesAlias() {
         return yesAlias;
+    }
+
+    public void setYesAlias(Set<String> yesAlias) {
+        this.yesAlias = yesAlias;
     }
 
     public Set<String> getNoAlias() {
         return noAlias;
     }
 
-    public List<Direction> getDirections() {
+    public void setNoAlias(Set<String> noAlias) {
+        this.noAlias = noAlias;
+    }
+
+    public Set<Direction> getDirections() {
         return directions;
     }
 
-    public List<Room> getRooms() {
+    public void setDirections(Set<Direction> directions) {
+        this.directions = directions;
+    }
+
+    public Set<Room> getRooms() {
         return rooms;
     }
 
-    public List<Command> getCommands() {
+    public void setRooms(Set<Room> rooms) {
+        this.rooms = rooms;
+    }
+
+    public Set<Command> getCommands() {
         return commands;
+    }
+
+    public void setCommands(Set<Command> commands) {
+        this.commands = commands;
+    }
+
+    public Set<AdvObject> getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Set<AdvObject> inventory) {
+        this.inventory = inventory;
     }
 
     public Room getCurrentRoom() {
         return currentRoom;
     }
-    
+
     public void setCurrentRoom(Room currentRoom) {
         this.currentRoom = currentRoom;
     }
 
-    public List<AdvObject> getInventory() {
-        return inventory;
+    public int getMaxScore() {
+        return maxScore;
     }
-    
-    public abstract void init() throws Exception;
+
+    public void setMaxScore(int maxScore) {
+        this.maxScore = maxScore;
+    }
+
 }

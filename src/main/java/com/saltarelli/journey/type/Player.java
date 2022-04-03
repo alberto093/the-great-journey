@@ -5,6 +5,8 @@
  */
 package com.saltarelli.journey.type;
 
+import com.saltarelli.journey.files.PersonJSON;
+
 /**
  *
  * @author Alberto
@@ -13,7 +15,7 @@ public class Player extends Person {
     private static final Player instance = new Player();
     
     private Player() {
-    
+        super(new PersonJSON());
     }
     
     public static Player getInstance() {

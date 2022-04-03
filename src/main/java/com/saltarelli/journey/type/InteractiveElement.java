@@ -5,44 +5,70 @@
  */
 package com.saltarelli.journey.type;
 
+import com.saltarelli.journey.files.CustomCommandMessage;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *
  * @author Alberto
  */
 public abstract class InteractiveElement implements Matchable, CustomCommandHandler {
     
-    private final String name = "";
+    protected int id = 0;
     
-    private final String description = "";
+    protected String name = "";
     
-    private final Boolean canOpen = false;
+    protected String description = "";
     
-    private final Boolean canClose = false;
+    protected Set<String> alias = new HashSet<>();
     
-    private final Boolean isOpen = false;
+    protected Set<CustomCommandMessage> customCommandMessages;
     
-    private final Boolean canTake = false;
+    protected Boolean canOpen = false;
     
-    private final Boolean canPush = false;
+    protected Boolean canClose = false;
     
-    private final Boolean canPull = false;
+    protected Boolean isOpen = false;
     
-    private final Boolean isPush = false;
+    protected Boolean canTake = false;
     
-    private final Boolean canRead = false;
+    protected Boolean canPush = false;
+    
+    protected Boolean canPull = false;
+    
+    protected Boolean isPush = false;
+    
+    protected Boolean canRead = false;
     
     @Override
-    public abstract Boolean match(String token);
+    public Boolean match(String token) {
+        return name == token.toLowerCase() || alias.contains(token.toLowerCase());
+    }
 
     @Override
-    public abstract String customMessageForCommand(Command.Name command);
+    public String customMessageForCommand(Command.Name command) {
+        return customCommandMessages.stream()
+                .filter(c -> c.getCommand() == command)
+                .findFirst()
+                .map(c -> c.getDescription())
+                .orElse("");
+    }
 
+    public int getId() {
+        return id;
+    }
+    
     public String getName() {
         return name;
     }
 
     public String getDescription() {
         return description;
+    }
+    
+    public Set<String> getAlias() {
+        return alias;
     }
 
     public Boolean getCanOpen() {
@@ -75,5 +101,30 @@ public abstract class InteractiveElement implements Matchable, CustomCommandHand
     
     public Boolean getCanRead() {
         return canRead;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final InteractiveElement other = (InteractiveElement) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
     }
 }

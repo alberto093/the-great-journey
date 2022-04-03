@@ -1,23 +1,23 @@
 [
   {
-    "command": "END, INVENTORY, NORTH, SOUTH, EAST, WEST, OPEN, CLOSE, PUSH, PULL, PICK_UP, GIVE, LOOK_AT",
-    "roomID": 0,
-    "person": 0,
-    "objects": [0],
-    "outputMessage": "",
-    "editObject": {
-      "id": 0,
-      "moveToRoomID": 0,
-      "moveToInventory": false,
+    "input": {
+      "command": "END, INVENTORY, NORTH, SOUTH, EAST, WEST, OPEN, CLOSE, PUSH, PULL, PICK_UP, GIVE, LOOK_AT",
+      "roomID": 0,
+      "inventaryRequirements": [0],
+      "person": 0,
+      "objects": [0]
     },
-    "editPerson": {
-      "id": 0,
-      "roomID": 0
-    },
-    "editDescription": {
-      "objectID": 0,
-      "personID": 0,
-      "newDescription": ""
+    "output": {
+      "message": "",
+      "editObject": {
+        "id": 0,
+        "moveToRoomID": 0,
+        "moveToInventory": false,
+      },
+      "editPerson": {
+        "id": 0,
+        "roomID": 0
+      }
     },
     "score": 0,
     "isLast": false

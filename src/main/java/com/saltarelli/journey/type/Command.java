@@ -5,6 +5,7 @@
  */
 package com.saltarelli.journey.type;
 
+import com.saltarelli.journey.files.CommandJSON;
 import java.util.Objects;
 import java.util.Set;
 
@@ -37,10 +38,10 @@ public class Command implements Matchable {
     private final Name name;
 
     private Set<String> alias;
-
-    public Command(Name name, Set<String> alias) {
-        this.name = name;
-        this.alias = alias;
+    
+    public Command(CommandJSON json) {
+        this.name = json.getName();
+        this.alias = json.getAlias();
     }
 
     public Name getName() {

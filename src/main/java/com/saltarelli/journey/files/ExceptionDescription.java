@@ -11,7 +11,17 @@ import com.saltarelli.journey.parsing.ParserException;
  *
  * @author Alberto
  */
-public class ExceptionJSON {
+public class ExceptionDescription {
     private ParserException.Kind name;
     private String message;
+
+    public ParserException.Kind getName() {
+        return name;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+    
+    
 }

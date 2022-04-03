@@ -5,8 +5,11 @@
  */
 package com.saltarelli.journey.type;
 
+import com.saltarelli.journey.files.RoomJSON;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -14,15 +17,11 @@ import java.util.List;
  */
 public class Room {
 
-    private final int id;
+    private int id;
 
     private String name;
 
     private String description;
-
-    private String look;
-
-    private boolean visible = true;
 
     private Room south = null;
 
@@ -32,9 +31,11 @@ public class Room {
 
     private Room west = null;
 
-    private final List<AdvObject> objects = new ArrayList<>();
+    private String wrongDirectionMessage = "";
 
-    private final List<Person> people = new ArrayList<>();
+    private final Set<AdvObject> objects = new HashSet<>();
+
+    private final Set<Person> people = new HashSet<>();
 
     public Room(int id) {
         this.id = id;
@@ -44,6 +45,13 @@ public class Room {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+    public Room(RoomJSON json) {
+        this.id = json.getId();
+        this.name = json.getName();
+        this.description = json.getDescription();
+        this.wrongDirectionMessage = json.getWrongDirectionMessage();
     }
 
     public Room getRoomWithDirection(Direction direction) {
@@ -60,6 +68,10 @@ public class Room {
                 throw new AssertionError(direction.getKind().name());
         }
     }
+    
+    public int getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -75,14 +87,6 @@ public class Room {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public boolean isVisible() {
-        return visible;
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible = visible;
     }
 
     public Room getSouth() {
@@ -117,12 +121,20 @@ public class Room {
         this.west = west;
     }
 
-    public List<AdvObject> getObjects() {
+    public Set<AdvObject> getObjects() {
         return objects;
     }
-    
-    public List<Person> getPeople() {
+
+    public Set<Person> getPeople() {
         return people;
+    }
+
+    public String getWrongDirectionMessage() {
+        return description;
+    }
+
+    public void setWrongDirectionMessage(String wrongDirectionMessage) {
+        this.wrongDirectionMessage = wrongDirectionMessage;
     }
 
     @Override
@@ -148,13 +160,5 @@ public class Room {
             return false;
         }
         return true;
-    }
-
-    public String getLook() {
-        return look;
-    }
-
-    public void setLook(String look) {
-        this.look = look;
     }
 }

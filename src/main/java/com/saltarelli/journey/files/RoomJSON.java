@@ -15,10 +15,41 @@ public class RoomJSON {
     private int id;
     private String name;
     private String description;
-    private Set<Integer> objects;
     private Integer north;
     private Integer south;
     private Integer east;
     private Integer west;
     private String wrongDirectionMessage;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Integer getNorth() {
+        return north;
+    }
+
+    public Integer getSouth() {
+        return south;
+    }
+
+    public Integer getEast() {
+        return east;
+    }
+
+    public Integer getWest() {
+        return west;
+    }
+
+    public String getWrongDirectionMessage() {
+        return wrongDirectionMessage;
+    }
 }

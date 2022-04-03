@@ -4,6 +4,10 @@
     "alias": ["end, fine, abbandona, quit, muori"]
   },
   {
+    "name": "RESTART",
+    "alias": ["restart"];
+  }
+  {
     "name": "INVENTORY",
     "alias": ["i", "inventario", "inv"]
   },
