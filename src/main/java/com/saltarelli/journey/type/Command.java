@@ -28,7 +28,8 @@ public class Command implements Matchable {
         WALK_TO, 
         PICK_UP, 
         GIVE, 
-        LOOK_AT
+        LOOK_AT,
+        READ
     }
 
     private final Name name;

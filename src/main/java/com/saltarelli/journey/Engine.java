@@ -37,10 +37,8 @@ public class Engine {
     }
 
     public void start() {
-        console.println(game.getTitle());
-        System.out.println();
-        console.println(game.getDescription());
-        System.out.println();
+        console.println(game.getIntroduction());
+        console.println();
         console.println(game.getHelpQuestion());
 
         Optional<Boolean> showHelp = Optional.empty();
@@ -57,7 +55,13 @@ public class Engine {
         if (showHelp.get()) {
             System.out.println();
             console.println(game.getHelp());
+            System.out.println();
         }
+        
+        console.println(game.getTitle());
+        System.out.println();
+        console.println(game.getDescription());
+        System.out.println();
 
         startGame();
     }

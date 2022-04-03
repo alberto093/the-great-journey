@@ -26,7 +26,8 @@ public class ParserException extends Exception {
         MISSING_PULL_ELEMENT, // Cosa vuoi tirare? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
         MISSING_TAKE_ELEMENT, // Cosa puoi prendere? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
         MISSING_GIVE_ELEMENT, // Cosa vuoi dare? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
-        MISSING_USE_ELEMENT, // Cosa vuoi usar? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
+        MISSING_USE_ELEMENT, // Cosa vuoi usare? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
+        MISSING_READ_ELEMENT, // Cosa vuoi leggere? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
         CANT_TAKE, // Non puoi prendere \(additionalDescription).
         TAKE_FROM_INVENTORY, // Già in possesso.
         MISSING_DIRECTION, // Dove vuoi andare? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input

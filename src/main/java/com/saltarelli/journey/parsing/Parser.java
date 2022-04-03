@@ -124,6 +124,8 @@ public class Parser {
                         return handleGiveCommand(command, commandAlias, input, tokens, currentRoom.getPeople(), currentRoom.getObjects(), inventory);
                     case LOOK_AT:
                         return handleLookCommand(command, input, tokens, currentRoom, inventory);
+                    case READ:
+                        return handleReadCommand(command, commandAlias, input, tokens, currentRoom.getPeople(), currentRoom.getObjects(), inventory);
                 }
             }
         }
@@ -160,7 +162,7 @@ public class Parser {
             Boolean checkDo,
             ParserException.Kind exceptionCant,
             ParserException.Kind exceptionMissing) throws ParserException {
-        
+
         switch (tokens.size()) {
             case 0:
                 if (objects.size() == 1) {
@@ -239,7 +241,7 @@ public class Parser {
             List<String> tokens,
             List<Direction> directions,
             Room currentRoom) throws ParserException {
-        
+
         switch (tokens.size()) {
             case 0:
                 throw new ParserException("Missing direction", ParserException.Kind.MISSING_DIRECTION, commandAlias, "");
@@ -270,7 +272,7 @@ public class Parser {
             List<Person> people,
             List<AdvObject> objects,
             List<AdvObject> inventory) throws ParserException {
-        
+
         switch (tokens.size()) {
             case 0:
                 Integer numberOfElements = objects.size() + people.size();
@@ -328,7 +330,7 @@ public class Parser {
             List<Person> people,
             List<AdvObject> objects,
             List<AdvObject> inventory) throws ParserException {
-        
+
         switch (tokens.size()) {
             case 0:
                 throw new ParserException("Missing element", ParserException.Kind.MISSING_GIVE_ELEMENT, commandAlias, "");
@@ -341,8 +343,8 @@ public class Parser {
                     throw new ParserException("Can't give object from a room", ParserException.Kind.CANT_GIVE, tokens.get(0), "");
                 } else if (person != null) {
                     throw new ParserException(
-                            "Missing element", 
-                            ParserException.Kind.MISSING_GIVE_ELEMENT, 
+                            "Missing element",
+                            ParserException.Kind.MISSING_GIVE_ELEMENT,
                             input.substring(0, input.indexOf(tokens.get(0) + tokens.size())),
                             "");
                 } else if (inventoryObject != null) {
@@ -377,14 +379,14 @@ public class Parser {
                 throw getLongInputException(input.substring(0, input.indexOf(tokens.get(1) + tokens.size())));
         }
     }
-    
+
     private ParserOutput handleLookCommand(
             Command command,
             String input,
             List<String> tokens,
             Room currentRoom,
             List<AdvObject> inventory) throws ParserException {
-        
+
         switch (tokens.size()) {
             case 0:
                 return new ParserOutput(command, currentRoom);
@@ -401,6 +403,55 @@ public class Parser {
                     return new ParserOutput(command, inventoryObject);
                 } else {
                     throw new ParserException("Unknown element", ParserException.Kind.UNKNOWN_ELEMENT);
+                }
+            default:
+                throw getLongInputException(input.substring(0, input.indexOf(tokens.get(0) + tokens.size())));
+        }
+    }
+
+    private ParserOutput handleReadCommand(
+            Command command,
+            String commandAlias,
+            String input,
+            List<String> tokens,
+            List<Person> people,
+            List<AdvObject> objects,
+            List<AdvObject> inventory) throws ParserException {
+
+        switch (tokens.size()) {
+            case 0:
+                Integer numberOfElements = objects.size() + people.size();
+
+                switch (numberOfElements) {
+                    case 1:
+                        InteractiveElement element = !objects.isEmpty() ? objects.get(0) : people.get(0);
+                        if (element instanceof AdvObject) {
+                            return new ParserOutput(command, (AdvObject) element);
+                        } else {
+                            return new ParserOutput(command, (Person) element);
+                        }
+                    default:
+                        throw new ParserException("Missing element", ParserException.Kind.MISSING_READ_ELEMENT, commandAlias, "");
+                }
+            case 1:
+                InteractiveElement object = matchableFromToken(tokens.get(0), objects);
+                InteractiveElement person = matchableFromToken(tokens.get(0), people);
+                InteractiveElement inventoryObject = matchableFromToken(tokens.get(0), inventory);
+
+                InteractiveElement element = Stream.of(Optional.ofNullable(object), Optional.ofNullable(person), Optional.ofNullable(inventoryObject))
+                        .filter(Optional::isPresent)
+                        .map(Optional::get)
+                        .findFirst()
+                        .orElse(null);
+
+                if (element == null) {
+                    throw new ParserException("Unknown element", ParserException.Kind.UNKNOWN_ELEMENT);
+                } else {
+                    if (element instanceof AdvObject) {
+                        return new ParserOutput(command, (AdvObject) element);
+                    } else {
+                        return new ParserOutput(command, (Person) element);
+                    }
                 }
             default:
                 throw getLongInputException(input.substring(0, input.indexOf(tokens.get(0) + tokens.size())));

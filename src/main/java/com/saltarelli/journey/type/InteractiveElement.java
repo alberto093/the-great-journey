@@ -28,7 +28,9 @@ public abstract class InteractiveElement implements Matchable, CustomCommandHand
     private final Boolean canPull = false;
     
     private final Boolean isPush = false;
-
+    
+    private final Boolean canRead = false;
+    
     @Override
     public abstract Boolean match(String token);
 
@@ -69,5 +71,9 @@ public abstract class InteractiveElement implements Matchable, CustomCommandHand
 
     public Boolean getIsPush() {
         return isPush;
+    }
+    
+    public Boolean getCanRead() {
+        return canRead;
     }
 }

@@ -2,49 +2,245 @@
   {
     "id": 0,
     "room": 0,
-    "name": "muro",
-    "alias": ["muri", "parete", "pareti"],
-    "description": "Niente di interessante."
+    "name": "casa",
+    "alias": ["stanza", "camera", "depandance", "monolocale"],
+    "description": "La stessa descrizione della stanza, senza i dettagli sul letto"
   },
   {
     "id": 1,
     "room": 0,
-    "name": "finestra",
-    "alias": [],
-    "description": "Dalla finestra pullano di colori i magnifici giardini del palazzo reale."
+    "name": "muro",
+    "alias": ["muri", "parete", "pareti", "soffitto", "pavimento"],
+    "description": "Niente di interessante."
   },
   {
     "id": 2,
     "room": 0,
-    "name": "cucina",
-    "alias": ["cucinino", "stufa", "tavolo", "sedia", "sedie", "tv", "televisione", "televisore", "cestino", "divano"],
-    "description": "L'arredamento di casa non ha alcuna importanza per lo svolgimento della tua missione."
+    "name": "finestra",
+    "alias": [],
+    "description": "Dalla finestra vedo i magnifici giardini del palazzo reale che pullano di colori/fiori blabla..."
   },
   {
     "id": 3,
+    "room": 0,
+    "name": "cucina",
+    "alias": ["cucinino", "stufa", "tavolo", "sedia", "sedie", "tv", "televisione", "televisore", "cestino", "divano"],
+    "description": "L'arredamento di casa non ha alcuna importanza per lo svolgimento della tua avventura."
+  },
+  {
+    "id": 4,
+    "room": 0,
+    "name": "frigorifero",
+    "alias": ["frigo", "refrigeratore"],
+    "description": "Per fortuna non è in funzione, è vuoto da settimane."
+  },
+  {
+    "id": 5,
     "room": 0,
     "name": "letto",
     "alias": [],
     "description": "Il letto è disfatto, si vede che non è ancora passata la colf! Ci sono dei vestiti sporchi... non farei una bella figura a lasciarli lì."
   },
   {
-    "id": 4,
+    "id": 6,
     "room": 0,
     "name": "vestiti",
-    "alias": ["mutande", "calzini", "magliette", "abiti", "indumenti", "vesti", "vestiario"],
+    "alias": ["vestito", "mutande", "calzini", "magliette", "abiti", "indumenti", "vesti", "vestiario"],
     "description": "Per quanto sono sporchi e puzzolenti saranno quì da settimane. Dovrebbero proprio essere lavati."
+  },
+  {
+    "id": 7,
+    "room": 1,
+    "name": "giardini",
+    "alias": ["vivai", "paradisi", "giardino", "campi", "fiori", "prato", "erba"],
+    "description": "I magnifici giardini del palazzo, da piccolo mi divertivo a...."
+  },
+  {
+    "id": 8,
+    "room": 1,
+    "name": "guardia",
+    "alias": ["guardiano", "uomo"],
+    "description": "Ciao Brian, vedo che sei tornato dal tuo safari nella valle InventareUnNome! Oggi il palazzo è chiuso per una importante riunione. Passa più tardi se vuoi incontrare il mio collega."
+  },
+  {
+    "id": 9,
+    "room": 1,
+    "name": "libro",
+    "alias": ["tomo", "giornale", "opera", "romanzo", "tomo", "testo", "manuale"],
+    "description": "Un libro che sembri parlare di un continente al di là del mare...potrei arrivarci con una barca e realizzare il mio sogno!",
+    "commandOutput": [
+      {
+        "command": "PICK_UP",
+        "description": "Ehi, ma che fai, è il mio libro! Sembra che la guardia non voglia proprio disfarsene."
+      },
+      {
+        "command": "READ",
+        "description": "Ehi, ma che fai, è il mio libro! Sembra che la guardia non voglia proprio disfarsene."
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "room": 1,
+    "name": "sole",
+    "alias": ["cielo"],
+    "description": "Niente di interessante."
+  },
+  {
+    "id": 11,
+    "room": 1,
+    "name": "palazzo",
+    "alias": ["castello", "dimora", "residenza", "casa", "reggia", "edificio"],
+    "description": "Il maestoso palazzo di famiglia oggi è chiuso e presidiato da una guardia."
+  },
+  {
+    "id": 12,
+    "room": 2,
+    "name": "lavanderia",
+    "alias": ["lavasecco"],
+    "description": "Stessa descrizione della stanza senza considerare Mariola."
+  },
+  {
+    "id": 13,
+    "room": 2,
+    "name": "muro",
+    "alias": ["muri", "parete", "pareti", "soffitto", "pavimento"],
+    "description": "Niente di interessante."
+  },
+  {
+    "id": 14,
+    "room": 2,
+    "name": "lenzuola",
+    "alias": [],
+    "description": "Sembrano lenzuola enormi, ma quindi esistono davvero i letti double king size?",
+    "commandOutput": [
+      {
+        "command": "PICK_UP",
+        "description": "\"Ladro!\" ti strilla Mariola nelle orecchie, mentre tenti di afferrare il set di lenzuola. \"Le lenzuola appartengono al palazzo.\""
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "room": 2,
+    "name": "lavatrice",
+    "alias": ["lavabiancheria", "lavasciuga"],
+    "description": "Enormi lavatrici sempre in funzione."
+  },
+  {
+    "id": 16,
+    "room": 3,
+    "name": "spiaggia",
+    "alias": ["costa", "litorale", "riva", "lido", "bagnasciuga", "battigia"],
+    "description": "Descrizione della spiaggia."
+  },
+  {
+    "id": 17,
+    "room": 3,
+    "name": "sole",
+    "alias": ["cielo", "sabbia"],
+    "description": "Niente di interessante."
+  },
+  {
+    "id": 18,
+    "room": 3,
+    "name": "sdraio",
+    "alias": ["lettini", "sedia", "sedie", "lettino", "sdrai", "sdraie", "sdraia"],
+    "description": "È solo scenografia."
+  },
+  {
+    "id": 19,
+    "room": 3,
+    "name": "mare",
+    "alias": ["acqua", "acque", "oceano"],
+    "description": "Acqua limpida e cristallina, ma non c'è tempo per un bagno rilassante!"
+  },
+  {
+    "id": 20,
+    "room": 3,
+    "name": "ponticello",
+    "alias": ["ponte"],
+    "description": "Descrizione del ponte di legno.",
+    "commandOutput": [
+      {
+        "command": "PICK_UP",
+        "description": "Al momento non saprei cosa farne, tuttavia servirebbero degli attrezzi da lavoro."
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "room": 3,
+    "name": "bagnanti",
+    "alias": ["persone", "uomini", "donne", "bambini"],
+    "description": "Descrizione dei bagnanti"
+  },
+  {
+    "id": 22,
+    "room": 4,
+    "name": "bar",
+    "alias": ["cafe", "cafè", "caffè", "caffe"],
+    "description": "Descrizione del bar."
+  },
+  {
+    "id": 23,
+    "room": 4,
+    "name": "sole",
+    "alias": ["cielo", "mare", "spiaggia", ],
+    "description": "Niente di interessante."
+  },
+  {
+    "id": 24,
+    "room": 4,
+    "name": "bancone",
+    "alias": ["sgabelli", "bevande", "cocktails", "cibo", "vetrine", "birre", "vini"],
+    "description": "Qualcosa del tipo non voglio perdere tempo al bar."
+  },
+  {
+    "id": 25,
+    "room": 4,
+    "name": "antenna",
+    "alias": ["palo", "asta", "pilone", "pennone", "stanga", "sostegno"],
+    "description": "Descrizione dell'antenna radio.",
+    "commandOutput": [
+      {
+        "command": "PICK_UP",
+        "description": "Al momento non saprei cosa farne, tuttavia servirebbero degli attrezzi da lavoro."
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "room": 5,
+    "name": "negozio",
+    "alias": ["noleggio", "cantiere", "struttura", "edificio"],
+    "description": "Descrizione del negozio."
+  },
+  {
+    "id": 27,
+    "room": 5,
+    "name": "muro",
+    "alias": ["muri", "parete", "pareti", "soffitto", "pavimento"],
+    "description": "Niente di interessante."
+  },
+  {
+    "id": 28,
+    "room": 5,
+    "name": "barca",
+    "alias": ["barche", "scafi", "motoscafi"],
+    "description": "Descrizione delle barche evidenziando che molte sono da riparare"
+  },
+  {
+    "id": 29,
+    "room": 5,
+    "name": "attrezzi",
+    "alias": ["cassetta", "cassa"],
+    "description": "Descrizione della cassetta degli attrezzi",
+    "commandOutput": [
+      {
+        "command": "PICK_UP",
+        "description": "\"Ma cosa ti dice il cervello! Sono gli attrezzi da lavoro dei nostri dipendenti.\""
+      }
+    ]
   }
-
 ]
-
-
-
-private final String name = "";
-private final String description = "";
-private final Boolean canOpen = false;
-private final Boolean canClose = false;
-private final Boolean isOpen = false;
-private final Boolean canTake = false;
-private final Boolean canPush = false;
-private final Boolean canPull = false;
-private final Boolean isPush = false;
