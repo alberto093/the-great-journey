@@ -53,16 +53,14 @@ public class Parser {
             } else {
                 switch (command.getName()) {
                     case END:
-                        return handleSingleCommand(command, commandAlias, tokens);
+                    case RESTART:
                     case INVENTORY:
                         return handleSingleCommand(command, commandAlias, tokens);
                     case NORTH:
-                        return handleDirectionCommand(command, commandAlias, input, Arrays.asList(commandAlias), directions, currentRoom);
                     case SOUTH:
-                        return handleDirectionCommand(command, commandAlias, input, Arrays.asList(commandAlias), directions, currentRoom);
                     case EAST:
-                        return handleDirectionCommand(command, commandAlias, input, Arrays.asList(commandAlias), directions, currentRoom);
                     case WEST:
+                    case WALK_TO:
                         return handleDirectionCommand(command, commandAlias, input, Arrays.asList(commandAlias), directions, currentRoom);
                     case OPEN:
                         return handleBooleanCommand(command,
@@ -116,8 +114,6 @@ public class Parser {
                                 false,
                                 ParserException.Kind.CANT_PULL,
                                 ParserException.Kind.MISSING_PULL_ELEMENT);
-                    case WALK_TO:
-                        return handleDirectionCommand(command, commandAlias, input, tokens, directions, currentRoom);
                     case PICK_UP:
                         return handlePickupCommand(command, commandAlias, input, tokens, currentRoom.getPeople(), currentRoom.getObjects(), inventory);
                     case GIVE:

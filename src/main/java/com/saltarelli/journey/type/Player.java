@@ -5,7 +5,7 @@
  */
 package com.saltarelli.journey.type;
 
-import com.saltarelli.journey.files.PersonJSON;
+import com.saltarelli.journey.json.PersonJSON;
 
 /**
  *

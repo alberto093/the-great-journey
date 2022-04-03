@@ -1,4 +1,4 @@
-package com.saltarelli.journey.files;
+package com.saltarelli.journey.json;
 
 import com.saltarelli.journey.type.Command;
 

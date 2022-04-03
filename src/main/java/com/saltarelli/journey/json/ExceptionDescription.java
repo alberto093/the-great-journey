@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.saltarelli.journey.files;
+package com.saltarelli.journey.json;
 
 import com.saltarelli.journey.parsing.ParserException;
 

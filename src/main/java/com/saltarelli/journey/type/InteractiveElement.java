@@ -5,7 +5,7 @@
  */
 package com.saltarelli.journey.type;
 
-import com.saltarelli.journey.files.CustomCommandMessage;
+import com.saltarelli.journey.json.CustomCommandMessage;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,8 +38,6 @@ public abstract class InteractiveElement implements Matchable, CustomCommandHand
     protected Boolean canPull = false;
     
     protected Boolean isPush = false;
-    
-    protected Boolean canRead = false;
     
     @Override
     public Boolean match(String token) {
@@ -83,6 +81,10 @@ public abstract class InteractiveElement implements Matchable, CustomCommandHand
         return isOpen;
     }
 
+    public void setIsOpen(Boolean isOpen) {
+        this.isOpen = isOpen;
+    }  
+
     public Boolean getCanTake() {
         return canTake;
     }    
@@ -99,10 +101,10 @@ public abstract class InteractiveElement implements Matchable, CustomCommandHand
         return isPush;
     }
     
-    public Boolean getCanRead() {
-        return canRead;
+    public void setIsPush(Boolean isPush) {
+        this.isPush = isPush;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 7;

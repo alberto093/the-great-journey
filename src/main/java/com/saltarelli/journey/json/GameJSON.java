@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.saltarelli.journey.files;
+package com.saltarelli.journey.json;
 
 import java.util.Set;
 
@@ -12,11 +12,14 @@ import java.util.Set;
  * @author Alberto
  */
 public class GameJSON {
+
     private String introduction;
     private String title;
     private String description;
     private String helpQuestion;
     private String restartQuestion;
+    private String endQuestion;
+    private String uselessCombineCommand;
     private String inventoryEmpty;
     private String inventoryFull;
     private String help;
@@ -43,6 +46,14 @@ public class GameJSON {
     public String getRestartQuestion() {
         return restartQuestion;
     }
+    
+    public String getEndQuestion() {
+        return endQuestion;
+    }
+    
+    public String getUselessCombineCommand() {
+        return uselessCombineCommand;
+    }
 
     public String getInventoryEmpty() {
         return inventoryEmpty;
@@ -67,6 +78,5 @@ public class GameJSON {
     public int getMaxScore() {
         return maxScore;
     }
-    
-    
+
 }

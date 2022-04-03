@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.saltarelli.journey.files;
+package com.saltarelli.journey.json;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
@@ -46,7 +46,7 @@ public class ResourcesReader {
         return fetchJSON(PATH + GAME_FILENAME);
     }
     
-    public static Set<Gameplay> fetchGameplay() {
+    public static Set<Gameplay> fetchGameplaySet() {
         return fetchJSON(PATH + GAMEPLAY_FILENAME);
     }
 

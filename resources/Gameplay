@@ -8,15 +8,114 @@
       "objects": [0]
     },
     "output": {
-      "message": "",
-      "editObject": {
-        "id": 0,
-        "moveToRoomID": 0,
-        "moveToInventory": false,
+      "question": {
+        "message": "",
+        "yesAnswer": {
+          "message": "",
+          "editing": {
+            "object": {
+              "id": 0,
+              "moveToRoomID": 0,
+              "moveToInventory": false
+              "description": "",
+              "commandOutput": [
+                {
+                  "command": "PICK_UP",
+                  "description": "Ehi, ma che fai, è il mio libro! Sembra che la guardia non voglia proprio disfarsene."
+                },
+                {
+                  "command": "READ",
+                  "description": "Ehi, ma che fai, è il mio libro! Sembra che la guardia non voglia proprio disfarsene."
+                }
+              ]
+            },
+            "person": {
+              "id": 0,
+              "roomID": 0,
+              "description": "",
+              "commandOutput": [
+                {
+                  "command": "PICK_UP",
+                  "description": "Ehi, ma che fai, è il mio libro! Sembra che la guardia non voglia proprio disfarsene."
+                },
+                {
+                  "command": "READ",
+                  "description": "Ehi, ma che fai, è il mio libro! Sembra che la guardia non voglia proprio disfarsene."
+                }
+              ]
+            }
+          }
+        },
+        "noAnswer": {
+          "message": "",
+          "editing": {
+            "object": {
+              "id": 0,
+              "moveToRoomID": 0,
+              "moveToInventory": false
+              "description": "",
+              "commandOutput": [
+                {
+                  "command": "PICK_UP",
+                  "description": "Ehi, ma che fai, è il mio libro! Sembra che la guardia non voglia proprio disfarsene."
+                },
+                {
+                  "command": "READ",
+                  "description": "Ehi, ma che fai, è il mio libro! Sembra che la guardia non voglia proprio disfarsene."
+                }
+              ]
+            },
+            "person": {
+              "id": 0,
+              "roomID": 0,
+              "description": "",
+              "commandOutput": [
+                {
+                  "command": "PICK_UP",
+                  "description": "Ehi, ma che fai, è il mio libro! Sembra che la guardia non voglia proprio disfarsene."
+                },
+                {
+                  "command": "READ",
+                  "description": "Ehi, ma che fai, è il mio libro! Sembra che la guardia non voglia proprio disfarsene."
+                }
+              ]
+            }
+          }
+        }
       },
-      "editPerson": {
-        "id": 0,
-        "roomID": 0
+      "message": "",
+      "editing": {
+        "object": {
+          "id": 0,
+          "moveToRoomID": 0,
+          "moveToInventory": false
+          "description": "",
+          "commandOutput": [
+            {
+              "command": "PICK_UP",
+              "description": "Ehi, ma che fai, è il mio libro! Sembra che la guardia non voglia proprio disfarsene."
+            },
+            {
+              "command": "READ",
+              "description": "Ehi, ma che fai, è il mio libro! Sembra che la guardia non voglia proprio disfarsene."
+            }
+          ]
+        },
+        "person": {
+          "id": 0,
+          "roomID": 0,
+          "description": "",
+          "commandOutput": [
+            {
+              "command": "PICK_UP",
+              "description": "Ehi, ma che fai, è il mio libro! Sembra che la guardia non voglia proprio disfarsene."
+            },
+            {
+              "command": "READ",
+              "description": "Ehi, ma che fai, è il mio libro! Sembra che la guardia non voglia proprio disfarsene."
+            }
+          ]
+        }
       }
     },
     "score": 0,

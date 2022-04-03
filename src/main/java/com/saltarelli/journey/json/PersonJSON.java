@@ -3,21 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.saltarelli.journey.files;
+package com.saltarelli.journey.json;
 
-import com.saltarelli.journey.type.Command;
 import java.util.Set;
 
 /**
  *
  * @author Alberto
  */
-public class AdvObjectJSON {
+public class PersonJSON {
+
     private int id;
     private int room;
     private String name;
-    private Set<String> alias;
     private String description;
+    private Set<String> alias;
     private Set<CustomCommandMessage> customCommandMessages;
 
     public int getId() {
@@ -32,12 +32,12 @@ public class AdvObjectJSON {
         return name;
     }
 
-    public Set<String> getAlias() {
-        return alias;
-    }
-
     public String getDescription() {
         return description;
+    }
+
+    public Set<String> getAlias() {
+        return alias;
     }
 
     public Set<CustomCommandMessage> getCustomCommandMessages() {

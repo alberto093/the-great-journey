@@ -5,7 +5,7 @@
  */
 package com.saltarelli.journey.type;
 
-import com.saltarelli.journey.files.AdvObjectJSON;
+import com.saltarelli.journey.json.AdvObjectJSON;
 
 /**
  *
@@ -17,7 +17,13 @@ public class AdvObject extends InteractiveElement {
         this.id = json.getId();
         this.name = json.getName();
         this.description = json.getDescription();
-        this.inventoryDescription = json.getInventoryDescription();
+        this.canOpen = json.getCanOpen();
+        this.canClose = json.getCanClose();
+        this.isOpen = json.getCanOpen();
+        this.canTake = json.getCanTake();
+        this.canPush = json.getCanPush();
+        this.canPull = json.getCanPull();
+        this.isPush = json.getIsPush();
         this.alias = json.getAlias();
         this.customCommandMessages = json.getCustomCommandMessages();
     }

@@ -5,7 +5,7 @@
  */
 package com.saltarelli.journey;
 
-import com.saltarelli.journey.files.GameJSON;
+import com.saltarelli.journey.json.GameJSON;
 import com.saltarelli.journey.type.AdvObject;
 import com.saltarelli.journey.type.Command;
 import com.saltarelli.journey.type.Direction;
@@ -32,6 +32,8 @@ public class Game {
     private String restartQuestion = "";
     
     private String endQuestion = "";
+    
+    private String uselessCombineCommand = "";
     
     private String inventoryEmpty = "";
     
@@ -62,6 +64,7 @@ public class Game {
         this.helpQuestion = json.getHelpQuestion();
         this.restartQuestion = json.getRestartQuestion();
         this.endQuestion = json.getEndQuestion();
+        this.uselessCombineCommand = json.getUselessCombineCommand();
         this.inventoryEmpty = json.getInventoryEmpty();
         this.inventoryFull = json.getInventoryFull();
         this.help = json.getHelp();
@@ -100,6 +103,14 @@ public class Game {
 
     public String getRestartQuestion() {
         return restartQuestion;
+    }
+    
+    public String getEndQuestion() {
+        return endQuestion;
+    }
+    
+    public String getUselessCombineCommand() {
+        return uselessCombineCommand;
     }
 
     public void setRestartQuestion(String restartQuestion) {

@@ -5,7 +5,7 @@
  */
 package com.saltarelli.journey.type;
 
-import com.saltarelli.journey.files.RoomJSON;
+import com.saltarelli.journey.json.RoomJSON;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

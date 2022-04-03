@@ -5,7 +5,7 @@
  */
 package com.saltarelli.journey.type;
 
-import com.saltarelli.journey.files.CommandJSON;
+import com.saltarelli.journey.json.CommandJSON;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,7 +16,8 @@ import java.util.Set;
 public class Command implements Matchable {
 
     public enum Name {
-        END, 
+        END,
+        RESTART,
         INVENTORY, 
         NORTH, 
         SOUTH, 

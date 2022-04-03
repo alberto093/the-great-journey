@@ -5,15 +5,17 @@
  */
 package com.saltarelli.journey;
 
-import com.saltarelli.journey.files.AdvObjectJSON;
-import com.saltarelli.journey.files.CommandJSON;
-import com.saltarelli.journey.files.ExceptionDescription;
-import com.saltarelli.journey.files.GameJSON;
-import com.saltarelli.journey.files.PersonJSON;
-import com.saltarelli.journey.files.ResourcesReader;
-import com.saltarelli.journey.files.RoomJSON;
-import java.io.File;
-import java.io.IOException;
+import com.saltarelli.journey.gameplay.GameplayHandler;
+import com.saltarelli.journey.json.AdvObjectJSON;
+import com.saltarelli.journey.json.CommandJSON;
+import com.saltarelli.journey.json.ExceptionDescription;
+import com.saltarelli.journey.json.GameJSON;
+import com.saltarelli.journey.json.PersonJSON;
+import com.saltarelli.journey.json.ResourcesReader;
+import com.saltarelli.journey.json.RoomJSON;
+import com.saltarelli.journey.gameplay.GameplayHandlerResponse;
+import com.saltarelli.journey.gameplay.GameplayHandlerMessage;
+import com.saltarelli.journey.gameplay.GameplayHandlerQuestion;
 import java.util.Scanner;
 import java.util.Set;
 import com.saltarelli.journey.parsing.Parser;
@@ -24,7 +26,6 @@ import com.saltarelli.journey.type.Command;
 import com.saltarelli.journey.type.Person;
 import com.saltarelli.journey.type.Room;
 import java.io.PrintStream;
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -37,7 +38,7 @@ public class Engine {
 
     private final Game game;
 
-    private final GameplayHandler gameplay;
+    private final GameplayHandler gameplayHandler;
 
     private final Parser parser;
 
@@ -56,7 +57,7 @@ public class Engine {
         prepareObjects();
         prepareCommands();
 
-        this.gameplay = new GameplayHandler(this.game, ResourcesReader.fetchGameplay());
+        this.gameplayHandler = new GameplayHandler(this.game, ResourcesReader.fetchGameplaySet());
         this.exceptions = ResourcesReader.fetchExceptions();
         this.parser = new Parser(ResourcesReader.fetchStopwords());
         this.console = System.out;
@@ -220,7 +221,20 @@ public class Engine {
     }
 
     private void printInventory() {
+        if (game.getInventory().isEmpty()) {
+            console.println(game.getInventoryEmpty());
+        } else {
+            console.println(game.getInventoryFull());
 
+            game.getInventory().stream().forEach(i -> {
+                String inventoryDescription = Optional
+                        .of(i.customMessageForCommand(Command.Name.INVENTORY))
+                        .orElse(i.getName());
+                console.println(" - " + inventoryDescription);
+            });
+
+            console.println();
+        }
     }
 
     private void scanNextLine(String previousInput) {
@@ -246,13 +260,51 @@ public class Engine {
                         printInventory();
                         break;
                     default:
-                        String outputMessage = gameplay.processOutput(output);
-                        console.print(outputMessage);
-                        console.println();
+                        GameplayHandlerResponse gameplayResponse = gameplayHandler.processOutput(output);
+                        handleGameplayResponse(output, gameplayResponse);
+                        break;
                 }
             } catch (ParserException ex) {
                 handleParserException(ex);
             }
+        }
+    }
+
+    private void handleGameplayResponse(ParserOutput output, GameplayHandlerResponse response) {
+
+        switch (response.getType()) {
+            case MESSAGE:
+                GameplayHandlerMessage responseMessage = (GameplayHandlerMessage) response;
+                console.print(responseMessage.getMessage());
+                console.println();
+                break;
+            case QUESTION:
+                GameplayHandlerQuestion responseQuestion = (GameplayHandlerQuestion) response;
+
+                Optional<Boolean> isYesAnswer = Optional.empty();
+
+                do {
+                    console.println(responseQuestion.getQuestion());
+                    console.println();
+
+                    String answer = scanner.nextLine();
+
+                    if (game.getYesAlias().contains(answer.toLowerCase())) {
+                        isYesAnswer = Optional.of(true);
+                    } else if (game.getNoAlias().contains(answer.toLowerCase())) {
+                        isYesAnswer = Optional.of(false);
+                    }
+                } while (isYesAnswer.isEmpty());
+
+                if (isYesAnswer.get()) {
+                    console.println(responseQuestion.getYesAnswer());
+                    gameplayHandler.processQuestionAnswer(true, output);
+                } else {
+                    console.println(responseQuestion.getNoAnswer());
+                    gameplayHandler.processQuestionAnswer(false, output);
+                }
+
+                console.println();
         }
     }
 
@@ -273,7 +325,7 @@ public class Engine {
                 case INVALID_DIRECTION:
                 case UNKNOWN_ELEMENT:
                     message = this.exceptions.stream()
-                            .filter(e -> e.getName().name() == ex.getKind().name())
+                            .filter(e -> e.getName().name().equals(ex.getKind().name()))
                             .findFirst()
                             .map(e -> e.getMessage())
                             .orElse(ex.getMessage());
@@ -286,7 +338,7 @@ public class Engine {
                 case CANT_GIVE:
                 case CANT_TAKE:
                     message = this.exceptions.stream()
-                            .filter(e -> e.getName().name() == ex.getKind().name())
+                            .filter(e -> e.getName().name().equals(ex.getKind().name()))
                             .findFirst()
                             .map(e -> String.format(e.getMessage(), ex.getAdditionalDescription()))
                             .orElse(ex.getMessage());
@@ -303,7 +355,7 @@ public class Engine {
                 case MISSING_COMBINE_ELEMENT:
                 case MISSING_DIRECTION:
                     message = this.exceptions.stream()
-                            .filter(e -> e.getName().name() == ex.getKind().name())
+                            .filter(e -> e.getName().name().equals(ex.getKind().name()))
                             .findFirst()
                             .map(e -> e.getMessage())
                             .orElse(ex.getMessage());
@@ -316,7 +368,7 @@ public class Engine {
                         message = game.getCurrentRoom().getWrongDirectionMessage();
                     } else {
                         message = this.exceptions.stream()
-                                .filter(e -> e.getName().name() == ex.getKind().name())
+                                .filter(e -> e.getName().name().equals(ex.getKind().name()))
                                 .findFirst()
                                 .map(e -> String.format(e.getMessage(), ex.getAdditionalDescription()))
                                 .orElse(ex.getMessage());

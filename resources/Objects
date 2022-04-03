@@ -47,7 +47,13 @@
     "name": "vestiti",
     "alias": ["vestito", "mutande", "calzini", "magliette", "abiti", "indumenti", "vesti", "vestiario"],
     "description": "Per quanto sono sporchi e puzzolenti saranno quì da settimane. Dovrebbero proprio essere lavati.",
-    "inventoryDescription": "Dei vestiti sporchi"
+    "canTake": true,
+    "commandOutput": [
+      {
+        "command": "INVENTORY",
+        "description": "Dei vestiti sporchi"
+      }
+    ]
   },
   {
     "id": 7,
@@ -69,15 +75,19 @@
     "name": "libro",
     "alias": ["tomo", "giornale", "opera", "romanzo", "tomo", "testo", "manuale"],
     "description": "Un libro che sembri parlare di un continente al di là del mare...potrei arrivarci con una barca e realizzare il mio sogno!",
-    "inventoryDescription": "Un libro che parla di mare",
+    "canTake": true,
     "commandOutput": [
       {
+        "command": "INVENTORY",
+        "description": "Un libro che parla di mare"
+      },
+      {
         "command": "PICK_UP",
-        "description": "Ehi, ma che fai, è il mio libro! Sembra che la guardia non voglia proprio disfarsene."
+        "description": "\"Ehi, ma che fai, è il mio libro!\" Sembra che la guardia non voglia proprio disfarsene."
       },
       {
         "command": "READ",
-        "description": "Ehi, ma che fai, è il mio libro! Sembra che la guardia non voglia proprio disfarsene."
+        "description": "\"Ehi, ma che fai, è il mio libro!\" Sembra che la guardia non voglia proprio disfarsene."
       }
     ]
   },
@@ -115,8 +125,12 @@
     "name": "lenzuola",
     "alias": [],
     "description": "Sembrano lenzuola enormi, ma quindi esistono davvero i letti double king size?",
-    "inventoryDescription": "Delle lenzuola rigide e giganti",
+    "canTake": true,
     "commandOutput": [
+      {
+        "command": "INVENTORY",
+        "description": "Delle lenzuola rigide e giganti"
+      },
       {
         "command": "PICK_UP",
         "description": "\"Ladro!\" ti strilla Mariola nelle orecchie, mentre tenti di afferrare il set di lenzuola. \"Le lenzuola appartengono al palazzo.\""
@@ -164,8 +178,12 @@
     "name": "ponticello",
     "alias": ["ponte"],
     "description": "Descrizione del ponte di legno.",
-    "inventoryDescription": "Un ponticello di legno",
+    "canTake": true,
     "commandOutput": [
+      {
+        "command": "INVENTORY",
+        "description": "Un ponticello di legno"
+      },
       {
         "command": "PICK_UP",
         "description": "Al momento non saprei cosa farne, tuttavia servirebbero degli attrezzi da lavoro."
@@ -206,8 +224,12 @@
     "name": "antenna",
     "alias": ["palo", "asta", "pilone", "pennone", "stanga", "sostegno"],
     "description": "Descrizione dell'antenna radio.",
-    "inventoryDescription": "Un palo di un'antenna radio",
+    "canTake": true,
     "commandOutput": [
+      {
+        "command": "INVENTORY",
+        "description": "Un palo di un'antenna radio"
+      },
       {
         "command": "PICK_UP",
         "description": "Al momento non saprei cosa farne, tuttavia servirebbero degli attrezzi da lavoro."
@@ -241,8 +263,12 @@
     "name": "attrezzi",
     "alias": ["cassetta", "cassa"],
     "description": "Descrizione della cassetta degli attrezzi",
-    "inventoryDescription": "Una cassetta degli attrezzi",
+    "canTake": true,
     "commandOutput": [
+      {
+        "command": "INVENTORY",
+        "description": "Una cassetta degli attrezzi"
+      },
       {
         "command": "PICK_UP",
         "description": "\"Ma cosa ti dice il cervello! Sono gli attrezzi da lavoro dei nostri dipendenti.\""
