@@ -55,12 +55,8 @@ END, INVENTORY, NORTH, SOUTH, EAST, WEST, OPEN, CLOSE, PUSH, PULL, WALK_TO, PICK
     "alias": ["dai", "offri", "regala", "cedi"]
   },
   {
-    "name": "USE",
-    "alias": ["usa", "utilizza", "adopera"]
-  },
-  {
     "name": "LOOK_AT",
-    "alias": ["osserva", "guarda", "vedi"]
+    "alias": ["osserva", "guarda", "vedi", "esamina", "x", "g"]
   }
 
 ]

@@ -1,0 +1,18 @@
+[
+  {
+    "command": "END, INVENTORY, NORTH, SOUTH, EAST, WEST, OPEN, CLOSE, PUSH, PULL, WALK_TO, PICK_UP, GIVE, LOOK_AT",
+    "person": 0,
+    "objects": [0],
+    "outputMessage": "",
+    "editObject": {
+      "id": 0,
+      "moveToRoomID": 0,
+      "moveToInventory": false,
+    },
+    "editPerson": {
+      "id": 0,
+      "roomID": 0
+    },
+    "isLast": false
+  }
+]

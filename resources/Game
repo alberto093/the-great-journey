@@ -1,5 +1,8 @@
 {
   "title": "The Great Journey",
   "description": "La descrizione del gioco",
-  "help": "Le istruzioni per giocare. Una lista di comandi (principali) da utilizzare, solo quelli utili!"
+  "helpQuestion": "Vuoi visualizzare le istruzioni? (s/n)",
+  "help": "Le istruzioni per giocare. Una lista di comandi (principali) da utilizzare, solo quelli utili!",
+  "yesAlias": ["si", "s"],
+  "noAlias": ["no", "n"]
 }
