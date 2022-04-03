@@ -18,7 +18,7 @@ import java.util.Set;
  *
  * @author Alberto
  */
-public class Game {
+public abstract class Game {
     
     private final String title = "";
     
