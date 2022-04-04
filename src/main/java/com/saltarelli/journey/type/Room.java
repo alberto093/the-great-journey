@@ -130,7 +130,7 @@ public class Room {
     }
 
     public String getWrongDirectionMessage() {
-        return description;
+        return wrongDirectionMessage;
     }
 
     public void setWrongDirectionMessage(String wrongDirectionMessage) {

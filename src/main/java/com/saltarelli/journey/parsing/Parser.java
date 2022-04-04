@@ -47,11 +47,11 @@ public class Parser {
             throw new ParserException("Invalid input", ParserException.Kind.EMPTY_INPUT);
         } else {
             String commandAlias = tokens.remove(0);
-            Command command = matchableFromToken(commandAlias, commands);
+            Command.Name command = matchableFromToken(commandAlias, commands).getName();
             if (command == null) {
                 throw new ParserException("Missing command for " + tokens.get(0), ParserException.Kind.UNKNOWN_COMMAND);
             } else {
-                switch (command.getName()) {
+                switch (command) {
                     case END:
                     case RESTART:
                     case INVENTORY:
@@ -62,8 +62,9 @@ public class Parser {
                     case SOUTH:
                     case EAST:
                     case WEST:
+                        return handleDirectionCommand(Command.Name.WALK_TO, commandAlias, input, Arrays.asList(commandAlias), directions, currentRoom);
                     case WALK_TO:
-                        return handleDirectionCommand(command, commandAlias, input, Arrays.asList(commandAlias), directions, currentRoom);
+                        return handleDirectionCommand(command, commandAlias, input, tokens, directions, currentRoom);
                     case OPEN:
                         return handleBooleanCommand(command,
                                 commandAlias,
@@ -128,13 +129,14 @@ public class Parser {
                         return handleSpeakCommand(command, commandAlias, input, tokens, currentRoom.getPeople(), currentRoom.getObjects(), inventory);
                     case COMBINE:
                         return handleCombineCommand(command, commandAlias, input, tokens, inventory);
+                    default:
+                        throw new AssertionError(command.name());
                 }
             }
         }
-        return null;
     }
 
-    private ParserOutput handleSingleCommand(Command command, String commandAlias, List<String> tokens) throws ParserException {
+    private ParserOutput handleSingleCommand(Command.Name command, String commandAlias, List<String> tokens) throws ParserException {
         switch (tokens.size()) {
             case 0:
                 return new ParserOutput(command);
@@ -152,7 +154,7 @@ public class Parser {
     }
 
     private ParserOutput handleBooleanCommand(
-            Command command,
+            Command.Name command,
             String commandAlias,
             String input,
             List<String> tokens,
@@ -170,7 +172,7 @@ public class Parser {
                 if (objects.size() == 1) {
                     return handleBooleanElement(command, objects.iterator().next(), objects.iterator().next().getName(), canDoPredicate, isDonePredicate, checkDo, exceptionCant);
                 } else if (people.size() == 1) {
-                    throw getCantDoException(people.iterator().next().getName(), exceptionCant, people.iterator().next().customMessageForCommand(command.getName()));
+                    throw getCantDoException(people.iterator().next().getName(), exceptionCant, people.iterator().next().customMessageForCommand(command));
                 } else {
                     throw new ParserException("Missing element", exceptionMissing, commandAlias, "");
                 }
@@ -196,7 +198,7 @@ public class Parser {
     }
 
     private ParserOutput handleBooleanElement(
-            Command command,
+            Command.Name command,
             InteractiveElement element,
             String elementAlias,
             Predicate<? super InteractiveElement> canDoPredicate,
@@ -211,7 +213,7 @@ public class Parser {
                 return new ParserOutput(command, (Person) element);
             }
         } else {
-            throw getCantDoException(elementAlias, exceptionKind, element.customMessageForCommand(command.getName()));
+            throw getCantDoException(elementAlias, exceptionKind, element.customMessageForCommand(command));
         }
     }
 
@@ -238,7 +240,7 @@ public class Parser {
     }
 
     private ParserOutput handleDirectionCommand(
-            Command command,
+            Command.Name command,
             String commandAlias,
             String input,
             List<String> tokens,
@@ -257,7 +259,7 @@ public class Parser {
                     Room nextRoom = currentRoom.getRoomWithDirection(direction);
 
                     if (nextRoom == null) {
-                        throw new ParserException("Wrong direction", ParserException.Kind.WRONG_DIRECTION, direction.getAlias().get(0), "");
+                        throw new ParserException("Wrong direction", ParserException.Kind.WRONG_DIRECTION, direction.getAlias().iterator().next(), "");
                     } else {
                         return new ParserOutput(command, nextRoom);
                     }
@@ -268,7 +270,7 @@ public class Parser {
     }
 
     private ParserOutput handlePickupCommand(
-            Command command,
+            Command.Name command,
             String commandAlias,
             String input,
             List<String> tokens,
@@ -291,7 +293,7 @@ public class Parser {
                                 return new ParserOutput(command, (Person) element);
                             }
                         } else {
-                            throw new ParserException("Element can't be taken", ParserException.Kind.CANT_TAKE, tokens.get(0), element.customMessageForCommand(command.getName()));
+                            throw new ParserException("Element can't be taken", ParserException.Kind.CANT_TAKE, tokens.get(0), element.customMessageForCommand(command));
                         }
                     default:
                         throw new ParserException("Missing element", ParserException.Kind.MISSING_TAKE_ELEMENT, commandAlias, "");
@@ -318,7 +320,7 @@ public class Parser {
                         return new ParserOutput(command, (Person) element);
                     }
                 } else {
-                    throw new ParserException("Element can't be taken", ParserException.Kind.CANT_TAKE, tokens.get(0), element.customMessageForCommand(command.getName()));
+                    throw new ParserException("Element can't be taken", ParserException.Kind.CANT_TAKE, tokens.get(0), element.customMessageForCommand(command));
                 }
             default:
                 throw getLongInputException(input.substring(0, input.indexOf(tokens.get(0) + tokens.size())));
@@ -326,7 +328,7 @@ public class Parser {
     }
 
     private ParserOutput handleGiveCommand(
-            Command command,
+            Command.Name command,
             String commandAlias,
             String input,
             List<String> tokens,
@@ -387,7 +389,7 @@ public class Parser {
     }
 
     private ParserOutput handleLookCommand(
-            Command command,
+            Command.Name command,
             String input,
             List<String> tokens,
             Room currentRoom,
@@ -416,7 +418,7 @@ public class Parser {
     }
 
     private ParserOutput handleReadCommand(
-            Command command,
+            Command.Name command,
             String commandAlias,
             String input,
             List<String> tokens,
@@ -465,7 +467,7 @@ public class Parser {
     }
 
     private ParserOutput handleSpeakCommand(
-            Command command,
+            Command.Name command,
             String commandAlias,
             String input,
             List<String> tokens,
@@ -501,7 +503,7 @@ public class Parser {
     }
 
     private ParserOutput handleCombineCommand(
-            Command command,
+            Command.Name command,
             String commandAlias,
             String input,
             List<String> tokens,

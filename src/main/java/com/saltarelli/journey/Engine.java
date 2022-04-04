@@ -23,9 +23,11 @@ import com.saltarelli.journey.parsing.ParserException;
 import com.saltarelli.journey.parsing.ParserOutput;
 import com.saltarelli.journey.type.AdvObject;
 import com.saltarelli.journey.type.Command;
+import com.saltarelli.journey.type.Direction;
 import com.saltarelli.journey.type.Person;
 import com.saltarelli.journey.type.Room;
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -47,7 +49,7 @@ public class Engine {
     private final PrintStream console;
 
     private final Collection<ExceptionDescription> exceptions;
-    
+
     private int moves = 0;
 
     public Engine() {
@@ -58,6 +60,7 @@ public class Engine {
         preparePeople();
         prepareObjects();
         prepareCommands();
+        prepareDirections();
 
         this.gameplayHandler = new GameplayHandler(this.game, ResourcesReader.fetchGameplaySet());
         this.exceptions = ResourcesReader.fetchExceptions();
@@ -66,7 +69,7 @@ public class Engine {
     }
 
     private void prepareRooms() {
-        
+
         Collection<RoomJSON> roomsJSON = ResourcesReader.fetchRooms();
 
         Set<Room> rooms = roomsJSON.stream()
@@ -146,6 +149,17 @@ public class Engine {
         this.game.setCommands(commands);
     }
 
+    private void prepareDirections() {
+        Set<Direction> directions = Arrays.stream(Direction.Kind.values())
+                .map(d -> {
+                    Command command = findCommandFromDirection(d);
+                    return new Direction(d, command.getAlias());
+                })
+                .collect(Collectors.toSet());
+        
+        this.game.setDirections(directions);
+    }
+
     public void start() {
         console.println(game.getIntroduction());
 
@@ -220,13 +234,13 @@ public class Engine {
             System.exit(0);
         }
     }
-    
+
     private void finishGame() {
         console.println(game.getEndGameMessage());
         scanner.nextLine();
         System.exit(0);
     }
-    
+
     private void printScore() {
         console.println(String.format(game.getScoreMessage(), game.getCurrentScore(), game.getMaxScore(), moves));
         console.println();
@@ -237,7 +251,7 @@ public class Engine {
             console.println(game.getInventoryEmpty());
         } else {
             console.println(game.getInventoryFull());
-            
+
             game.getInventory().stream().forEach(o -> {
                 String inventoryDescription = Optional
                         .ofNullable(o.customMessageForCommand(Command.Name.INVENTORY))
@@ -252,16 +266,16 @@ public class Engine {
     private void scanNextLine(String input) {
         String previousInput = input;
         while (scanner.hasNextLine()) {
-            
-            String newInput; 
+
+            String newInput;
             if (previousInput.isEmpty()) {
                 newInput = scanner.nextLine();
             } else {
                 newInput = previousInput + " " + scanner.nextLine();
             }
-            
+
             previousInput = "";
-            moves += 1;     
+            moves += 1;
 
             try {
                 ParserOutput output = parser.parse(
@@ -271,7 +285,7 @@ public class Engine {
                         game.getInventory(),
                         game.getCurrentRoom());
 
-                switch (output.getCommand().getName()) {
+                switch (output.getCommand()) {
                     case END:
                         endGame();
                         break;
@@ -300,16 +314,16 @@ public class Engine {
         switch (response.getType()) {
             case MESSAGE:
                 GameplayHandlerMessage responseMessage = (GameplayHandlerMessage) response;
-                
+
                 console.println(responseMessage.getMessage());
                 console.println();
-                
+
                 if (responseMessage.score) {
                     game.setCurrentScore(game.getCurrentScore() + 1);
                     console.println(game.getIncreaseScoreMessage());
                     console.println();
                 }
-                
+
                 if (response.isLast) {
                     finishGame();
                 }
@@ -329,7 +343,7 @@ public class Engine {
                         isYesAnswer = Optional.of(false);
                     }
                 } while (isYesAnswer.isEmpty());
-                
+
                 GameplayHandlerResponse questionResponse;
 
                 if (isYesAnswer.get()) {
@@ -341,8 +355,10 @@ public class Engine {
                 }
 
                 console.println();
-                
+
                 handleGameplayResponse(output, questionResponse);
+            default:
+                throw new AssertionError(response.getType().name());
         }
     }
 
@@ -401,7 +417,6 @@ public class Engine {
                     previousInput = ex.getAdditionalDescription();
                     break;
                 case WRONG_DIRECTION:
-
                     if (!game.getCurrentRoom().getWrongDirectionMessage().isEmpty()) {
                         message = game.getCurrentRoom().getWrongDirectionMessage();
                     } else {
@@ -413,6 +428,8 @@ public class Engine {
                     }
 
                     break;
+                default:
+                    throw new AssertionError(ex.getKind().name());
             }
         }
 
@@ -424,6 +441,26 @@ public class Engine {
     private Room findRoomWithID(int id, Set<Room> rooms) {
         return rooms.stream()
                 .filter(r -> r.getId() == id)
+                .findFirst()
+                .get();
+    }
+
+    private Command findCommandFromDirection(Direction.Kind direction) {
+        return game.getCommands().stream()
+                .filter(c -> {
+                    switch (direction) {
+                        case NORTH:
+                            return c.getName() == Command.Name.NORTH;
+                        case EAST:
+                            return c.getName() == Command.Name.EAST;
+                        case SOUTH:
+                            return c.getName() == Command.Name.SOUTH;
+                        case WEST:
+                            return c.getName() == Command.Name.WEST;
+                        default:
+                            throw new AssertionError(direction.name());
+                    }
+                })
                 .findFirst()
                 .get();
     }

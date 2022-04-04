@@ -51,6 +51,10 @@ public class Command implements Matchable {
         return name;
     }
 
+    public Set<String> getAlias() {
+        return alias;
+    }
+
     @Override
     public Boolean match(String token) {
         return this.alias.contains(token);

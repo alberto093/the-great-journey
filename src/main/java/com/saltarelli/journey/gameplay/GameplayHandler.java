@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  */
 public class GameplayHandler {
 
-    private static final String DEFAULT_MESSAGE = "Ok!";
+    private static final String ERROR_MESSAGE = "Developer error: missing gameplay or customMessage";
 
     private final Game game;
     private final Collection<Gameplay> gameplaySet;
@@ -36,7 +36,7 @@ public class GameplayHandler {
     public GameplayHandlerResponse processOutput(ParserOutput output) {
         String message = null;
 
-        switch (output.getCommand().getName()) {
+        switch (output.getCommand()) {
             case END:
             case RESTART:
             case INVENTORY:
@@ -94,6 +94,8 @@ public class GameplayHandler {
                 break;
             case SING:
                 break;
+            default:
+                throw new AssertionError(output.getCommand().name());
         }
 
         GameplayHandlerResponse response = handleGameplayResponse(output);
@@ -118,12 +120,14 @@ public class GameplayHandler {
                     
                     ((GameplayHandlerQuestion) response).setQuestion(message);
                     return response;
+                default:
+                    throw new AssertionError(response.getType().name());
             }
         } else if (message != null && !message.isEmpty()) {
             return GameplayHandlerResponse.newMessage(message, false, false);
         }
 
-        return GameplayHandlerResponse.newMessage(DEFAULT_MESSAGE, false, false);
+        return GameplayHandlerResponse.newMessage(ERROR_MESSAGE, false, false);
     }
 
     public GameplayHandlerResponse processQuestionAnswer(Boolean yesAnswer, ParserOutput output) {
@@ -132,7 +136,7 @@ public class GameplayHandler {
         if (response != null) {
             return response;
         } else {
-            return GameplayHandlerResponse.newMessage(DEFAULT_MESSAGE, false, false);
+            return GameplayHandlerResponse.newMessage(ERROR_MESSAGE, false, false);
         }
     }
 
@@ -159,7 +163,7 @@ public class GameplayHandler {
                 message = String.join("\n", messages);
             }
         } else {
-            message = DEFAULT_MESSAGE;
+            message = ERROR_MESSAGE;
         }
 
         return message;
@@ -176,7 +180,7 @@ public class GameplayHandler {
     }
 
     private String customMessageResponse(ParserOutput output) {
-        Command.Name command = output.getCommand().getName();
+        Command.Name command = output.getCommand();
 
         if (output.getPerson() != null && !output.getPerson().customMessageForCommand(command).isEmpty()) {
             return output.getPerson().customMessageForCommand(command);
@@ -196,7 +200,7 @@ public class GameplayHandler {
     }
 
     private Gameplay fetchGameplayFrom(ParserOutput output) {
-        Command.Name command = output.getCommand().getName();
+        Command.Name command = output.getCommand();
 
         return gameplaySet.stream()
                 .filter(gp -> {

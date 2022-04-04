@@ -5,10 +5,8 @@
  */
 package com.saltarelli.journey.type;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  *
@@ -22,9 +20,9 @@ public class Direction implements Matchable {
     
     private final Kind kind;
     
-    private final List<String> alias;
+    private final Set<String> alias;
     
-    Direction(Kind kind, List<String> alias) {
+    public Direction(Kind kind, Set<String> alias) {
         this.kind = kind;
         this.alias = alias;
     }
@@ -33,7 +31,7 @@ public class Direction implements Matchable {
         return kind;
     }
 
-    public List<String> getAlias() {
+    public Set<String> getAlias() {
         return alias;
     }
 
