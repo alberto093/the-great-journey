@@ -26,10 +26,5 @@ public class Player extends Person {
     public static void setInstance(Player player) {
         instance = player;
     }
-
-    @Override
-    public Boolean match(String token) {
-        return true;
-    }
 }
 
