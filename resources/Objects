@@ -257,7 +257,7 @@
     "id": 29,
     "room": 5,
     "name": "attrezzi",
-    "alias": ["cassetta", "cassa"],
+    "alias": ["cassetta", "cassa", "cassetta attrezzi", "cassa attrezzi"],
     "description": "Descrizione della cassetta degli attrezzi",
     "commandOutput": [
       {

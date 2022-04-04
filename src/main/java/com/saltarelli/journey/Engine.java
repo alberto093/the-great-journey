@@ -25,6 +25,7 @@ import com.saltarelli.journey.type.AdvObject;
 import com.saltarelli.journey.type.Command;
 import com.saltarelli.journey.type.Direction;
 import com.saltarelli.journey.type.Person;
+import com.saltarelli.journey.type.Player;
 import com.saltarelli.journey.type.Room;
 import java.io.PrintStream;
 import java.util.Arrays;
@@ -58,6 +59,7 @@ public class Engine {
 
         prepareRooms();
         preparePeople();
+        preparePlayer();
         prepareObjects();
         prepareCommands();
         prepareDirections();
@@ -118,6 +120,11 @@ public class Engine {
 
                     room.getPeople().add(person);
                 });
+    }
+    
+    private void preparePlayer() {
+        PersonJSON playerJSON = ResourcesReader.fetchPlayer();
+        Player.setInstance(new Player(playerJSON));
     }
 
     private void prepareObjects() {

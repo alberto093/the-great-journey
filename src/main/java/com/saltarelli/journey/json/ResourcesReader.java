@@ -34,6 +34,7 @@ public class ResourcesReader {
     private static final String OBJECTS_FILENAME = "Objects";
     private static final String COMMANDS_FILENAME = "Commands";
     private static final String PEOPLE_FILENAME = "People";
+    private static final String PLAYER_FILENAME = "Player";
     private static final String EXCEPTIONS_FILENAME = "Exceptions";
     private static final String STOPWORDS_FILENAME = "Stopwords";
     
@@ -114,6 +115,19 @@ public class ResourcesReader {
             Set<PersonJSON> people = new Gson().fromJson(reader, setType);
             reader.close();
             return people;
+        } catch (JsonIOException | JsonSyntaxException | IOException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+    
+    public static PersonJSON fetchPlayer() {
+        try {
+            Reader reader = new BufferedReader(new FileReader(new File(PATH + PLAYER_FILENAME)));
+            PersonJSON player = new Gson().fromJson(reader, PersonJSON.class);
+            reader.close();
+            return player;
         } catch (JsonIOException | JsonSyntaxException | IOException ex) {
             ex.printStackTrace();
         }

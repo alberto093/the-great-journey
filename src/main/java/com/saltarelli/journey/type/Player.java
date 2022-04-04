@@ -12,18 +12,24 @@ import com.saltarelli.journey.json.PersonJSON;
  * @author Alberto
  */
 public class Player extends Person {
-    private static final Player instance = new Player();
-    
-    private Player() {
-        super(new PersonJSON());
+
+    private static Player instance = null;
+
+    public Player(PersonJSON json) {
+        super(json);
     }
-    
+
     public static Player getInstance() {
         return instance;
     }
     
+    public static void setInstance(Player player) {
+        instance = player;
+    }
+
     @Override
     public Boolean match(String token) {
         return true;
     }
 }
+

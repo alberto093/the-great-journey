@@ -84,12 +84,12 @@ public class GameplayHandler {
             case READ:
             case SPEAK:
                 message = Optional
-                        .of(customMessageResponse(output))
+                        .ofNullable(customMessageResponse(output))
                         .orElse(handleLookAtCommand(output));
                 break;
             case COMBINE:
                 message = Optional
-                        .of(customMessageResponse(output))
+                        .ofNullable(customMessageResponse(output))
                         .orElse(game.getUselessCombineCommand());
                 break;
             case SING:
@@ -182,7 +182,7 @@ public class GameplayHandler {
     private String customMessageResponse(ParserOutput output) {
         Command.Name command = output.getCommand();
 
-        if (output.getPerson() != null && !output.getPerson().customMessageForCommand(command).isEmpty()) {
+        if (output.getPerson() != null && output.getPerson().customMessageForCommand(command) != null && !output.getPerson().customMessageForCommand(command).isEmpty()) {
             return output.getPerson().customMessageForCommand(command);
         } else if (!output.getObjects().isEmpty()) {
             List<String> customMessages = output.getObjects().stream()
