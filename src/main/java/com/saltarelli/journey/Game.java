@@ -54,6 +54,8 @@ public class Game {
     private Set<Direction> directions = new HashSet<>();
 
     private Set<Room> rooms = new HashSet<>();
+    
+    private Set<AdvObject> invisibleObjects = new HashSet<>();
 
     private Set<Command> commands = new HashSet<>();
 
@@ -214,6 +216,10 @@ public class Game {
 
     public void setCommands(Set<Command> commands) {
         this.commands = commands;
+    }
+
+    public Set<AdvObject> getInvisibleObjects() {
+        return invisibleObjects;
     }
 
     public Set<AdvObject> getInventory() {

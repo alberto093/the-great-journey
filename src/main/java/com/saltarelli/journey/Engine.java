@@ -178,6 +178,7 @@ public class Engine {
         Optional<Boolean> showHelp = Optional.empty();
 
         do {
+            console.println();
             console.println(game.getHelpQuestion());
             String answer = scanner.nextLine();
 
@@ -200,7 +201,6 @@ public class Engine {
         console.println();
 
         console.println(game.getCurrentRoom().getName());
-        console.println();
         console.println(game.getCurrentRoom().getDescription());
         console.println();
 
@@ -286,6 +286,7 @@ public class Engine {
                 newInput = previousInput + " " + scanner.nextLine();
             }
 
+            console.println();
             previousInput = "";
             moves += 1;
 
@@ -359,16 +360,15 @@ public class Engine {
                 GameplayHandlerResponse questionResponse;
 
                 if (isYesAnswer.get()) {
-                    console.println(responseQuestion.getYesAnswer());
                     questionResponse = gameplayHandler.processQuestionAnswer(true, output);
                 } else {
-                    console.println(responseQuestion.getNoAnswer());
                     questionResponse = gameplayHandler.processQuestionAnswer(false, output);
                 }
 
                 console.println();
 
                 handleGameplayResponse(output, questionResponse);
+                break;
             default:
                 throw new AssertionError(response.getType().name());
         }
@@ -454,7 +454,7 @@ public class Engine {
         return rooms.stream()
                 .filter(r -> r.getId() == id)
                 .findFirst()
-                .get();
+                .orElse(null);
     }
 
     private Command findCommandFromDirection(Direction.Kind direction) {

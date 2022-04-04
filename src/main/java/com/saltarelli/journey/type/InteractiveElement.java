@@ -78,15 +78,15 @@ public abstract class InteractiveElement implements Matchable, CustomCommandHand
     }
 
     public Boolean getCanOpen() {
-        return canOpen;
+        return canOpen != null ? canOpen : false;
     }
 
     public Boolean getCanClose() {
-        return canClose;
+        return canClose != null ? canClose : false;
     }
 
     public Boolean getIsOpen() {
-        return isOpen;
+        return isOpen != null ? isOpen : false;
     }
 
     public void setIsOpen(Boolean isOpen) {
@@ -94,19 +94,19 @@ public abstract class InteractiveElement implements Matchable, CustomCommandHand
     }
 
     public Boolean getCanTake() {
-        return canTake;
+        return canTake != null ? canTake : false;
     }
 
     public Boolean getCanPush() {
-        return canPush;
+        return canPush != null ? canPush : false;
     }
 
     public Boolean getCanPull() {
-        return canPull;
+        return canPull != null ? canPull : false;
     }
 
     public Boolean getIsPush() {
-        return isPush;
+        return isPush != null ? isPush : false;
     }
 
     public void setIsPush(Boolean isPush) {

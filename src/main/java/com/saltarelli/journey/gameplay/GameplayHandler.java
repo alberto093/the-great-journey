@@ -205,12 +205,12 @@ public class GameplayHandler {
                     return gp.getInput().getCommand() == command
                             && (gp.getInput().getRoom() == null || gp.getInput().getRoom() == game.getCurrentRoom().getId())
                             && (gp.getInput().getPerson() == null || gp.getInput().getPerson() == output.getPerson().getId())
-                            && (gp.getInput().getInventaryRequirements() == null
-                            || gp.getInput().getInventaryRequirements().isEmpty()
+                            && (gp.getInput().getInventoryRequirements() == null
+                            || gp.getInput().getInventoryRequirements().isEmpty()
                             || game.getInventory().stream()
                                     .map(o -> o.getId())
                                     .collect(Collectors.toSet())
-                                    .containsAll(gp.getInput().getInventaryRequirements()))
+                                    .containsAll(gp.getInput().getInventoryRequirements()))
                             && (gp.getInput().getObjects() == null
                             || gp.getInput().getObjects().isEmpty()
                             || gp.getInput().getObjects().equals(output.getObjects().stream()
@@ -239,24 +239,35 @@ public class GameplayHandler {
                 }
             }
         }
-
-        // create gameplay response
-        if (gameplay.getOutput().getQuestion() != null && !checkAnswer) {
-            return GameplayHandlerResponse.newQuestion(
-                    gameplay.getOutput().getMessage(),
-                    gameplay.getOutput().getQuestion().getYesAnswer().getMessage(),
-                    gameplay.getOutput().getQuestion().getNoAnswer().getMessage());
-        } else if (gameplay.getOutput().getMessage() != null && !gameplay.getOutput().getMessage().isEmpty()) {
-            return GameplayHandlerResponse.newMessage(
-                    gameplay.getOutput().getMessage(),
-                    Optional.ofNullable(gameplay.getScore()).orElse(false),
-                    Optional.ofNullable(gameplay.getIsLast()).orElse(false));
-        }
-
-        if (gameplay.getDelete()
+        
+        if (gameplay.getDelete() != null && gameplay.getDelete()
                 || (checkAnswer && yesAnswer && gameplay.getOutput().getQuestion().getYesAnswer().getDelete())
                 || (checkAnswer && !yesAnswer && gameplay.getOutput().getQuestion().getNoAnswer().getDelete())) {
             this.gameplaySet.remove(gameplay);
+        }
+
+        // create gameplay response
+        if (checkAnswer) {
+            if (yesAnswer) {
+                return GameplayHandlerResponse.newMessage(
+                        gameplay.getOutput().getQuestion().getYesAnswer().getMessage(),
+                        Optional.ofNullable(gameplay.getScore()).orElse(false),
+                        Optional.ofNullable(gameplay.getIsLast()).orElse(false));
+            } else {
+                return GameplayHandlerResponse.newMessage(gameplay.getOutput().getQuestion().getNoAnswer().getMessage(), false, false);
+            }
+        } else {
+            if (gameplay.getOutput().getQuestion() != null) {
+                return GameplayHandlerResponse.newQuestion(
+                        gameplay.getOutput().getMessage(),
+                        gameplay.getOutput().getQuestion().getYesAnswer().getMessage(),
+                        gameplay.getOutput().getQuestion().getNoAnswer().getMessage());
+            } else if (gameplay.getOutput().getMessage() != null && !gameplay.getOutput().getMessage().isEmpty()) {
+                return GameplayHandlerResponse.newMessage(
+                        gameplay.getOutput().getMessage(),
+                        Optional.ofNullable(gameplay.getScore()).orElse(false),
+                        Optional.ofNullable(gameplay.getIsLast()).orElse(false));
+            }
         }
 
         return null;

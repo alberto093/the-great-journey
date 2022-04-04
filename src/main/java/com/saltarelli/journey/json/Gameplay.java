@@ -41,7 +41,7 @@ public class Gameplay {
             }
 
             public Boolean getMoveToInventory() {
-                return moveToInventory;
+                return moveToInventory != null ? moveToInventory : false;
             }
 
             public String getDescription() {
@@ -49,31 +49,31 @@ public class Gameplay {
             }
 
             public Boolean getCanOpen() {
-                return canOpen;
+                return canOpen != null ? canOpen : false;
             }
 
             public Boolean getCanClose() {
-                return canClose;
+                return canClose != null ? canClose : false;
             }
 
             public Boolean getIsOpen() {
-                return isOpen;
+                return isOpen != null ? isOpen : false;
             }
 
             public Boolean getCanTake() {
-                return canTake;
+                return canTake != null ? canTake : false;
             }
 
             public Boolean getCanPush() {
-                return canPush;
+                return canPush != null ? canPush : false;
             }
 
             public Boolean getCanPull() {
-                return canPull;
+                return canPull != null ? canPull : false;
             }
 
             public Boolean getIsPush() {
-                return isPush;
+                return isPush != null ? isPush : false;
             }
 
             public Set<CustomCommandMessage> getCustomCommandMessages() {
@@ -171,15 +171,20 @@ public class Gameplay {
             public class Answer {
 
                 private String message;
+                private Boolean score;
                 private Boolean delete;
                 private Editing editing;
 
                 public String getMessage() {
                     return message;
                 }
+                
+                public Boolean getScore() {
+                    return score;
+                }
 
                 public Boolean getDelete() {
-                    return delete;
+                    return delete != null ? delete : false;
                 }
 
                 public Editing getEditing() {

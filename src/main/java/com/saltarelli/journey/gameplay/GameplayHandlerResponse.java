@@ -16,11 +16,11 @@ public abstract class GameplayHandlerResponse {
     public Boolean isLast;
 
     public Boolean getScore() {
-        return score;
+        return score != null ? score : false;
     }
 
     public Boolean getIsLast() {
-        return isLast;
+        return isLast != null ? isLast : false;
     }
 
     public abstract GameplayHandlerResponseType getType();
