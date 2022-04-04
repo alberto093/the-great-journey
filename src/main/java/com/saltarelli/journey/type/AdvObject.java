@@ -17,13 +17,13 @@ public class AdvObject extends InteractiveElement {
         this.id = json.getId();
         this.name = json.getName();
         this.description = json.getDescription();
-        this.canOpen = json.getCanOpen();
-        this.canClose = json.getCanClose();
-        this.isOpen = json.getCanOpen();
-        this.canTake = json.getCanTake();
-        this.canPush = json.getCanPush();
-        this.canPull = json.getCanPull();
-        this.isPush = json.getIsPush();
+        this.canOpen = json.getCanOpen() == null ? false : json.getCanOpen();
+        this.canClose = json.getCanClose() == null ? false : json.getCanClose();
+        this.isOpen = json.getIsOpen() == null ? false : json.getIsOpen();
+        this.canTake = json.getCanTake() == null ? false : json.getCanTake();
+        this.canPush = json.getCanPush() == null ? false : json.getCanPush();
+        this.canPull = json.getCanPull() == null ? false : json.getCanPull();
+        this.isPush = json.getIsPush() == null ? false : json.getIsPush();
         this.alias = json.getAlias();
         this.customCommandMessages = json.getCustomCommandMessages();
     }
