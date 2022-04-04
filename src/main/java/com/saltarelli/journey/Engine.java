@@ -191,8 +191,7 @@ public class Engine {
 
         console.println();
         if (showHelp.get()) {
-            console.println(game.getHelp());
-            console.println();
+            printHelp();
         }
 
         console.println(game.getTitle());
@@ -257,6 +256,11 @@ public class Engine {
         console.println(String.format(game.getScoreMessage(), game.getCurrentScore(), game.getMaxScore(), moves));
         console.println();
     }
+    
+    private void printHelp() {
+        console.println(game.getHelp());
+        console.println();
+    }
 
     private void printInventory() {
         if (game.getInventory().isEmpty()) {
@@ -312,6 +316,10 @@ public class Engine {
                     case SCORE:
                         moves -= 1;
                         printScore();
+                        break;
+                    case HELP:
+                        moves -= 1;
+                        printHelp();
                         break;
                     default:
                         GameplayHandlerResponse gameplayResponse = gameplayHandler.processOutput(output);

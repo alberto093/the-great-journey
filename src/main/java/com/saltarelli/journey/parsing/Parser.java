@@ -83,6 +83,7 @@ public class Parser {
                     case INVENTORY:
                     case SCORE:
                     case SING:
+                    case HELP:
                         return handleSingleCommand(commandName, commandAlias, tokens);
                     case NORTH:
                     case SOUTH:
