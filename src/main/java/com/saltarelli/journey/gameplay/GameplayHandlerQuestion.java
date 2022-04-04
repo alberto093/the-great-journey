@@ -10,7 +10,7 @@ package com.saltarelli.journey.gameplay;
  * @author Alberto
  */
 public class GameplayHandlerQuestion extends GameplayHandlerResponse {
-    private final String question;
+    private String question;
     private final String yesAnswer;
     private final String noAnswer;
     
@@ -22,6 +22,10 @@ public class GameplayHandlerQuestion extends GameplayHandlerResponse {
 
     public String getQuestion() {
         return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     public String getYesAnswer() {

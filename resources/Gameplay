@@ -16,7 +16,7 @@
             "object": {
               "id": 0,
               "moveToRoomID": 0,
-              "moveToInventory": false
+              "moveToInventory": false,
               "description": "",
               "commandOutput": [
                 {
@@ -52,7 +52,7 @@
             "object": {
               "id": 0,
               "moveToRoomID": 0,
-              "moveToInventory": false
+              "moveToInventory": false,
               "description": "",
               "commandOutput": [
                 {
@@ -88,7 +88,7 @@
         "object": {
           "id": 0,
           "moveToRoomID": 0,
-          "moveToInventory": false
+          "moveToInventory": false,
           "description": "",
           "commandOutput": [
             {

@@ -12,6 +12,10 @@
     "alias": ["i", "inventario", "inv"]
   },
   {
+    "name": "SCORE",
+    "alias": ["punti", "punteggio", "mosse"]
+  },
+  {
     "name": "NORTH",
     "alias": ["nord", "n"]
   },

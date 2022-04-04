@@ -10,16 +10,22 @@ package com.saltarelli.journey.gameplay;
  * @author Alberto
  */
 public class GameplayHandlerMessage extends GameplayHandlerResponse {
-    private final String message;
+    private String message;
     
-    protected GameplayHandlerMessage(String message) {
+    protected GameplayHandlerMessage(String message, int score, Boolean isLast) {
         this.message = message;
+        this.score = score;
+        this.isLast = isLast;
     }
     
     public String getMessage() {
         return message;
     }
-    
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+ 
     @Override
     public GameplayHandlerResponseType getType() {
         return GameplayHandlerResponseType.MESSAGE;

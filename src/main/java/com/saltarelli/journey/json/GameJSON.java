@@ -20,6 +20,8 @@ public class GameJSON {
     private String restartQuestion;
     private String endQuestion;
     private String uselessCombineCommand;
+    private String endGameMessage;
+    private String scoreMessage;
     private String inventoryEmpty;
     private String inventoryFull;
     private String help;
@@ -53,6 +55,14 @@ public class GameJSON {
     
     public String getUselessCombineCommand() {
         return uselessCombineCommand;
+    }
+
+    public String getEndGameMessage() {
+        return endGameMessage;
+    }
+
+    public String getScoreMessage() {
+        return scoreMessage;
     }
 
     public String getInventoryEmpty() {

@@ -19,6 +19,7 @@ public class Command implements Matchable {
         END,
         RESTART,
         INVENTORY, 
+        SCORE,
         NORTH, 
         SOUTH, 
         EAST, 

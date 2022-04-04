@@ -69,6 +69,10 @@ public abstract class InteractiveElement implements Matchable, CustomCommandHand
         return alias;
     }
 
+    public Set<CustomCommandMessage> getCustomCommandMessages() {
+        return customCommandMessages;
+    }
+
     public Boolean getCanOpen() {
         return canOpen;
     }
@@ -111,6 +115,32 @@ public abstract class InteractiveElement implements Matchable, CustomCommandHand
         hash = 37 * hash + this.id;
         return hash;
     }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCanOpen(Boolean canOpen) {
+        this.canOpen = canOpen;
+    }
+
+    public void setCanClose(Boolean canClose) {
+        this.canClose = canClose;
+    }
+
+    public void setCanTake(Boolean canTake) {
+        this.canTake = canTake;
+    }
+
+    public void setCanPush(Boolean canPush) {
+        this.canPush = canPush;
+    }
+
+    public void setCanPull(Boolean canPull) {
+        this.canPull = canPull;
+    }
+    
+    
 
     @Override
     public boolean equals(Object obj) {

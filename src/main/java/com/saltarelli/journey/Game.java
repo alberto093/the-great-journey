@@ -35,6 +35,10 @@ public class Game {
     
     private String uselessCombineCommand = "";
     
+    private String endGameMessage = "";
+    
+    private String scoreMessage = "";
+    
     private String inventoryEmpty = "";
     
     private String inventoryFull = "";
@@ -55,6 +59,8 @@ public class Game {
 
     private Room currentRoom;
     
+    private int currentScore;
+    
     private int maxScore;
     
     public Game(GameJSON json) {
@@ -65,6 +71,8 @@ public class Game {
         this.restartQuestion = json.getRestartQuestion();
         this.endQuestion = json.getEndQuestion();
         this.uselessCombineCommand = json.getUselessCombineCommand();
+        this.endGameMessage = json.getEndGameMessage();
+        this.scoreMessage = json.getScoreMessage();
         this.inventoryEmpty = json.getInventoryEmpty();
         this.inventoryFull = json.getInventoryFull();
         this.help = json.getHelp();
@@ -111,6 +119,14 @@ public class Game {
     
     public String getUselessCombineCommand() {
         return uselessCombineCommand;
+    }
+    
+    public String getEndGameMessage() {
+        return endGameMessage;
+    }
+
+    public String getScoreMessage() {
+        return scoreMessage;
     }
 
     public void setRestartQuestion(String restartQuestion) {
@@ -203,6 +219,14 @@ public class Game {
         this.currentRoom = currentRoom;
     }
 
+    public int getCurrentScore() {
+        return currentScore;
+    }
+
+    public void setCurrentScore(int currentScore) {
+        this.currentScore = currentScore;
+    }
+    
     public int getMaxScore() {
         return maxScore;
     }

@@ -5,8 +5,6 @@
  */
 package com.saltarelli.journey;
 
-import java.lang.reflect.InvocationTargetException;
-
 /**
  *
  * @author Alberto

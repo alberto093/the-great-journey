@@ -47,6 +47,8 @@ public class Engine {
     private final PrintStream console;
 
     private final Set<ExceptionDescription> exceptions;
+    
+    private int moves = 0;
 
     public Engine() {
         GameJSON gameJSON = ResourcesReader.fetchGame();
@@ -219,6 +221,17 @@ public class Engine {
             System.exit(0);
         }
     }
+    
+    private void finishGame() {
+        console.println(game.getEndGameMessage());
+        scanner.nextLine();
+        System.exit(0);
+    }
+    
+    private void printScore() {
+        console.println(String.format(game.getScoreMessage(), game.getCurrentScore(), game.getMaxScore(), moves));
+        console.println();
+    }
 
     private void printInventory() {
         if (game.getInventory().isEmpty()) {
@@ -240,6 +253,7 @@ public class Engine {
     private void scanNextLine(String previousInput) {
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
+            moves += 1;
 
             try {
                 ParserOutput output = parser.parse(
@@ -259,6 +273,9 @@ public class Engine {
                     case INVENTORY:
                         printInventory();
                         break;
+                    case SCORE:
+                        printScore();
+                        break;
                     default:
                         GameplayHandlerResponse gameplayResponse = gameplayHandler.processOutput(output);
                         handleGameplayResponse(output, gameplayResponse);
@@ -275,8 +292,13 @@ public class Engine {
         switch (response.getType()) {
             case MESSAGE:
                 GameplayHandlerMessage responseMessage = (GameplayHandlerMessage) response;
+                game.setCurrentScore(game.getCurrentScore() + response.getScore());
                 console.print(responseMessage.getMessage());
                 console.println();
+                
+                if (response.isLast) {
+                    finishGame();
+                }
                 break;
             case QUESTION:
                 GameplayHandlerQuestion responseQuestion = (GameplayHandlerQuestion) response;
@@ -295,16 +317,20 @@ public class Engine {
                         isYesAnswer = Optional.of(false);
                     }
                 } while (isYesAnswer.isEmpty());
+                
+                GameplayHandlerResponse questionResponse;
 
                 if (isYesAnswer.get()) {
                     console.println(responseQuestion.getYesAnswer());
-                    gameplayHandler.processQuestionAnswer(true, output);
+                    questionResponse = gameplayHandler.processQuestionAnswer(true, output);
                 } else {
                     console.println(responseQuestion.getNoAnswer());
-                    gameplayHandler.processQuestionAnswer(false, output);
+                    questionResponse = gameplayHandler.processQuestionAnswer(false, output);
                 }
 
                 console.println();
+                
+                handleGameplayResponse(output, questionResponse);
         }
     }
 

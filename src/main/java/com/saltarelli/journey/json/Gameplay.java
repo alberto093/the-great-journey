@@ -20,7 +20,7 @@ public class Gameplay {
         public class EditingObject {
 
             private int id;
-            private int moveToRoomID; // -1, sparisce dal gioco
+            private Integer moveToRoomID; // -1, sparisce dal gioco
             private Boolean moveToInventory; // true, si rimuove dalla stanza e si aggiunge all'inventario
             private String description; // se non vuota aggiorna la descrizione dell'oggetto
             private Boolean canOpen;
@@ -30,14 +30,13 @@ public class Gameplay {
             private Boolean canPush;
             private Boolean canPull;
             private Boolean isPush;
-            private Boolean canRead;
             private Set<CustomCommandMessage> customCommandMessages;
 
             public int getId() {
                 return id;
             }
 
-            public int getMoveToRoomID() {
+            public Integer getMoveToRoomID() {
                 return moveToRoomID;
             }
 
@@ -77,10 +76,6 @@ public class Gameplay {
                 return isPush;
             }
 
-            public Boolean getCanRead() {
-                return canRead;
-            }
-
             public Set<CustomCommandMessage> getCustomCommandMessages() {
                 return customCommandMessages;
             }
@@ -89,20 +84,20 @@ public class Gameplay {
         public class EditingPerson {
 
             private int id;
-            private int roomID; // -1, sparisce dal gioco
-            private String newDescription; // se non vuota aggiorna la descrizione della persona
+            private Integer moveToRoomID; // -1, sparisce dal gioco
+            private String description; // se non vuota aggiorna la descrizione della persona
             private Set<CustomCommandMessage> customCommandMessages;
 
             public int getId() {
                 return id;
             }
 
-            public int getRoomID() {
-                return roomID;
+            public Integer getMoveToRoomID() {
+                return moveToRoomID;
             }
 
-            public String getNewDescription() {
-                return newDescription;
+            public String getDescription() {
+                return description;
             }
             
             public Set<CustomCommandMessage> getCustomCommandMessages() {

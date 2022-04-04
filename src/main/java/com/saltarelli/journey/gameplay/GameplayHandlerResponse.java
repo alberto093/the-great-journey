@@ -10,11 +10,23 @@ package com.saltarelli.journey.gameplay;
  * @author Alberto
  */
 public abstract class GameplayHandlerResponse {
-   
+    
+    public int score;
+    
+    public Boolean isLast;
+
+    public int getScore() {
+        return score;
+    }
+
+    public Boolean getIsLast() {
+        return isLast;
+    }
+
     public abstract GameplayHandlerResponseType getType();
     
-    public static final GameplayHandlerResponse newMessage(String message) {
-        return new GameplayHandlerMessage(message);
+    public static final GameplayHandlerResponse newMessage(String message, int score, Boolean isLast) {
+        return new GameplayHandlerMessage(message, score, isLast);
     }
 
     public static final GameplayHandlerResponse newQuestion(String question, String yesAnswer, String noAnswer) {

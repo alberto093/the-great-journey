@@ -25,7 +25,6 @@ public class AdvObjectJSON {
     private Boolean canPush;
     private Boolean canPull;
     private Boolean isPush;
-    private Boolean canRead;
     
     private Set<CustomCommandMessage> customCommandMessages;
 
@@ -75,10 +74,6 @@ public class AdvObjectJSON {
 
     public Boolean getIsPush() {
         return isPush;
-    }
-
-    public Boolean getCanRead() {
-        return canRead;
     }
     
     public Set<CustomCommandMessage> getCustomCommandMessages() {
