@@ -248,6 +248,7 @@ public class Engine {
 
     private void finishGame() {
         console.println(game.getEndGameMessage());
+        printScore();
         scanner.nextLine();
         System.exit(0);
     }
@@ -341,13 +342,13 @@ public class Engine {
                 console.println(responseMessage.getMessage());
                 console.println();
 
-                if (responseMessage.score != null && responseMessage.score > 0) {
-                    game.setCurrentScore(game.getCurrentScore() + responseMessage.score);
-                    console.println(game.getIncreaseScoreMessage());
+                if (responseMessage.getScore() != null && responseMessage.getScore() > 0) {
+                    game.setCurrentScore(game.getCurrentScore() + responseMessage.getScore());
+                    console.println(String.format(game.getIncreaseScoreMessage(), responseMessage.getScore()));
                     console.println();
                 }
 
-                if (response.isLast) {
+                if (response.getIsLast() != null && response.getIsLast()) {
                     finishGame();
                 }
                 break;

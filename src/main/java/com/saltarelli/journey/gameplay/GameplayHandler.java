@@ -194,7 +194,7 @@ public class GameplayHandler {
             List<String> customMessages = output.getObjects().stream()
                     .map(o -> o.customMessageForCommand(command))
                     .distinct()
-                    .filter(s -> !s.isEmpty())
+                    .filter(s -> s != null && !s.isEmpty())
                     .collect(Collectors.toList());
 
             if (!customMessages.isEmpty()) {
@@ -211,7 +211,6 @@ public class GameplayHandler {
         return gameplaySet.stream()
                 .filter(gp -> {
                     return gp.getInput().getCommand() == command
-                            && (gp.getInput().getRoom() == null || gp.getInput().getRoom() == game.getCurrentRoom().getId())
                             && (gp.getInput().getPerson() == null || gp.getInput().getPerson() == output.getPerson().getId())
                             && (gp.getInput().getObjects() == null
                             || gp.getInput().getObjects().isEmpty()
@@ -475,6 +474,13 @@ public class GameplayHandler {
     }
     
     private Boolean isValidGameplay(Gameplay gameplay) {
+        Boolean isRoomValid = gameplay.getInput().getRoom() == null ||
+                gameplay.getInput().getRoom() == game.getCurrentRoom().getId();
+        
+        if (!isRoomValid) {
+            return false;
+        }
+        
         return gameplay.getInput().getInventoryRequirements() == null || 
                 gameplay.getInput().getInventoryRequirements().isEmpty() || 
                 game.getInventory().stream()

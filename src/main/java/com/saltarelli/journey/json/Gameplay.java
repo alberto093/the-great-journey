@@ -185,7 +185,7 @@ public class Gameplay {
                 }
 
                 public Boolean getDelete() {
-                    return delete;
+                    return delete != null ? delete : false;
                 }
 
                 public Editing getEditing() {
@@ -249,6 +249,6 @@ public class Gameplay {
     }
 
     public Boolean getDelete() {
-        return delete;
+        return delete != null ? delete : false;
     }
 }

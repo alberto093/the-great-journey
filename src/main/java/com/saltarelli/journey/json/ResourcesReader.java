@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -55,8 +56,8 @@ public class ResourcesReader {
     public static Collection<Gameplay> fetchGameplaySet() {
         try {
             Reader reader = new BufferedReader(new FileReader(new File(PATH + GAMEPLAY_FILENAME)));
-            Type setType = new TypeToken<HashSet<Gameplay>>(){}.getType();
-            Set<Gameplay> rooms = new Gson().fromJson(reader, setType);
+            Type setType = new TypeToken<ArrayList<Gameplay>>(){}.getType();
+            List<Gameplay> rooms = new Gson().fromJson(reader, setType);
             reader.close();
             return rooms;
         } catch (JsonIOException | JsonSyntaxException | IOException ex) {

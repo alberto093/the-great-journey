@@ -23,6 +23,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
@@ -560,11 +561,13 @@ public class Parser {
             case 1:
                 throw new ParserException("Minimum two elements", ParserException.Kind.MINIMUM_COMBINE, "", "");
             default:
-                Stream<AdvObject> stream = tokens.stream()
-                        .map(t -> matchableFromToken(t, inventory));
-
-                if (stream.anyMatch(o -> o != null)) {
-                    return new ParserOutput(command, (AdvObject[]) stream.toArray());
+                List<AdvObject> objects = tokens.stream()
+                        .map(t -> matchableFromToken(t, inventory))
+                        .filter(o -> o != null)
+                        .collect(Collectors.toList());
+                
+                if (objects.size() == tokens.size()) {
+                    return new ParserOutput(command, objects.toArray(new AdvObject[0]));
                 } else {
                     throw new ParserException("Can't combine objects/people not in inventory", ParserException.Kind.CANT_COMBINE, "", "");
                 }

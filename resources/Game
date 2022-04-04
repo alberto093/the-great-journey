@@ -8,7 +8,7 @@
   "endQuestion": "Sei sicuro di voler uscire?",
   "uselessCombineCommand": "Cosa dovrebbe uscirne fuori?",
   "endGameMessage": "Complimenti hai finito il gioco.",
-  "increaseScoreMessage": "[Il tuo punteggio è appena aumentato di un punto.]",
+  "increaseScoreMessage": "[Il tuo punteggio è appena aumentato di %d]",
   "scoreMessage": "Finora hai totalizzato %d punti su %d possibili, in %d turni.",
   "inventoryEmpty": "Non stai portando niente.",
   "inventoryFull": "Stai portando:",

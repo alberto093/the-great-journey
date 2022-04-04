@@ -201,7 +201,15 @@
       ]
     },
     "output": {
-      "message": "\"Mi torneranno utili per costruire la barca.\""
+      "message": "\"Mi torneranno utili per costruire la barca.\"",
+      "editing": {
+        "objects": [
+          {
+            "id": 20,
+            "canTake": true
+          }
+        ]
+      }
     },
     "score": 1
   },
@@ -258,14 +266,45 @@
       ]
     },
     "output": {
-      "message": "Potrei utilizzarlo come albero maestro..."
+      "message": "Potrei utilizzarlo come albero maestro...",
+      "editing": {
+        "objects": [
+          {
+            "id": 25,
+            "customCommandMessages": [
+              {
+                "command": "COMBINE",
+                "description": "Sicuramente potrei farci una barca, ma devo scegliere il posto giusto per farla."
+              }
+            ]
+          },
+          {
+            "id": 20,
+            "customCommandMessages": [
+              {
+                "command": "COMBINE",
+                "description": "Sicuramente potrei farci una barca, ma devo scegliere il posto giusto per farla."
+              }
+            ]
+          },
+          {
+            "id": 14,
+            "customCommandMessages": [
+              {
+                "command": "COMBINE",
+                "description": "Sicuramente potrei farci una barca, ma devo scegliere il posto giusto per farla."
+              }
+            ]
+          }
+        ]
+      }
     },
     "score": 1
   },
   {
     "input": {
       "command": "COMBINE",
-      "roomID": 5,
+      "room": 5,
       "objects": [
         20,
         14,

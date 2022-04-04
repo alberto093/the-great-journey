@@ -78,5 +78,9 @@
   {
     "name": "SING",
     "alias": ["canta", "canticchia"]
+  },
+  {
+    "name": "HELP",
+    "alias": ["aiuto", "help", "info"]
   }
 ]
