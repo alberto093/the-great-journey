@@ -118,20 +118,20 @@ public class Gameplay {
             }
         }
 
-        private EditingObject object;
-        private EditingPerson person;
-        private EditingRoom room;
+        private Set<EditingObject> objects;
+        private Set<EditingPerson> people;
+        private Set<EditingRoom> rooms;
 
-        public EditingObject getObject() {
-            return object;
+        public Set<EditingObject> getObjects() {
+            return objects;
         }
 
-        public EditingPerson getPerson() {
-            return person;
+        public Set<EditingPerson> getPeople() {
+            return people;
         }
         
-        public EditingRoom getRoom() {
-            return room;
+        public Set<EditingRoom> getRooms() {
+            return rooms;
         }
     }
 
@@ -171,10 +171,15 @@ public class Gameplay {
             public class Answer {
 
                 private String message;
+                private Boolean delete;
                 private Editing editing;
 
                 public String getMessage() {
                     return message;
+                }
+
+                public Boolean getDelete() {
+                    return delete;
                 }
 
                 public Editing getEditing() {
@@ -221,6 +226,7 @@ public class Gameplay {
     private Output output;
     private Integer score;
     private Boolean isLast;
+    private Boolean delete;
 
     public Input getInput() {
         return input;
@@ -236,5 +242,9 @@ public class Gameplay {
 
     public Boolean getIsLast() {
         return isLast;
+    }
+
+    public Boolean getDelete() {
+        return delete;
     }
 }

@@ -238,21 +238,30 @@ public class GameplayHandler {
         } else if (gameplay.getOutput().getMessage() != null && !gameplay.getOutput().getMessage().isEmpty()) {
             return GameplayHandlerResponse.newMessage(gameplay.getOutput().getMessage(), gameplay.getScore(), gameplay.getIsLast());
         }
+        
+        if (gameplay.getDelete() || 
+                (checkAnswer && yesAnswer && gameplay.getOutput().getQuestion().getYesAnswer().getDelete()) ||
+                (checkAnswer && !yesAnswer && gameplay.getOutput().getQuestion().getNoAnswer().getDelete())) {
+            this.gameplaySet.remove(gameplay);
+        }
 
         return null;
     }
 
     private void handleEditing(Gameplay.Editing editing) {
-        if (editing.getObject() != null) {
-            editObject(editing.getObject());
-        }
-
-        if (editing.getPerson() != null) {
-            editPerson(editing.getPerson());
+        if (editing.getObjects() != null && !editing.getObjects().isEmpty()) {
+            editing.getObjects().stream()
+                    .forEach(this::editObject);
         }
         
-        if (editing.getRoom() != null && editing.getRoom().getDescription() != null && !editing.getRoom().getDescription().isEmpty()) {
-            getRoom(editing.getRoom().getId()).setDescription(editing.getRoom().getDescription());
+        if (editing.getPeople() != null && !editing.getPeople().isEmpty()) {
+            editing.getPeople().stream()
+                    .forEach(this::editPerson);
+        }
+
+        if (editing.getRooms() != null && !editing.getRooms().isEmpty()) {
+            editing.getRooms().stream()
+                    .forEach(r -> getRoom(r.getId()).setDescription(r.getDescription()));
         }
     }
 
