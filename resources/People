@@ -3,15 +3,23 @@
     "id": 0,
     "room": 1,
     "name": "Guardia del palazzo",
-    "description": "Vestita di tutto punto e con dei baffi enormi, la guardia reale ti incute paura. Porta sempre con sè un voluminoso libro, nessuno ha mai osato prenderlo.",
-    "alias": ["guardia", "guardiano", "poliziotto", "gendarme", "guardia reale", "guardia palazzo"]
+    "description": "Vestita di tutto punto e con dei baffi enormi, la guardia reale ti incute paura. Porta con sè un voluminoso libro, nessuno ha mai osato prenderlo.",
+    "alias": ["guardia", "guardiano", "poliziotto", "gendarme", "guardia reale", "guardia palazzo"],
+    "customCommandMessages": [{
+      "command": "SPEAK",
+      "description": "Ciao Brian, vedo che sei tornato dal tuo safari avventuroso. Oggi il palazzo è chiuso per una importante riunione. Passa più tardi se vuoi incontrare il mio collega."
+    }]
   },
   {
     "id": 1,
     "room": 2,
     "name": "Mariola",
     "description": "Da sempre con la famiglia reale, Mariola si occupa di far risplendere e di tenere in ordine tutte le stanze del palazzo",
-    "alias": ["lavandaia", "donna", "mariola", "colf", "mariola colf"]
+    "alias": ["lavandaia", "donna", "mariola", "colf", "mariola colf"],
+    "customCommandMessages": [{
+      "command": "SPEAK",
+      "description": "Ciao Brian, finalmente ti sei deciso a passare di qui. Non viene a trovarmi mai nessuno.\nLascia pure i tuoi panni sporchi se ne hai bisogno."
+    }]
   },
   {
     "id": 2,

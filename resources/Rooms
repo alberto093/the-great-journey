@@ -24,7 +24,7 @@
   {
     "id": 3,
     "name": "Cala sabbia",
-    "description": "Cala sabbia è la spiaggia più affollata dell'isola, tutti i paesani amano sdraiarsi sul bagnasciuga o nuotare nel mare cristallino.\n\nC'è un piccolo pontile di legno.",
+    "description": "È la spiaggia più affollata dell'isola, tutti i paesani amano sdraiarsi sul bagnasciuga o nuotare nel mare cristallino.\n\nC'è un piccolo pontile di legno.",
     "east": 4,
     "west": 5,
     "north": 1

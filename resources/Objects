@@ -44,7 +44,7 @@
     "id": 6,
     "room": 0,
     "name": "vestiti",
-    "alias": ["vestito", "mutande", "calzini", "magliette", "abiti", "indumenti", "vesti", "vestiario"],
+    "alias": ["vestito", "mutande", "calzini", "magliette", "abiti", "indumenti", "vesti", "vestiario", "panni"],
     "description": "Per quanto sono sporchi e puzzolenti sarebbe proprio l'ora di lavarli.",
     "canTake": true,
     "customCommandMessages": [{
@@ -58,13 +58,6 @@
     "name": "giardini",
     "alias": ["vivai", "paradisi", "giardino", "campi", "fiori", "prato", "erba"],
     "description": "I magnifici giardini del palazzo, da piccolo mi divertivo a rincorerre le farfalle."
-  },
-  {
-    "id": 8,
-    "room": 1,
-    "name": "guardia",
-    "alias": ["guardiano", "poliziotto", "gendarme", "guardia reale", "guardia palazzo"],
-    "description": "Ciao Brian, vedo che sei tornato dal tuo safari avventuroso. Oggi il palazzo è chiuso per una importante riunione. Passa più tardi se vuoi incontrare il mio collega."
   },
   {
     "id": 9,
@@ -186,7 +179,12 @@
     "room": 3,
     "name": "bagnanti",
     "alias": ["persone", "uomini", "donne", "bambini", "paesani"],
-    "description": "Provi solo tanta invidia."
+    "description": "Provi solo tanta invidia.",
+    "customCommandMessages": [{
+        "command": "SPEAK",
+        "description": "Meglio non disturbali mentre prendono il sole."
+      }
+    ]
   },
   {
     "id": 22,

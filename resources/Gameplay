@@ -10,7 +10,6 @@
   {
     "input": {
       "command": "SPEAK",
-      "roomID": 4,
       "person": 2
     },
     "output": {
@@ -25,7 +24,7 @@
               {
                 "id": 9,
                 "canTake": true,
-                "commandOutput": [
+                "customCommandMessages": [
                   {
                     "command": "PICK_UP",
                     "description": "\"Ma quanto pesa!\""
@@ -40,11 +39,11 @@
             "people": [
               {
                 "id": 2,
-                "commandOutput": [
+                "customCommandMessages": [
                   {
-                    "command": "SPEAK"
-                  },
-                  "\"Adesso sono indaffarato. Devo prepare 50 cocktails per la riunione al palazzo!\""
+                    "command": "SPEAK",
+                    "description": "\"Adesso sono indaffarato. Devo prepare 50 cocktails per la riunione al palazzo!\""
+                  }
                 ]
               },
               {
@@ -120,7 +119,13 @@
         "objects": [
           {
             "id": 14,
-            "canTake": true
+            "canTake": true,
+            "customCommandMessages": [
+              {
+                "command": "PICK_UP",
+                "description": "Al momento non saprei cosa farne. Meglio lasciarli qui."
+              }
+            ]
           }
         ],
         "people": [

@@ -15,6 +15,7 @@ import com.saltarelli.journey.type.Room;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -32,6 +33,15 @@ public class GameplayHandler {
     }
 
     public GameplayHandlerResponse processOutput(ParserOutput output) {
+        Gameplay gameplay = fetchGameplayFrom(output);
+        
+        if (gameplay != null && !isValidGameplay(gameplay)) {
+            return GameplayHandlerResponse.newMessage(
+                    Optional.ofNullable(customMessageResponse(output)).orElse(handleLookAtCommand(output)), 
+                    false, 
+                    false);
+        }
+        
         String message = null;
 
         switch (output.getCommand()) {
@@ -96,7 +106,7 @@ public class GameplayHandler {
                 throw new AssertionError(output.getCommand().name());
         }
 
-        GameplayHandlerResponse response = handleGameplayResponse(output);
+        GameplayHandlerResponse response = handleGameplayResponse(output, gameplay);
 
         if (response != null) {
             switch (response.getType()) {
@@ -167,9 +177,7 @@ public class GameplayHandler {
         return message;
     }
 
-    private GameplayHandlerResponse handleGameplayResponse(ParserOutput output) {
-        Gameplay gameplay = fetchGameplayFrom(output);
-
+    private GameplayHandlerResponse handleGameplayResponse(ParserOutput output, Gameplay gameplay) {
         if (gameplay != null) {
             return handleGameplay(gameplay, false, false);
         } else {
@@ -205,12 +213,6 @@ public class GameplayHandler {
                     return gp.getInput().getCommand() == command
                             && (gp.getInput().getRoom() == null || gp.getInput().getRoom() == game.getCurrentRoom().getId())
                             && (gp.getInput().getPerson() == null || gp.getInput().getPerson() == output.getPerson().getId())
-                            && (gp.getInput().getInventoryRequirements() == null
-                            || gp.getInput().getInventoryRequirements().isEmpty()
-                            || game.getInventory().stream()
-                                    .map(o -> o.getId())
-                                    .collect(Collectors.toSet())
-                                    .containsAll(gp.getInput().getInventoryRequirements()))
                             && (gp.getInput().getObjects() == null
                             || gp.getInput().getObjects().isEmpty()
                             || gp.getInput().getObjects().equals(output.getObjects().stream()
@@ -470,5 +472,14 @@ public class GameplayHandler {
                 .filter(p -> p.getId() == personId)
                 .findFirst()
                 .orElse(null);
+    }
+    
+    private Boolean isValidGameplay(Gameplay gameplay) {
+        return gameplay.getInput().getInventoryRequirements() == null|| 
+                gameplay.getInput().getInventoryRequirements().isEmpty()|| 
+                game.getInventory().stream()
+                                    .map(o -> o.getId())
+                                    .collect(Collectors.toSet())
+                                    .containsAll(gameplay.getInput().getInventoryRequirements());
     }
 }
