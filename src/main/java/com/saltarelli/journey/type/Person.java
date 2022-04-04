@@ -6,6 +6,7 @@
 package com.saltarelli.journey.type;
 
 import com.saltarelli.journey.json.PersonJSON;
+import java.util.HashSet;
 
 /**
  *
@@ -18,6 +19,11 @@ public class Person extends InteractiveElement {
         this.name = json.getName();
         this.description = json.getDescription();
         this.alias = json.getAlias();
-        this.customCommandMessages = json.getCustomCommandMessages();
+   
+        if (json.getCustomCommandMessages() != null) {
+            this.customCommandMessages = json.getCustomCommandMessages();
+        } else {
+            this.customCommandMessages = new HashSet<>();
+        }
     }
 }

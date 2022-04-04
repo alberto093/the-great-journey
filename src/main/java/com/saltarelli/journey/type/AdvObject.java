@@ -6,6 +6,7 @@
 package com.saltarelli.journey.type;
 
 import com.saltarelli.journey.json.AdvObjectJSON;
+import java.util.HashSet;
 
 /**
  *
@@ -25,6 +26,11 @@ public class AdvObject extends InteractiveElement {
         this.canPull = json.getCanPull() == null ? false : json.getCanPull();
         this.isPush = json.getIsPush() == null ? false : json.getIsPush();
         this.alias = json.getAlias();
-        this.customCommandMessages = json.getCustomCommandMessages();
+        
+        if (json.getCustomCommandMessages() != null) {
+            this.customCommandMessages = json.getCustomCommandMessages();
+        } else {
+            this.customCommandMessages = new HashSet<>();
+        }
     }
 }
