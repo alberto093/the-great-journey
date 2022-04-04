@@ -174,13 +174,14 @@ public class Gameplay {
                 private Boolean score;
                 private Boolean delete;
                 private Editing editing;
+                private Boolean isLast;
 
                 public String getMessage() {
                     return message;
                 }
                 
                 public Boolean getScore() {
-                    return score;
+                    return score != null ? score : false;
                 }
 
                 public Boolean getDelete() {
@@ -190,7 +191,10 @@ public class Gameplay {
                 public Editing getEditing() {
                     return editing;
                 }
-
+                
+                public Boolean getIsLast() {
+                    return isLast != null ? isLast : false;
+                }
             }
 
             private Answer yesAnswer;

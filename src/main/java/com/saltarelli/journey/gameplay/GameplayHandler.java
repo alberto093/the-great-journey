@@ -215,7 +215,7 @@ public class GameplayHandler {
                             || gp.getInput().getObjects().isEmpty()
                             || gp.getInput().getObjects().equals(output.getObjects().stream()
                                     .map(o -> o.getId())
-                                    .collect(Collectors.toList())));
+                                    .collect(Collectors.toSet())));
                 })
                 .findFirst()
                 .orElse(null);
@@ -251,10 +251,13 @@ public class GameplayHandler {
             if (yesAnswer) {
                 return GameplayHandlerResponse.newMessage(
                         gameplay.getOutput().getQuestion().getYesAnswer().getMessage(),
-                        Optional.ofNullable(gameplay.getScore()).orElse(false),
-                        Optional.ofNullable(gameplay.getIsLast()).orElse(false));
+                        gameplay.getOutput().getQuestion().getYesAnswer().getScore(),
+                        gameplay.getOutput().getQuestion().getYesAnswer().getIsLast());
             } else {
-                return GameplayHandlerResponse.newMessage(gameplay.getOutput().getQuestion().getNoAnswer().getMessage(), false, false);
+                return GameplayHandlerResponse.newMessage(
+                        gameplay.getOutput().getQuestion().getNoAnswer().getMessage(),
+                        gameplay.getOutput().getQuestion().getNoAnswer().getScore(),
+                        gameplay.getOutput().getQuestion().getNoAnswer().getIsLast());
             }
         } else {
             if (gameplay.getOutput().getQuestion() != null) {

@@ -270,9 +270,9 @@ public class Engine {
                         .orElse(o.getName());
                 console.println("\t - " + inventoryDescription);
             });
-
-            console.println();
         }
+        
+        console.println();
     }
 
     private void scanNextLine(String input) {
@@ -331,7 +331,7 @@ public class Engine {
                 console.println(responseMessage.getMessage());
                 console.println();
 
-                if (responseMessage.score) {
+                if (responseMessage.score != null && responseMessage.score) {
                     game.setCurrentScore(game.getCurrentScore() + 1);
                     console.println(game.getIncreaseScoreMessage());
                     console.println();
