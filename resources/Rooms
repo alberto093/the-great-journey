@@ -11,6 +11,7 @@
     "name": "Giardini del palazzo",
     "description": "la descrizione della stanza",
     "north": 2,
+    "east": 0,
     "south": 3
   },
   {

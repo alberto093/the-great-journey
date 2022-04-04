@@ -417,7 +417,7 @@ public class Engine {
                     previousInput = ex.getAdditionalDescription();
                     break;
                 case WRONG_DIRECTION:
-                    if (!game.getCurrentRoom().getWrongDirectionMessage().isEmpty()) {
+                    if (game.getCurrentRoom().getWrongDirectionMessage() != null && !game.getCurrentRoom().getWrongDirectionMessage().isEmpty()) {
                         message = game.getCurrentRoom().getWrongDirectionMessage();
                     } else {
                         message = this.exceptions.stream()
