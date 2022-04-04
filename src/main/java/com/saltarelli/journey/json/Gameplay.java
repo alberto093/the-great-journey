@@ -139,7 +139,7 @@ public class Gameplay {
 
         private Command.Name command;
         private Integer room;
-        private Set<Integer> inventaryRequirements;
+        private Set<Integer> inventoryRequirements;
         private Integer person;
         private Set<Integer> objects;
 
@@ -151,8 +151,8 @@ public class Gameplay {
             return room;
         }
 
-        public Set<Integer> getInventaryRequirements() {
-            return inventaryRequirements;
+        public Set<Integer> getInventoryRequirements() {
+            return inventoryRequirements;
         }
 
         public Integer getPerson() {

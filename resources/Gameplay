@@ -130,7 +130,7 @@
       "objects": [
         14
       ],
-      "inventaryRequirements": [
+      "inventoryRequirements": [
         9
       ]
     },
@@ -142,7 +142,7 @@
   {
     "input": {
       "command": "SPEAK",
-      "inventaryRequirements": [
+      "inventoryRequirements": [
         9
       ],
       "person": 3
@@ -191,13 +191,65 @@
       "objects": [
         20
       ],
-      "inventaryRequirements": [
+      "inventoryRequirements": [
         29
       ]
     },
     "output": {
-      "message": "\"Mi torneranno utili per costruire la barca.\""
+      "message": "\"Lo scafo ce l'ho!\""
     },
     "score": true
   },
+  {
+    "input": {
+      "command": "GIVE",
+      "person": 2,
+      "objects": [
+        30
+      ]
+    },
+    "output": {
+      "message": "Tanto stupore! Il barista va in spiaggia per consegnare i NomeCocktail, un cocktail a base di x,y e z ai bagnanti",
+      "editing": {
+        "objects": [{
+          "id": 25,
+          "canTake": true
+        }],
+        "people": [{
+          "id": 2,
+          "moveToRoomID": 3
+        }]
+      }
+    },
+    "score": true
+  },
+  {
+    "input": {
+      "command": "PICK_UP",
+      "objects": [
+        25
+      ],
+      "inventoryRequirements": [
+        29
+      ]
+    },
+    "output": {
+      "message": "Potrei utilizzarlo come albero maestro..."
+    },
+    "score": true
+  },
+  {
+    "input": {
+      "command": "COMBINE",
+      "roomID": 5,
+      "objects": [
+        20, 14, 25
+      ]
+    },
+    "output": {
+      "message": "Finalmente posso viaggiare in lugo e in largo. Gioco finito!"
+    },
+    "score": true,
+    "isLast": true
+  }
 ]
