@@ -15,6 +15,6 @@
   "unknownOutput": "Non ha alcuna importanza per lo svolgimento della tua avventura.",
   "yesAlias": ["si", "s"],
   "noAlias": ["no", "n"],
-  "maxScore": 12,
+  "maxScore": 16,
   "initialRoom": 0
 }

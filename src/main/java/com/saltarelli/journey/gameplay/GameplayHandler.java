@@ -38,7 +38,7 @@ public class GameplayHandler {
         if (gameplay != null && !isValidGameplay(gameplay)) {
             return GameplayHandlerResponse.newMessage(
                     Optional.ofNullable(customMessageResponse(output)).orElse(handleLookAtCommand(output)), 
-                    false, 
+                    0, 
                     false);
         }
         
@@ -132,10 +132,10 @@ public class GameplayHandler {
                     throw new AssertionError(response.getType().name());
             }
         } else if (message != null && !message.isEmpty()) {
-            return GameplayHandlerResponse.newMessage(message, false, false);
+            return GameplayHandlerResponse.newMessage(message, 0, false);
         }
 
-        return GameplayHandlerResponse.newMessage(game.getUnknownOutput(), false, false);
+        return GameplayHandlerResponse.newMessage(game.getUnknownOutput(), 0, false);
     }
 
     public GameplayHandlerResponse processQuestionAnswer(Boolean yesAnswer, ParserOutput output) {
@@ -144,7 +144,7 @@ public class GameplayHandler {
         if (response != null) {
             return response;
         } else {
-            return GameplayHandlerResponse.newMessage(game.getUnknownOutput(), false, false);
+            return GameplayHandlerResponse.newMessage(game.getUnknownOutput(), 0, false);
         }
     }
 
@@ -270,7 +270,7 @@ public class GameplayHandler {
             } else if (gameplay.getOutput().getMessage() != null && !gameplay.getOutput().getMessage().isEmpty()) {
                 return GameplayHandlerResponse.newMessage(
                         gameplay.getOutput().getMessage(),
-                        Optional.ofNullable(gameplay.getScore()).orElse(false),
+                        Optional.ofNullable(gameplay.getScore()).orElse(0),
                         Optional.ofNullable(gameplay.getIsLast()).orElse(false));
             }
         }
@@ -475,8 +475,8 @@ public class GameplayHandler {
     }
     
     private Boolean isValidGameplay(Gameplay gameplay) {
-        return gameplay.getInput().getInventoryRequirements() == null|| 
-                gameplay.getInput().getInventoryRequirements().isEmpty()|| 
+        return gameplay.getInput().getInventoryRequirements() == null || 
+                gameplay.getInput().getInventoryRequirements().isEmpty() || 
                 game.getInventory().stream()
                                     .map(o -> o.getId())
                                     .collect(Collectors.toSet())

@@ -333,8 +333,8 @@ public class Engine {
                 console.println(responseMessage.getMessage());
                 console.println();
 
-                if (responseMessage.score != null && responseMessage.score) {
-                    game.setCurrentScore(game.getCurrentScore() + 1);
+                if (responseMessage.score != null && responseMessage.score > 0) {
+                    game.setCurrentScore(game.getCurrentScore() + responseMessage.score);
                     console.println(game.getIncreaseScoreMessage());
                     console.println();
                 }

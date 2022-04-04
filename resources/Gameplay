@@ -18,7 +18,7 @@
         "yesAnswer": {
           "message": "Diverse ore dopo... \"Io devo andare, è stato un piacere rivivere tutte le nostre disavventure!\"\n\n \"Son passate diverse ore, forse c'è stato il cambio della guardia a palazzo?\"",
           "delete": true,
-          "score": true,
+          "score": 1,
           "editing": {
             "objects": [
               {
@@ -91,7 +91,7 @@
         ]
       }
     },
-    "score": true
+    "score": 2
   },
   {
     "input": {
@@ -103,7 +103,7 @@
     "output": {
       "message": "Presi."
     },
-    "score": true
+    "score": 1
   },
   {
     "input": {
@@ -142,7 +142,7 @@
         ]
       }
     },
-    "score": true
+    "score": 2
   },
   {
     "input": {
@@ -157,7 +157,7 @@
     "output": {
       "message": "\"Mi torneranno utili.\""
     },
-    "score": true
+    "score": 1
   },
   {
     "input": {
@@ -173,7 +173,7 @@
         "yesAnswer": {
           "message": "\"Ottimo, iniziamo subito. In segno di buon auspicio ti consegno metà del primo stipendio! Forza prendi la cassetta degli attrezzi ed inizia a lavorare.\"\n\nHai ottenuto una mazzetta di soldi ",
           "delete": true,
-          "score": true,
+          "score": 1,
           "editing": {
             "objects": [
               {
@@ -203,7 +203,7 @@
     "output": {
       "message": "\"Mi torneranno utili per costruire la barca.\""
     },
-    "score": true
+    "score": 1
   },
   {
     "input": {
@@ -218,7 +218,7 @@
     "output": {
       "message": "\"Lo scafo ce l'ho!\""
     },
-    "score": true
+    "score": 1
   },
   {
     "input": {
@@ -245,7 +245,7 @@
         ]
       }
     },
-    "score": true
+    "score": 2
   },
   {
     "input": {
@@ -260,7 +260,7 @@
     "output": {
       "message": "Potrei utilizzarlo come albero maestro..."
     },
-    "score": true
+    "score": 1
   },
   {
     "input": {
@@ -275,7 +275,7 @@
     "output": {
       "message": "Finalmente posso viaggiare in lugo e in largo. Gioco finito!"
     },
-    "score": true,
+    "score": 3,
     "isLast": true
   }
 ]
