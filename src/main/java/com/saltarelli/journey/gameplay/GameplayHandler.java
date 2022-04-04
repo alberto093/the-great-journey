@@ -101,11 +101,21 @@ public class GameplayHandler {
         if (response != null) {
             switch (response.getType()) {
                 case MESSAGE:
-                    message = message + "\n\n" + ((GameplayHandlerMessage) response).getMessage();
+                    if (message != null && !message.isEmpty()) {
+                        message = message + "\n\n" + ((GameplayHandlerMessage) response).getMessage();
+                    } else {
+                        message = ((GameplayHandlerMessage) response).getMessage();
+                    }
+                    
                     ((GameplayHandlerMessage) response).setMessage(message);
                     return response;
                 case QUESTION:
-                    message = message + "\n\n" + ((GameplayHandlerQuestion) response).getQuestion();
+                    if (message != null && !message.isEmpty()) {
+                        message = message + "\n\n" + ((GameplayHandlerQuestion) response).getQuestion();
+                    } else {
+                        message = ((GameplayHandlerQuestion) response).getQuestion();
+                    }
+                    
                     ((GameplayHandlerQuestion) response).setQuestion(message);
                     return response;
             }

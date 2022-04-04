@@ -249,20 +249,23 @@ public class Engine {
         }
     }
 
-    private void scanNextLine(String previousInput) {
+    private void scanNextLine(String input) {
+        String previousInput = input;
         while (scanner.hasNextLine()) {
             
-            String input; 
+            String newInput; 
             if (previousInput.isEmpty()) {
-                input = scanner.nextLine();
+                newInput = scanner.nextLine();
             } else {
-                input = previousInput + " " + scanner.nextLine();
+                newInput = previousInput + " " + scanner.nextLine();
             }
+            
+            previousInput = "";
             moves += 1;     
 
             try {
                 ParserOutput output = parser.parse(
-                        input,
+                        newInput,
                         game.getCommands(),
                         game.getDirections(),
                         game.getInventory(),

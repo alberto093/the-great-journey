@@ -168,7 +168,7 @@ public class Parser {
         switch (tokens.size()) {
             case 0:
                 if (objects.size() == 1) {
-                    return handleBooleanElement(command, objects.iterator().next(), canDoPredicate, isDonePredicate, checkDo, exceptionCant);
+                    return handleBooleanElement(command, objects.iterator().next(), objects.iterator().next().getName(), canDoPredicate, isDonePredicate, checkDo, exceptionCant);
                 } else if (people.size() == 1) {
                     throw getCantDoException(people.iterator().next().getName(), exceptionCant, people.iterator().next().customMessageForCommand(command.getName()));
                 } else {
@@ -186,7 +186,7 @@ public class Parser {
                         .orElse(null);
 
                 if (element != null) {
-                    return handleBooleanElement(command, element, canDoPredicate, isDonePredicate, checkDo, exceptionCant);
+                    return handleBooleanElement(command, element, tokens.get(0), canDoPredicate, isDonePredicate, checkDo, exceptionCant);
                 } else {
                     throw new ParserException("Unknown element", ParserException.Kind.UNKNOWN_ELEMENT);
                 }
@@ -198,6 +198,7 @@ public class Parser {
     private ParserOutput handleBooleanElement(
             Command command,
             InteractiveElement element,
+            String elementAlias,
             Predicate<? super InteractiveElement> canDoPredicate,
             Predicate<? super InteractiveElement> isDonePredicate,
             Boolean checkDo,
@@ -210,7 +211,7 @@ public class Parser {
                 return new ParserOutput(command, (Person) element);
             }
         } else {
-            throw getCantDoException(element.getName(), exceptionKind, element.customMessageForCommand(command.getName()));
+            throw getCantDoException(elementAlias, exceptionKind, element.customMessageForCommand(command.getName()));
         }
     }
 
@@ -290,7 +291,7 @@ public class Parser {
                                 return new ParserOutput(command, (Person) element);
                             }
                         } else {
-                            throw new ParserException("Element can't be taken", ParserException.Kind.CANT_TAKE, element.getName(), element.customMessageForCommand(command.getName()));
+                            throw new ParserException("Element can't be taken", ParserException.Kind.CANT_TAKE, tokens.get(0), element.customMessageForCommand(command.getName()));
                         }
                     default:
                         throw new ParserException("Missing element", ParserException.Kind.MISSING_TAKE_ELEMENT, commandAlias, "");
@@ -317,7 +318,7 @@ public class Parser {
                         return new ParserOutput(command, (Person) element);
                     }
                 } else {
-                    throw new ParserException("Element can't be taken", ParserException.Kind.CANT_TAKE, element.getName(), element.customMessageForCommand(command.getName()));
+                    throw new ParserException("Element can't be taken", ParserException.Kind.CANT_TAKE, tokens.get(0), element.customMessageForCommand(command.getName()));
                 }
             default:
                 throw getLongInputException(input.substring(0, input.indexOf(tokens.get(0) + tokens.size())));
@@ -342,7 +343,7 @@ public class Parser {
                 AdvObject inventoryObject = matchableFromToken(tokens.get(0), inventory);
 
                 if (object != null) {
-                    throw new ParserException("Can't give object from a room", ParserException.Kind.CANT_GIVE, object.getName(), "");
+                    throw new ParserException("Can't give object from a room", ParserException.Kind.CANT_GIVE, tokens.get(0), "");
                 } else if (person != null) {
                     throw new ParserException(
                             "Missing element",
@@ -374,7 +375,7 @@ public class Parser {
                 inventoryObject = matchableFromToken(tokens.get(objectIndex), inventory);
                 
                 if (object != null) {
-                    throw new ParserException("Can't give object from a room", ParserException.Kind.CANT_GIVE, object.getName(), "");
+                    throw new ParserException("Can't give object from a room", ParserException.Kind.CANT_GIVE, tokens.get(objectIndex), "");
                 } else if (inventoryObject != null) {
                     return new ParserOutput(command, person, inventoryObject);
                 } else {
