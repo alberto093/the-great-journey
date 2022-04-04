@@ -121,7 +121,7 @@ public class Engine {
                     room.getPeople().add(person);
                 });
     }
-    
+
     private void preparePlayer() {
         PersonJSON playerJSON = ResourcesReader.fetchPlayer();
         Player.setInstance(new Player(playerJSON));
@@ -136,13 +136,18 @@ public class Engine {
 
         objectsJSON.stream()
                 .forEach(json -> {
-                    Room room = findRoomWithID(json.getRoom(), this.game.getRooms());
                     AdvObject object = objects.stream()
                             .filter(o -> o.getId() == json.getId())
                             .findFirst()
                             .get();
 
-                    room.getObjects().add(object);
+                    Room room = findRoomWithID(json.getRoom(), this.game.getRooms());
+
+                    if (room != null) {
+                        room.getObjects().add(object);
+                    } else {
+                        game.getInvisibleObjects().add(object);
+                    }
                 });
     }
 
@@ -163,7 +168,7 @@ public class Engine {
                     return new Direction(d, command.getAlias());
                 })
                 .collect(Collectors.toSet());
-        
+
         this.game.setDirections(directions);
     }
 

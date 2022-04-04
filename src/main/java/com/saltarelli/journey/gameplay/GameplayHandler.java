@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
  * @author Alberto
  */
 public class GameplayHandler {
+
     private final Game game;
     private final Collection<Gameplay> gameplaySet;
 
@@ -105,7 +106,7 @@ public class GameplayHandler {
                     } else {
                         message = ((GameplayHandlerMessage) response).getMessage();
                     }
-                    
+
                     ((GameplayHandlerMessage) response).setMessage(message);
                     return response;
                 case QUESTION:
@@ -114,7 +115,7 @@ public class GameplayHandler {
                     } else {
                         message = ((GameplayHandlerQuestion) response).getQuestion();
                     }
-                    
+
                     ((GameplayHandlerQuestion) response).setQuestion(message);
                     return response;
                 default:
@@ -242,19 +243,19 @@ public class GameplayHandler {
         // create gameplay response
         if (gameplay.getOutput().getQuestion() != null && !checkAnswer) {
             return GameplayHandlerResponse.newQuestion(
-                    gameplay.getOutput().getQuestion().getMessage(),
+                    gameplay.getOutput().getMessage(),
                     gameplay.getOutput().getQuestion().getYesAnswer().getMessage(),
                     gameplay.getOutput().getQuestion().getNoAnswer().getMessage());
         } else if (gameplay.getOutput().getMessage() != null && !gameplay.getOutput().getMessage().isEmpty()) {
             return GameplayHandlerResponse.newMessage(
-                    gameplay.getOutput().getMessage(), 
-                    Optional.ofNullable(gameplay.getScore()).orElse(false), 
+                    gameplay.getOutput().getMessage(),
+                    Optional.ofNullable(gameplay.getScore()).orElse(false),
                     Optional.ofNullable(gameplay.getIsLast()).orElse(false));
         }
-        
-        if (gameplay.getDelete() || 
-                (checkAnswer && yesAnswer && gameplay.getOutput().getQuestion().getYesAnswer().getDelete()) ||
-                (checkAnswer && !yesAnswer && gameplay.getOutput().getQuestion().getNoAnswer().getDelete())) {
+
+        if (gameplay.getDelete()
+                || (checkAnswer && yesAnswer && gameplay.getOutput().getQuestion().getYesAnswer().getDelete())
+                || (checkAnswer && !yesAnswer && gameplay.getOutput().getQuestion().getNoAnswer().getDelete())) {
             this.gameplaySet.remove(gameplay);
         }
 
@@ -266,7 +267,7 @@ public class GameplayHandler {
             editing.getObjects().stream()
                     .forEach(this::editObject);
         }
-        
+
         if (editing.getPeople() != null && !editing.getPeople().isEmpty()) {
             editing.getPeople().stream()
                     .forEach(this::editPerson);
@@ -315,6 +316,8 @@ public class GameplayHandler {
                 if (!game.getInventory().contains(object)) {
                     if (room != null && room.getObjects().contains(object)) {
                         room.getObjects().remove(object);
+                    } else if (game.getInvisibleObjects().contains(object)) {
+                        game.getInvisibleObjects().remove(object);
                     }
 
                     game.getInventory().add(object);
@@ -408,21 +411,30 @@ public class GameplayHandler {
     }
 
     private AdvObject getGameObject(int objectId) {
-        AdvObject inventoryObject = game.getInventory().stream()
+        AdvObject object = game.getInventory().stream()
                 .filter(o -> o.getId() == objectId)
                 .findFirst()
                 .orElse(null);
 
-        if (inventoryObject != null) {
-            return inventoryObject;
-        } else {
-            return game.getRooms().stream()
-                    .map(r -> r.getObjects())
-                    .flatMap(o -> o.stream())
-                    .filter(o -> o.getId() == objectId)
-                    .findFirst()
-                    .orElse(null);
+        if (object != null) {
+            return object;
         }
+
+        object = game.getInvisibleObjects().stream()
+                .filter(o -> o.getId() == objectId)
+                .findFirst()
+                .orElse(null);
+
+        if (object != null) {
+            return object;
+        }
+
+        return game.getRooms().stream()
+                .map(r -> r.getObjects())
+                .flatMap(o -> o.stream())
+                .filter(o -> o.getId() == objectId)
+                .findFirst()
+                .orElse(null);
     }
 
     private Room getRoomOfPerson(int personId) {

@@ -188,13 +188,8 @@ public class Gameplay {
 
             }
 
-            private String message;
             private Answer yesAnswer;
             private Answer noAnswer;
-
-            public String getMessage() {
-                return message;
-            }
 
             public Answer getYesAnswer() {
                 return yesAnswer;
