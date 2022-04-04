@@ -21,6 +21,7 @@ public class GameJSON {
     private String endQuestion;
     private String uselessCombineCommand;
     private String endGameMessage;
+    private String increaseScoreMessage;
     private String scoreMessage;
     private String inventoryEmpty;
     private String inventoryFull;
@@ -60,6 +61,10 @@ public class GameJSON {
 
     public String getEndGameMessage() {
         return endGameMessage;
+    }
+    
+    public String getIncreaseScoreMessage() {
+        return increaseScoreMessage;
     }
 
     public String getScoreMessage() {

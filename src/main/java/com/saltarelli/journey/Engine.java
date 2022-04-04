@@ -29,7 +29,6 @@ import java.io.PrintStream;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  *
@@ -163,21 +162,21 @@ public class Engine {
             }
         } while (showHelp.isEmpty());
 
+        console.println();
         if (showHelp.get()) {
-            System.out.println();
             console.println(game.getHelp());
-            System.out.println();
+            console.println();
         }
 
         console.println(game.getTitle());
-        System.out.println();
+        console.println();
         console.println(game.getDescription());
-        System.out.println();
+        console.println();
 
-        System.out.println(game.getCurrentRoom().getName());
-        System.out.println();
-        System.out.println(game.getCurrentRoom().getDescription());
-        System.out.println();
+        console.println(game.getCurrentRoom().getName());
+        console.println();
+        console.println(game.getCurrentRoom().getDescription());
+        console.println();
 
         scanNextLine("");
     }
@@ -238,12 +237,12 @@ public class Engine {
             console.println(game.getInventoryEmpty());
         } else {
             console.println(game.getInventoryFull());
-
-            game.getInventory().stream().forEach(i -> {
+            
+            game.getInventory().stream().forEach(o -> {
                 String inventoryDescription = Optional
-                        .of(i.customMessageForCommand(Command.Name.INVENTORY))
-                        .orElse(i.getName());
-                console.println(" - " + inventoryDescription);
+                        .ofNullable(o.customMessageForCommand(Command.Name.INVENTORY))
+                        .orElse(o.getName());
+                console.println("\t - " + inventoryDescription);
             });
 
             console.println();
@@ -298,9 +297,15 @@ public class Engine {
         switch (response.getType()) {
             case MESSAGE:
                 GameplayHandlerMessage responseMessage = (GameplayHandlerMessage) response;
-                game.setCurrentScore(game.getCurrentScore() + response.getScore());
-                console.print(responseMessage.getMessage());
+                
+                console.println(responseMessage.getMessage());
                 console.println();
+                
+                if (responseMessage.score) {
+                    game.setCurrentScore(game.getCurrentScore() + 1);
+                    console.println(game.getIncreaseScoreMessage());
+                    console.println();
+                }
                 
                 if (response.isLast) {
                     finishGame();
@@ -409,6 +414,7 @@ public class Engine {
         }
 
         console.println(message);
+        console.println();
         scanNextLine(previousInput);
     }
 

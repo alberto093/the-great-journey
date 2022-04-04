@@ -12,7 +12,7 @@ package com.saltarelli.journey.gameplay;
 public class GameplayHandlerMessage extends GameplayHandlerResponse {
     private String message;
     
-    protected GameplayHandlerMessage(String message, int score, Boolean isLast) {
+    protected GameplayHandlerMessage(String message, Boolean score, Boolean isLast) {
         this.message = message;
         this.score = score;
         this.isLast = isLast;

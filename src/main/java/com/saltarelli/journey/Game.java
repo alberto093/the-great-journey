@@ -35,6 +35,8 @@ public class Game {
     
     private String endGameMessage = "";
     
+    private String increaseScoreMessage = "";
+    
     private String scoreMessage = "";
     
     private String inventoryEmpty = "";
@@ -72,6 +74,7 @@ public class Game {
         this.endQuestion = json.getEndQuestion();
         this.uselessCombineCommand = json.getUselessCombineCommand();
         this.endGameMessage = json.getEndGameMessage();
+        this.increaseScoreMessage = json.getIncreaseScoreMessage();
         this.scoreMessage = json.getScoreMessage();
         this.inventoryEmpty = json.getInventoryEmpty();
         this.inventoryFull = json.getInventoryFull();
@@ -124,6 +127,10 @@ public class Game {
     
     public String getEndGameMessage() {
         return endGameMessage;
+    }
+    
+    public String getIncreaseScoreMessage() {
+        return increaseScoreMessage;
     }
 
     public String getScoreMessage() {

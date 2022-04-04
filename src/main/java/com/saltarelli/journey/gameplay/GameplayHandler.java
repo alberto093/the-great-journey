@@ -110,10 +110,10 @@ public class GameplayHandler {
                     return response;
             }
         } else if (message != null && !message.isEmpty()) {
-            return GameplayHandlerResponse.newMessage(message, 0, false);
+            return GameplayHandlerResponse.newMessage(message, false, false);
         }
 
-        return GameplayHandlerResponse.newMessage(DEFAULT_MESSAGE, 0, false);
+        return GameplayHandlerResponse.newMessage(DEFAULT_MESSAGE, false, false);
     }
 
     public GameplayHandlerResponse processQuestionAnswer(Boolean yesAnswer, ParserOutput output) {
@@ -122,7 +122,7 @@ public class GameplayHandler {
         if (response != null) {
             return response;
         } else {
-            return GameplayHandlerResponse.newMessage(DEFAULT_MESSAGE, 0, false);
+            return GameplayHandlerResponse.newMessage(DEFAULT_MESSAGE, false, false);
         }
     }
 
@@ -235,7 +235,10 @@ public class GameplayHandler {
                     gameplay.getOutput().getQuestion().getYesAnswer().getMessage(),
                     gameplay.getOutput().getQuestion().getNoAnswer().getMessage());
         } else if (gameplay.getOutput().getMessage() != null && !gameplay.getOutput().getMessage().isEmpty()) {
-            return GameplayHandlerResponse.newMessage(gameplay.getOutput().getMessage(), gameplay.getScore(), gameplay.getIsLast());
+            return GameplayHandlerResponse.newMessage(
+                    gameplay.getOutput().getMessage(), 
+                    Optional.ofNullable(gameplay.getScore()).orElse(false), 
+                    Optional.ofNullable(gameplay.getIsLast()).orElse(false));
         }
         
         if (gameplay.getDelete() || 

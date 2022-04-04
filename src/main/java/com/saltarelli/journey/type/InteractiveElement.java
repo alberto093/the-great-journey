@@ -41,7 +41,7 @@ public abstract class InteractiveElement implements Matchable, CustomCommandHand
 
     @Override
     public Boolean match(String token) {
-        return name == token.toLowerCase() || alias.contains(token.toLowerCase());
+        return name.equals(token.toLowerCase()) || alias.contains(token.toLowerCase());
     }
 
     @Override

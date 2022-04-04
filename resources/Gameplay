@@ -4,7 +4,8 @@
     },
     "output": {
       "message": "Risparmia il fiato per cose più importanti."
-    }
+    },
+    "score": true
   },
   {
     "input": {
@@ -56,6 +57,6 @@
         }
       }
     },
-    "score": 1
+    "score": true
   }
 ]
