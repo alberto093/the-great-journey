@@ -10,9 +10,7 @@ import com.saltarelli.journey.type.AdvObject;
 import com.saltarelli.journey.type.Command;
 import com.saltarelli.journey.type.Direction;
 import com.saltarelli.journey.type.Room;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -63,6 +61,8 @@ public class Game {
     
     private int maxScore;
     
+    private int initialRoom;
+    
     public Game(GameJSON json) {
         this.introduction = json.getIntroduction();
         this.title = json.getTitle();
@@ -79,6 +79,7 @@ public class Game {
         this.yesAlias = json.getYesAlias();
         this.noAlias = json.getNoAlias();
         this.maxScore = json.getMaxScore();
+        this.initialRoom = json.getInitialRoom();
     }
 
     public String getIntroduction() {
@@ -235,4 +236,7 @@ public class Game {
         this.maxScore = maxScore;
     }
 
+    public int getInitialRoom() {
+        return initialRoom;
+    }
 }

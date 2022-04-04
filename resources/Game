@@ -13,5 +13,6 @@
   "inventoryFull": "Stai portando:",
   "yesAlias": ["si", "s"],
   "noAlias": ["no", "n"],
-  "maxScore": 12
+  "maxScore": 12,
+  "initialRoom": 0
 }

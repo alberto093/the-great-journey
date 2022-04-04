@@ -42,7 +42,7 @@ public class Parser {
 
         List<String> tokens = Arrays.asList(input.split("\\s+"));
         tokens = removeStopwordsFromTokens(tokens);
-
+        
         if (tokens.isEmpty()) {
             throw new ParserException("Invalid input", ParserException.Kind.EMPTY_INPUT);
         } else {
@@ -290,7 +290,7 @@ public class Parser {
                                 return new ParserOutput(command, (Person) element);
                             }
                         } else {
-                            throw new ParserException("Element can't be taken", ParserException.Kind.CANT_TAKE, "", element.customMessageForCommand(command.getName()));
+                            throw new ParserException("Element can't be taken", ParserException.Kind.CANT_TAKE, element.getName(), element.customMessageForCommand(command.getName()));
                         }
                     default:
                         throw new ParserException("Missing element", ParserException.Kind.MISSING_TAKE_ELEMENT, commandAlias, "");
@@ -310,14 +310,14 @@ public class Parser {
                     throw new ParserException("Unknown element", ParserException.Kind.UNKNOWN_ELEMENT);
                 } else if (element == inventoryObject) {
                     throw new ParserException("Can't take object from inventory", ParserException.Kind.TAKE_FROM_INVENTORY);
-                } else if (element.getCanTake()) {
+                } else if (element.getCanTake() != null && element.getCanTake()) {
                     if (element instanceof AdvObject) {
                         return new ParserOutput(command, (AdvObject) element);
                     } else {
                         return new ParserOutput(command, (Person) element);
                     }
                 } else {
-                    throw new ParserException("Element can't be taken", ParserException.Kind.CANT_TAKE, "", element.customMessageForCommand(command.getName()));
+                    throw new ParserException("Element can't be taken", ParserException.Kind.CANT_TAKE, element.getName(), element.customMessageForCommand(command.getName()));
                 }
             default:
                 throw getLongInputException(input.substring(0, input.indexOf(tokens.get(0) + tokens.size())));
@@ -342,7 +342,7 @@ public class Parser {
                 AdvObject inventoryObject = matchableFromToken(tokens.get(0), inventory);
 
                 if (object != null) {
-                    throw new ParserException("Can't give object from a room", ParserException.Kind.CANT_GIVE, tokens.get(0), "");
+                    throw new ParserException("Can't give object from a room", ParserException.Kind.CANT_GIVE, object.getName(), "");
                 } else if (person != null) {
                     throw new ParserException(
                             "Missing element",
@@ -370,12 +370,15 @@ public class Parser {
                     objectIndex = 1;
                 }
 
+                object = matchableFromToken(tokens.get(objectIndex), objects);
                 inventoryObject = matchableFromToken(tokens.get(objectIndex), inventory);
-
-                if (inventoryObject == null) {
-                    throw new ParserException("Can't give object from a room", ParserException.Kind.CANT_GIVE, tokens.get(objectIndex), "");
-                } else {
+                
+                if (object != null) {
+                    throw new ParserException("Can't give object from a room", ParserException.Kind.CANT_GIVE, object.getName(), "");
+                } else if (inventoryObject != null) {
                     return new ParserOutput(command, person, inventoryObject);
+                } else {
+                    throw new ParserException("Unknown element", ParserException.Kind.UNKNOWN_ELEMENT);
                 }
             default:
                 throw getLongInputException(input.substring(0, input.indexOf(tokens.get(1) + tokens.size())));

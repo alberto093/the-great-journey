@@ -1,10 +1,61 @@
-[
-  {
-  "input": {
-    "command": "SING"
+[{
+    "input": {
+      "command": "SING"
+    },
+    "output": {
+      "message": "Risparmia il fiato per cose più importanti."
+    }
   },
-  "output": {
-    "message": "Risparmia il fiato per cose più importanti."
+  {
+    "input": {
+      "command": "SPEAK",
+      "roomID": 4,
+      "person": 2
+    },
+    "output": {
+      "question": {
+        "message": "Completa la descrizione. Ti va di chiacchierare e bere una birra insieme come i vecchi tempi? (s/n)",
+        "yesAnswer": {
+          "message": "Diverse ore dopo... \"Io devo andare, è stato un piacere rivivere tutte le nostre disavventure!\"\n\n \"Son passate diverse ore, forse c'è stato il cambio della guardia a palazzo?\"",
+          "delete": true,
+          "editing": {
+            "objects": [{
+              "id": 9,
+              "canTake": true,
+              "commandOutput": [{
+                  "command": "PICK_UP",
+                  "description": ""
+                },
+                {
+                  "command": "READ"
+                }
+              ],
+              "description": "Un tomo di oltre 500 pagine!\n\nDalla prefazione ho letto che esiste un altro continente al di là del mare. Per fortuna il capitolo 5 mi ha insegnato a costruire/ripare barche. Forse potrei costruirne una e finalmente andarmene da questo posto..."
+            }],
+            "people": [{
+                "id": 2,
+                "commandOutput": [{
+                    "command": "SPEAK"
+                  },
+                  "\"Adesso sono indaffarato. Devo prepare 50 cocktails per la riunione al palazzo!\""
+                ]
+              },
+              {
+                "id": 0,
+                "moveToRoomID": -1
+              }
+            ],
+            "rooms": [{
+              "id": 1,
+              "description": "Cambiare la descrizione dicendo che la guardia non c'è più e che si è dimenticata il libro sul muretto."
+            }]
+          }
+        },
+        "noAnswer": {
+          "message": "Come non detto."
+        }
+      }
+    },
+    "score": 1
   }
-}
 ]

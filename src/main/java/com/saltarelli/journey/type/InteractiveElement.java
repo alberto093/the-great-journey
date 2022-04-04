@@ -14,31 +14,31 @@ import java.util.Set;
  * @author Alberto
  */
 public abstract class InteractiveElement implements Matchable, CustomCommandHandler {
-    
+
     protected int id = 0;
-    
+
     protected String name = "";
-    
+
     protected String description = "";
-    
+
     protected Set<String> alias = new HashSet<>();
-    
+
     protected Set<CustomCommandMessage> customCommandMessages;
-    
+
     protected Boolean canOpen = false;
-    
+
     protected Boolean canClose = false;
-    
+
     protected Boolean isOpen = false;
-    
+
     protected Boolean canTake = false;
-    
+
     protected Boolean canPush = false;
-    
+
     protected Boolean canPull = false;
-    
+
     protected Boolean isPush = false;
-    
+
     @Override
     public Boolean match(String token) {
         return name == token.toLowerCase() || alias.contains(token.toLowerCase());
@@ -46,17 +46,21 @@ public abstract class InteractiveElement implements Matchable, CustomCommandHand
 
     @Override
     public String customMessageForCommand(Command.Name command) {
-        return customCommandMessages.stream()
-                .filter(c -> c.getCommand() == command)
-                .findFirst()
-                .map(c -> c.getDescription())
-                .orElse("");
+        if (customCommandMessages != null && !customCommandMessages.isEmpty()) {
+            return customCommandMessages.stream()
+                    .filter(c -> c.getCommand() == command)
+                    .findFirst()
+                    .map(c -> c.getDescription())
+                    .orElse(null);
+        } else {
+            return null;
+        }
     }
 
     public int getId() {
         return id;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -64,7 +68,7 @@ public abstract class InteractiveElement implements Matchable, CustomCommandHand
     public String getDescription() {
         return description;
     }
-    
+
     public Set<String> getAlias() {
         return alias;
     }
@@ -76,7 +80,7 @@ public abstract class InteractiveElement implements Matchable, CustomCommandHand
     public Boolean getCanOpen() {
         return canOpen;
     }
-    
+
     public Boolean getCanClose() {
         return canClose;
     }
@@ -87,11 +91,11 @@ public abstract class InteractiveElement implements Matchable, CustomCommandHand
 
     public void setIsOpen(Boolean isOpen) {
         this.isOpen = isOpen;
-    }  
+    }
 
     public Boolean getCanTake() {
         return canTake;
-    }    
+    }
 
     public Boolean getCanPush() {
         return canPush;
@@ -104,11 +108,11 @@ public abstract class InteractiveElement implements Matchable, CustomCommandHand
     public Boolean getIsPush() {
         return isPush;
     }
-    
+
     public void setIsPush(Boolean isPush) {
         this.isPush = isPush;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -139,8 +143,6 @@ public abstract class InteractiveElement implements Matchable, CustomCommandHand
     public void setCanPull(Boolean canPull) {
         this.canPull = canPull;
     }
-    
-    
 
     @Override
     public boolean equals(Object obj) {

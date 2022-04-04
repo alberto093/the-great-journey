@@ -28,6 +28,7 @@ public class GameJSON {
     private Set<String> yesAlias;
     private Set<String> noAlias;
     private int maxScore;
+    private int initialRoom;
 
     public String getIntroduction() {
         return introduction;
@@ -89,4 +90,7 @@ public class GameJSON {
         return maxScore;
     }
 
+    public int getInitialRoom() {
+        return initialRoom;
+    }
 }

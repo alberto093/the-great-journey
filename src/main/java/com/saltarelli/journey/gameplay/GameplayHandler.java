@@ -12,10 +12,9 @@ import com.saltarelli.journey.type.AdvObject;
 import com.saltarelli.journey.type.Command;
 import com.saltarelli.journey.type.Person;
 import com.saltarelli.journey.type.Room;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -27,9 +26,9 @@ public class GameplayHandler {
     private static final String DEFAULT_MESSAGE = "Ok!";
 
     private final Game game;
-    private final Set<Gameplay> gameplaySet;
+    private final Collection<Gameplay> gameplaySet;
 
-    public GameplayHandler(Game game, Set<Gameplay> gameplaySet) {
+    public GameplayHandler(Game game, Collection<Gameplay> gameplaySet) {
         this.game = game;
         this.gameplaySet = gameplaySet;
     }

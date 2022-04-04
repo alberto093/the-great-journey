@@ -26,6 +26,7 @@ import com.saltarelli.journey.type.Command;
 import com.saltarelli.journey.type.Person;
 import com.saltarelli.journey.type.Room;
 import java.io.PrintStream;
+import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -46,7 +47,7 @@ public class Engine {
 
     private final PrintStream console;
 
-    private final Set<ExceptionDescription> exceptions;
+    private final Collection<ExceptionDescription> exceptions;
     
     private int moves = 0;
 
@@ -66,7 +67,8 @@ public class Engine {
     }
 
     private void prepareRooms() {
-        Set<RoomJSON> roomsJSON = ResourcesReader.fetchRooms();
+        
+        Collection<RoomJSON> roomsJSON = ResourcesReader.fetchRooms();
 
         Set<Room> rooms = roomsJSON.stream()
                 .map(Room::new)
@@ -94,18 +96,20 @@ public class Engine {
                 });
 
         this.game.setRooms(rooms);
+        this.game.setCurrentRoom(findRoomWithID(this.game.getInitialRoom(), rooms));
     }
 
     private void preparePeople() {
-        Set<PersonJSON> peopleJSON = ResourcesReader.fetchPeople();
+        Collection<PersonJSON> peopleJSON = ResourcesReader.fetchPeople();
 
-        Stream<Person> people = peopleJSON.stream()
-                .map(Person::new);
+        Set<Person> people = peopleJSON.stream()
+                .map(Person::new)
+                .collect(Collectors.toSet());
 
         peopleJSON.stream()
                 .forEach(json -> {
                     Room room = findRoomWithID(json.getRoom(), this.game.getRooms());
-                    Person person = people
+                    Person person = people.stream()
                             .filter(p -> p.getId() == json.getId())
                             .findFirst()
                             .get();
@@ -115,15 +119,16 @@ public class Engine {
     }
 
     private void prepareObjects() {
-        Set<AdvObjectJSON> objectsJSON = ResourcesReader.fetchObjects();
+        Collection<AdvObjectJSON> objectsJSON = ResourcesReader.fetchObjects();
 
-        Stream<AdvObject> objects = objectsJSON.stream()
-                .map(AdvObject::new);
+        Set<AdvObject> objects = objectsJSON.stream()
+                .map(AdvObject::new)
+                .collect(Collectors.toSet());
 
         objectsJSON.stream()
                 .forEach(json -> {
                     Room room = findRoomWithID(json.getRoom(), this.game.getRooms());
-                    AdvObject object = objects
+                    AdvObject object = objects.stream()
                             .filter(o -> o.getId() == json.getId())
                             .findFirst()
                             .get();
@@ -133,7 +138,7 @@ public class Engine {
     }
 
     private void prepareCommands() {
-        Set<CommandJSON> commandsJSON = ResourcesReader.fetchCommands();
+        Collection<CommandJSON> commandsJSON = ResourcesReader.fetchCommands();
 
         Set<Command> commands = commandsJSON.stream()
                 .map(Command::new)
@@ -149,7 +154,6 @@ public class Engine {
 
         do {
             console.println(game.getHelpQuestion());
-            console.println();
             String answer = scanner.nextLine();
 
             if (game.getYesAlias().contains(answer.toLowerCase())) {
@@ -183,8 +187,6 @@ public class Engine {
 
         do {
             console.println(game.getRestartQuestion());
-            console.println();
-
             String answer = scanner.nextLine();
 
             if (game.getYesAlias().contains(answer.toLowerCase())) {
@@ -206,8 +208,6 @@ public class Engine {
 
         do {
             console.println(game.getEndQuestion());
-            console.println();
-
             String answer = scanner.nextLine();
 
             if (game.getYesAlias().contains(answer.toLowerCase())) {
@@ -252,12 +252,18 @@ public class Engine {
 
     private void scanNextLine(String previousInput) {
         while (scanner.hasNextLine()) {
-            String input = scanner.nextLine();
-            moves += 1;
+            
+            String input; 
+            if (previousInput.isEmpty()) {
+                input = scanner.nextLine();
+            } else {
+                input = previousInput + " " + scanner.nextLine();
+            }
+            moves += 1;     
 
             try {
                 ParserOutput output = parser.parse(
-                        previousInput + " " + input,
+                        input,
                         game.getCommands(),
                         game.getDirections(),
                         game.getInventory(),
@@ -307,8 +313,6 @@ public class Engine {
 
                 do {
                     console.println(responseQuestion.getQuestion());
-                    console.println();
-
                     String answer = scanner.nextLine();
 
                     if (game.getYesAlias().contains(answer.toLowerCase())) {
@@ -338,7 +342,7 @@ public class Engine {
         String message = "";
         String previousInput = "";
 
-        if (!ex.getCustomOutputMessage().isEmpty()) {
+        if (ex.getCustomOutputMessage() != null && !ex.getCustomOutputMessage().isEmpty()) {
             message = ex.getCustomOutputMessage();
         } else {
             switch (ex.getKind()) {
