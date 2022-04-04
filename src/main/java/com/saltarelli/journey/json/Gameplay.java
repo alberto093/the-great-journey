@@ -104,9 +104,23 @@ public class Gameplay {
                 return customCommandMessages;
             }
         }
+        
+        public class EditingRoom {
+            private int id;
+            private String description;
+
+            public int getId() {
+                return id;
+            }
+
+            public String getDescription() {
+                return description;
+            }
+        }
 
         private EditingObject object;
         private EditingPerson person;
+        private EditingRoom room;
 
         public EditingObject getObject() {
             return object;
@@ -114,6 +128,10 @@ public class Gameplay {
 
         public EditingPerson getPerson() {
             return person;
+        }
+        
+        public EditingRoom getRoom() {
+            return room;
         }
     }
 

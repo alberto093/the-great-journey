@@ -250,6 +250,10 @@ public class GameplayHandler {
         if (editing.getPerson() != null) {
             editPerson(editing.getPerson());
         }
+        
+        if (editing.getRoom() != null && editing.getRoom().getDescription() != null && !editing.getRoom().getDescription().isEmpty()) {
+            getRoom(editing.getRoom().getId()).setDescription(editing.getRoom().getDescription());
+        }
     }
 
     private void editObject(Gameplay.Editing.EditingObject editingObject) {
