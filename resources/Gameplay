@@ -21,16 +21,15 @@
           "editing": {
             "objects": [{
               "id": 9,
-              "canTake": true,
               "commandOutput": [{
                   "command": "PICK_UP",
-                  "description": ""
+                  "description": "\"Ma quanto pesa!\" Non riesco neanche a sollevarlo."
                 },
                 {
-                  "command": "READ"
+                  "command": "READ",
+                  "description": "\"Un tomo di oltre 500 pagine!\"\n\n\"Dalla prefazione ho letto che esiste un altro continente al di là del mare. Per fortuna il capitolo 5 mi ha insegnato a costruire/ripare barche. Forse potrei costruirne una e finalmente andarmene da questo posto...\""
                 }
-              ],
-              "description": "Un tomo di oltre 500 pagine!\n\nDalla prefazione ho letto che esiste un altro continente al di là del mare. Per fortuna il capitolo 5 mi ha insegnato a costruire/ripare barche. Forse potrei costruirne una e finalmente andarmene da questo posto..."
+              ]
             }],
             "people": [{
                 "id": 2,

@@ -3,7 +3,7 @@
     "id": 0,
     "name": "Depandance privata",
     "description": "la descrizione della stanza",
-    "ovest": 1,
+    "west": 1,
     "wrongDirectionMessage": "L'uscita della depandance è a ovest"
   },
   {
@@ -25,14 +25,14 @@
     "name": "Spiaggia",
     "description": "la descrizione della stanza",
     "east": 4,
-    "ovest": 5,
+    "west": 5,
     "north": 1
   },
   {
     "id": 4,
     "name": "Bar Soleluna",
     "description": "la descrizione della stanza",
-    "ovest": 3,
+    "west": 3,
     "wrongDirectionMessage": "L'uscita del bar è a ovest"
   },
   {
