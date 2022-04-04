@@ -11,21 +11,21 @@ package com.saltarelli.journey.gameplay;
  */
 public abstract class GameplayHandlerResponse {
     
-    public Boolean score;
+    public Integer score;
     
     public Boolean isLast;
 
-    public Boolean getScore() {
-        return score != null ? score : false;
+    public Integer getScore() {
+        return score != null ? score : 0;
     }
 
     public Boolean getIsLast() {
-        return isLast != null ? isLast : false;
+        return isLast;
     }
 
     public abstract GameplayHandlerResponseType getType();
     
-    public static final GameplayHandlerResponse newMessage(String message, Boolean score, Boolean isLast) {
+    public static final GameplayHandlerResponse newMessage(String message, Integer score, Boolean isLast) {
         return new GameplayHandlerMessage(message, score, isLast);
     }
 

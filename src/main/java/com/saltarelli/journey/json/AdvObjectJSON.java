@@ -49,31 +49,31 @@ public class AdvObjectJSON {
     }
 
     public Boolean getCanOpen() {
-        return canOpen != null ? canOpen : false;
+        return canOpen;
     }
 
     public Boolean getCanClose() {
-        return canClose != null ? canClose : false;
+        return canClose;
     }
 
     public Boolean getIsOpen() {
-        return isOpen != null ? isOpen : false;
+        return isOpen;
     }
 
     public Boolean getCanTake() {
-        return canTake != null ? canTake : false;
+        return canTake;
     }
 
     public Boolean getCanPush() {
-        return canPush != null ? canPush : false;
+        return canPush;
     }
 
     public Boolean getCanPull() {
-        return canPull != null ? canPull : false;
+        return canPull;
     }
 
     public Boolean getIsPush() {
-        return isPush != null ? isPush : false;
+        return isPush;
     }
     
     public Set<CustomCommandMessage> getCustomCommandMessages() {

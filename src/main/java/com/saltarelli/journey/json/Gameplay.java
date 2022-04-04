@@ -41,7 +41,7 @@ public class Gameplay {
             }
 
             public Boolean getMoveToInventory() {
-                return moveToInventory != null ? moveToInventory : false;
+                return moveToInventory;
             }
 
             public String getDescription() {
@@ -49,31 +49,31 @@ public class Gameplay {
             }
 
             public Boolean getCanOpen() {
-                return canOpen != null ? canOpen : false;
+                return canOpen;
             }
 
             public Boolean getCanClose() {
-                return canClose != null ? canClose : false;
+                return canClose;
             }
 
             public Boolean getIsOpen() {
-                return isOpen != null ? isOpen : false;
+                return isOpen;
             }
 
             public Boolean getCanTake() {
-                return canTake != null ? canTake : false;
+                return canTake;
             }
 
             public Boolean getCanPush() {
-                return canPush != null ? canPush : false;
+                return canPush;
             }
 
             public Boolean getCanPull() {
-                return canPull != null ? canPull : false;
+                return canPull;
             }
 
             public Boolean getIsPush() {
-                return isPush != null ? isPush : false;
+                return isPush;
             }
 
             public Set<CustomCommandMessage> getCustomCommandMessages() {
@@ -171,7 +171,7 @@ public class Gameplay {
             public class Answer {
 
                 private String message;
-                private Boolean score;
+                private Integer score;
                 private Boolean delete;
                 private Editing editing;
                 private Boolean isLast;
@@ -180,12 +180,12 @@ public class Gameplay {
                     return message;
                 }
                 
-                public Boolean getScore() {
-                    return score != null ? score : false;
+                public Integer getScore() {
+                    return score != null ? score : 0;
                 }
 
                 public Boolean getDelete() {
-                    return delete != null ? delete : false;
+                    return delete;
                 }
 
                 public Editing getEditing() {
@@ -193,7 +193,7 @@ public class Gameplay {
                 }
                 
                 public Boolean getIsLast() {
-                    return isLast != null ? isLast : false;
+                    return isLast;
                 }
             }
 
@@ -228,7 +228,7 @@ public class Gameplay {
 
     private Input input;
     private Output output;
-    private Boolean score;
+    private Integer score;
     private Boolean isLast;
     private Boolean delete;
 
@@ -240,8 +240,8 @@ public class Gameplay {
         return output;
     }
 
-    public Boolean getScore() {
-        return score;
+    public Integer getScore() {
+        return score != null ? score : 0;
     }
 
     public Boolean getIsLast() {
