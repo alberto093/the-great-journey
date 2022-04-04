@@ -13,8 +13,8 @@
       "person": 2
     },
     "output": {
+      "message": "Completa la descrizione. Ti va di chiacchierare e bere una birra insieme come i vecchi tempi? (s/n)",
       "question": {
-        "message": "Completa la descrizione. Ti va di chiacchierare e bere una birra insieme come i vecchi tempi? (s/n)",
         "yesAnswer": {
           "message": "Diverse ore dopo... \"Io devo andare, è stato un piacere rivivere tutte le nostre disavventure!\"\n\n \"Son passate diverse ore, forse c'è stato il cambio della guardia a palazzo?\"",
           "delete": true,
@@ -123,5 +123,81 @@
       }
     },
     "score": true
-  }
+  },
+  {
+    "input": {
+      "command": "PICK_UP",
+      "objects": [
+        14
+      ],
+      "inventaryRequirements": [
+        9
+      ]
+    },
+    "output": {
+      "message": "\"Mi torneranno utili.\""
+    },
+    "score": true
+  },
+  {
+    "input": {
+      "command": "SPEAK",
+      "inventaryRequirements": [
+        9
+      ],
+      "person": 3
+    },
+    "output": {
+      "message": "Domanda lunga.\n\nAccetti? (s/n)",
+      "question": {
+        "yesAnswer": {
+          "message": "\"Ottimo, iniziamo subito. In segno di buon auspicio ti consegno metà del primo stipendio! Forza prendi la cassetta degli attrezzi ed inizia a lavorare.\"\n\nHai ottenuto una mazzetta di soldi ",
+          "delete": true,
+          "editing": {
+            "objects": [{
+                "id": 30,
+                "moveToInventory": true
+              },
+              {
+                "id": 29,
+                "canTake": true
+              }
+            ]
+          }
+        },
+        "noAnswer": {
+          "message": "Come non detto!"
+        }
+      }
+    },
+    "score": true,
+    "delete": true
+  },
+  {
+    "input": {
+      "command": "PICK_UP",
+      "objects": [
+        29
+      ]
+    },
+    "output": {
+      "message": "\"Mi torneranno utili per costruire la barca.\""
+    },
+    "score": true
+  },
+  {
+    "input": {
+      "command": "PICK_UP",
+      "objects": [
+        20
+      ],
+      "inventaryRequirements": [
+        29
+      ]
+    },
+    "output": {
+      "message": "\"Mi torneranno utili per costruire la barca.\""
+    },
+    "score": true
+  },
 ]

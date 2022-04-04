@@ -19,5 +19,12 @@
     "name": "Barista",
     "description": "Descrizione del barista",
     "alias": ["barista", "barman", "garzone"]
+  },
+  {
+    "id": 3,
+    "room": 5,
+    "name": "Larry",
+    "description": "Descrizione dell'artigiano",
+    "alias": ["larry", "artigiano", "barcarolo"]
   }
 ]

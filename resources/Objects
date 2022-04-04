@@ -1,5 +1,4 @@
-[
-  {
+[{
     "id": 0,
     "room": 0,
     "name": "casa",
@@ -48,12 +47,10 @@
     "alias": ["vestito", "mutande", "calzini", "magliette", "abiti", "indumenti", "vesti", "vestiario"],
     "description": "Per quanto sono sporchi e puzzolenti saranno quì da settimane. Dovrebbero proprio essere lavati.",
     "canTake": true,
-    "customCommandMessages": [
-      {
-        "command": "INVENTORY",
-        "description": "Dei vestiti sporchi"
-      }
-    ]
+    "customCommandMessages": [{
+      "command": "INVENTORY",
+      "description": "Dei vestiti sporchi"
+    }]
   },
   {
     "id": 7,
@@ -75,8 +72,7 @@
     "name": "libro",
     "alias": ["tomo", "giornale", "opera", "romanzo", "tomo", "testo", "manuale"],
     "description": "Un libro che sembri parlare di un continente al di là del mare...potrei arrivarci con una barca e realizzare il mio sogno!",
-    "customCommandMessages": [
-      {
+    "customCommandMessages": [{
         "command": "INVENTORY",
         "description": "Un libro che parla di mare"
       },
@@ -124,8 +120,7 @@
     "name": "lenzuola",
     "alias": ["set lenzuola", "set"],
     "description": "Sembrano lenzuola enormi, ma quindi esistono davvero i letti double king size?",
-    "customCommandMessages": [
-      {
+    "customCommandMessages": [{
         "command": "INVENTORY",
         "description": "Delle lenzuola rigide e giganti"
       },
@@ -176,8 +171,7 @@
     "name": "ponticello",
     "alias": ["ponte"],
     "description": "Descrizione del ponte di legno.",
-    "customCommandMessages": [
-      {
+    "customCommandMessages": [{
         "command": "INVENTORY",
         "description": "Un ponticello di legno"
       },
@@ -221,8 +215,7 @@
     "name": "antenna",
     "alias": ["palo", "asta", "pilone", "pennone", "stanga", "sostegno"],
     "description": "Descrizione dell'antenna radio.",
-    "customCommandMessages": [
-      {
+    "customCommandMessages": [{
         "command": "INVENTORY",
         "description": "Un palo di un'antenna radio"
       },
@@ -259,14 +252,25 @@
     "name": "attrezzi",
     "alias": ["cassetta", "cassa", "cassetta attrezzi", "cassa attrezzi"],
     "description": "Descrizione della cassetta degli attrezzi",
-    "customCommandMessages": [
-      {
+    "customCommandMessages": [{
         "command": "INVENTORY",
         "description": "Una cassetta degli attrezzi"
       },
       {
         "command": "PICK_UP",
         "description": "\"Ma cosa ti dice il cervello! Sono gli attrezzi da lavoro dei nostri dipendenti.\""
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "room": -1,
+    "name": "mazzetta di soldi",
+    "alias": ["mazzetta", "mazzetta soldi", "soldi", "banconote"],
+    "description": "Non sembrano nè tanti nè pochi",
+    "customCommandMessages": [{
+        "command": "INVENTORY",
+        "description": "Una mazzetta di soldi"
       }
     ]
   }
