@@ -122,7 +122,7 @@
     "id": 14,
     "room": 2,
     "name": "lenzuola",
-    "alias": [],
+    "alias": ["set lenzuola", "set"],
     "description": "Sembrano lenzuola enormi, ma quindi esistono davvero i letti double king size?",
     "customCommandMessages": [
       {

@@ -21,9 +21,10 @@
           "editing": {
             "objects": [{
               "id": 9,
+              "canTake": true,
               "commandOutput": [{
                   "command": "PICK_UP",
-                  "description": "\"Ma quanto pesa!\" Non riesco neanche a sollevarlo."
+                  "description": "\"Ma quanto pesa!\""
                 },
                 {
                   "command": "READ",
@@ -53,6 +54,72 @@
         "noAnswer": {
           "message": "Come non detto."
         }
+      }
+    },
+    "score": true
+  },
+  {
+    "input": {
+      "command": "PICK_UP",
+      "objects": [
+        9
+      ]
+    },
+    "output": {
+      "message": "\"Un tomo di oltre 500 pagine!\"\n\n\"Dalla prefazione ho letto che esiste un altro continente al di là del mare. Per fortuna il capitolo 5 mi ha insegnato a costruire/ripare barche. Forse potrei costruirne una e finalmente andarmene da questo posto...\"",
+      "editing": {
+        "objects": [{
+            "id": 14,
+            "description": "Nuova descrizione di lenzuola inerente al fatto che si può sfruttare come vela"
+          },
+          {
+            "id": 20,
+            "description": "Nuova descrizione di ponticello inerente al fatto che si può sfruttare come scafo della barca"
+          },
+          {
+            "id": 25,
+            "description": "Nuova descrizione di palo inerente al fatto che si può sfruttare come albero della barca"
+          }
+        ]
+      }
+    },
+    "score": true
+  },
+  {
+    "input": {
+      "command": "PICK_UP",
+      "objects": [
+        6
+      ]
+    },
+    "output": {
+      "message": "Presi."
+    },
+    "score": true
+  },
+  {
+    "input": {
+      "command": "GIVE",
+      "person": 1,
+      "objects": [
+        6
+      ]
+    },
+    "output": {
+      "message": "\"Ma che schifo, li porto subito via!\" dice Mariola, tappandosi il naso dal fetore emanato dai tuoi vestiti.\n\nLa lavanderia è SCOPERTA adesso.",
+      "editing": {
+        "objects": [{
+          "id": 14,
+          "canTake": true
+        }],
+        "people": [{
+          "id": 1,
+          "moveToRoomID": -1
+        }],
+        "rooms": [{
+          "id": 2,
+          "description": "Descrizione della camera senza Mariola e con un bel set di lenzuola"
+        }]
       }
     },
     "score": true
