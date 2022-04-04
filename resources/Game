@@ -1,7 +1,7 @@
 {
-  "introduction": "Storia che racconta il gioco. Da vedere prima del titolo e delle istruzioni",
+  "introduction": "In un'isola del Pacifico vive Brian Timmins, un giovane ragazzo avventuroso e curioso. Brian è il figlio del governatore dell'isola. Dopo anni di prigionia all'interno del palazzo reale i tuoi genitori ti hanno concesso di vivere da solo nella depandance. Da allora il tuo obiettivo è diventato quello di esplorare il mondo, cercando un modo per andar via dall'isola senza che i tuoi genitori ficchino il naso dappertutto! ",
   "title": "The Great Journey",
-  "description": "La descrizione del gioco",
+  "description": "Un'avventura entusiasmante",
   "helpQuestion": "Vuoi visualizzare le istruzioni? (s/n)",
   "help": "Le istruzioni per giocare. Una lista di comandi (principali) da utilizzare, solo quelli utili!",
   "restartQuestion": "Sei sicuro di voler ricominciare?",

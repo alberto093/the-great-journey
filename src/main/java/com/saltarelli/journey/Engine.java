@@ -306,9 +306,11 @@ public class Engine {
                         restartGame();
                         break;
                     case INVENTORY:
+                        moves -= 1;
                         printInventory();
                         break;
                     case SCORE:
+                        moves -= 1;
                         printScore();
                         break;
                     default:

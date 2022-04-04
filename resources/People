@@ -3,28 +3,28 @@
     "id": 0,
     "room": 1,
     "name": "Guardia del palazzo",
-    "description": "Descrizione della guardia",
-    "alias": ["guardia", "guardiano", "poliziotto", "gendarme"]
+    "description": "Vestita di tutto punto e con dei baffi enormi, la guardia reale ti incute paura. Porta sempre con sè un voluminoso libro, nessuno ha mai osato prenderlo.",
+    "alias": ["guardia", "guardiano", "poliziotto", "gendarme", "guardia reale", "guardia palazzo"]
   },
   {
     "id": 1,
     "room": 2,
-    "name": "Mariola la lavandaia",
-    "description": "Descrizione di Mariola",
-    "alias": ["lavandaia", "donna", "mariola"]
+    "name": "Mariola",
+    "description": "Da sempre con la famiglia reale, Mariola si occupa di far risplendere e di tenere in ordine tutte le stanze del palazzo",
+    "alias": ["lavandaia", "donna", "mariola", "colf", "mariola colf"]
   },
   {
     "id": 2,
     "room": 4,
     "name": "Barista",
-    "description": "Descrizione del barista",
-    "alias": ["barista", "barman", "garzone"]
+    "description": "Corpulento e sempre paonazzo, il barista ama stare dietro il bancone per offrire ai clienti sempre nuove bevande (ovviamente alcoliche).Ti consoce da quando eri piccolo ed è affezionato a te, di tutta risposta tu non hai mai imparato il suo nome.",
+    "alias": ["barista", "barman", "garzone", "amico"]
   },
   {
     "id": 3,
     "room": 5,
     "name": "Larry",
-    "description": "Descrizione dell'artigiano",
-    "alias": ["larry", "artigiano", "barcarolo"]
+    "description": "Larry è un ex marinaio, che al posto di andare in pensione ha deciso di diventare imprenditore di una ditta di costruzione e noleggio barche.",
+    "alias": ["larry", "artigiano", "barcarolo", "marinario"]
   }
 ]

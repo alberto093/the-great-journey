@@ -2,14 +2,14 @@
   {
     "id": 0,
     "name": "Depandance privata",
-    "description": "la descrizione della stanza",
+    "description": "La depandance è il monolacale in cui vivi, lontano dai tuoi genitori.\n\nSul letto, come sempre disfatto, ci sono anche dei vestiti.",
     "west": 1,
     "wrongDirectionMessage": "L'uscita della depandance è a ovest"
   },
   {
     "id": 1,
     "name": "Giardini del palazzo",
-    "description": "la descrizione della stanza",
+    "description": "I giardini sono il biglietto da visita del palazzo reale, per questo sono sempre ben curati.\nOggi il palazzo è chiuso in quanto è in corso una riunione top secret.\n\nAll'ingresso si trova una guardia.",
     "north": 2,
     "east": 0,
     "south": 3
@@ -17,14 +17,14 @@
   {
     "id": 2,
     "name": "Lavanderia",
-    "description": "la descrizione della stanza",
+    "description": "La lavanderia è il luogo meno bazzicato del palazzo, c'è solo Mariola, la colf.\n\nVedi un bel set di lenzuola pulite e ben piegate.",
     "south": 1,
     "wrongDirectionMessage": "L'uscita della lavanderia è a sud"
   },
   {
     "id": 3,
-    "name": "Spiaggia",
-    "description": "la descrizione della stanza",
+    "name": "Cala sabbia",
+    "description": "Cala sabbia è la spiaggia più affollata dell'isola, tutti i paesani amano sdraiarsi sul bagnasciuga o nuotare nel mare cristallino.\n\nC'è un piccolo pontile di legno.",
     "east": 4,
     "west": 5,
     "north": 1
@@ -32,15 +32,15 @@
   {
     "id": 4,
     "name": "Bar Soleluna",
-    "description": "la descrizione della stanza",
+    "description": "Il Bar Soleluna è il luogo cult dell'isola, conosciuto anche nelle isole limitrofe per i suoi rum importanti da tutto il mondo. Il barista, tuo grande amico, non fa altro che offrirti da bere in quanto paghi sempre anche per i tuoi amici, sei il figlio del governatore dell'isola d'altronde!\n\nNel bar svetta un palo d'acciaio lungo e robusto.",
     "west": 3,
     "wrongDirectionMessage": "L'uscita del bar è a ovest"
   },
   {
     "id": 5,
-    "name": "Noleggio barche",
-    "description": "la descrizione della stanza",
+    "name": "L'Officina di Larry",
+    "description": "Questa è l'officina delle barche, capitanata da Larry. E' un luogo rumoroso e affollato. Ultimamente Larry ha deciso, oltre di costruire e riparare barche, anche di affittarle ai numerosi turisti dell'isola.\n\nVedi una grande cassetta degli attrezzi non custodita.",
     "east": 3,
-    "wrongDirectionMessage": "L'uscita del noleggio è a est"
+    "wrongDirectionMessage": "L'uscita dell'officina è a est"
   }
 ]
