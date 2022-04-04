@@ -12,6 +12,7 @@ import com.saltarelli.journey.type.AdvObject;
 import com.saltarelli.journey.type.Command;
 import com.saltarelli.journey.type.Person;
 import com.saltarelli.journey.type.Room;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -193,13 +194,17 @@ public class GameplayHandler {
                     return gp.getInput().getCommand() == command
                             && (gp.getInput().getRoom() == null || gp.getInput().getRoom() == game.getCurrentRoom().getId())
                             && (gp.getInput().getPerson() == null || gp.getInput().getPerson() == output.getPerson().getId())
-                            && (gp.getInput().getInventaryRequirements() == null || 
-                                gp.getInput().getInventaryRequirements().isEmpty() || 
-                                game.getInventory().stream()
+                            && (gp.getInput().getInventaryRequirements() == null
+                            || gp.getInput().getInventaryRequirements().isEmpty()
+                            || game.getInventory().stream()
                                     .map(o -> o.getId())
                                     .collect(Collectors.toSet())
-                                    .containsAll(gp.getInput().getInventaryRequirements()));
-
+                                    .containsAll(gp.getInput().getInventaryRequirements()))
+                            && (gp.getInput().getObjects() == null
+                            || gp.getInput().getObjects().isEmpty()
+                            || gp.getInput().getObjects().equals(output.getObjects().stream()
+                                    .map(o -> o.getId())
+                                    .collect(Collectors.toList())));
                 })
                 .findFirst()
                 .orElse(null);
@@ -223,17 +228,17 @@ public class GameplayHandler {
                 }
             }
         }
-        
+
         // create gameplay response
         if (gameplay.getOutput().getQuestion() != null && !checkAnswer) {
             return GameplayHandlerResponse.newQuestion(
-                    gameplay.getOutput().getQuestion().getMessage(), 
-                    gameplay.getOutput().getQuestion().getYesAnswer().getMessage(), 
+                    gameplay.getOutput().getQuestion().getMessage(),
+                    gameplay.getOutput().getQuestion().getYesAnswer().getMessage(),
                     gameplay.getOutput().getQuestion().getNoAnswer().getMessage());
         } else if (gameplay.getOutput().getMessage() != null && !gameplay.getOutput().getMessage().isEmpty()) {
             return GameplayHandlerResponse.newMessage(gameplay.getOutput().getMessage(), gameplay.getScore(), gameplay.getIsLast());
         }
-        
+
         return null;
     }
 
