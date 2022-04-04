@@ -13,9 +13,11 @@ import com.saltarelli.journey.type.InteractiveElement;
 import com.saltarelli.journey.type.Person;
 import com.saltarelli.journey.type.Player;
 import com.saltarelli.journey.type.Room;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -50,25 +52,23 @@ public class Parser {
                 tokens = Collections.emptyList();
                 break;
             case 1:
-                tokens = Arrays.asList(trim);
+                tokens = new ArrayList<String>(Arrays.asList(trim));
                 break;
             default:
-                tokens = Arrays.asList(trim.split(getStopwordsRegex()));
-                tokens = clearTokens(tokens, currentRoom, inventory, directions);
+                tokens = new ArrayList<String>(Arrays.asList(trim.split("\\s+")));
+
+                if (tokens.size() > 1) {
+                    String firstToken = trim.split("\\s+")[0];
+                    tokens = new ArrayList<String>(Arrays.asList(firstToken));
+                    tokens.addAll(Arrays.asList(trim.substring(firstToken.length() + 1).split(getStopwordsRegex())));
+                    tokens = clearTokens(tokens, currentRoom, inventory, directions);
+                }
         }
 
         if (tokens.isEmpty()) {
             throw new ParserException("Invalid input", ParserException.Kind.EMPTY_INPUT);
         } else {
-            String commandAlias;
-            
-            // Handle java.lang.UnsupportedOperationException java.base/java.util.AbstractList.remove(AbstractList.java:167)
-            if (tokens.size() == 1 && tokens.get(0).length() == 1) {
-                commandAlias = tokens.get(0);
-                tokens = Collections.emptyList();
-            } else {
-                commandAlias = tokens.remove(0);
-            }
+            String commandAlias = tokens.remove(0);
 
             Command command = matchableFromToken(commandAlias, commands);
 
@@ -565,10 +565,10 @@ public class Parser {
     }
 
     private List<String> clearTokens(List<String> tokens, Room currentRoom, Set<AdvObject> inventory, Set<Direction> directions) {
-        Set<AdvObject> visibleObjects = currentRoom.getObjects();
+        Set<AdvObject> visibleObjects = new HashSet<>(currentRoom.getObjects());
         visibleObjects.addAll(inventory);
 
-        Set<Person> allPeople = currentRoom.getPeople();
+        Set<Person> allPeople = new HashSet<>(currentRoom.getPeople());
         allPeople.add(Player.getInstance());
 
         return tokens.stream()
