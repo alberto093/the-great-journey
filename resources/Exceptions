@@ -5,7 +5,7 @@
   },
   {
     "name": "UNKNOWN_COMMAND",
-    "message": "Non conosco questo verbo.""
+    "message": "Non conosco questo verbo."
   },
   {
     "name": "LONG_INPUT",
@@ -29,7 +29,7 @@
   },
   {
     "name": "CANT_GIVE",
-    "message": "Non puoi dare %s perchè non è nell'inventario.
+    "message": "Non puoi dare %s perchè non è nell'inventario."
   },
   {
     "name": "CANT_SPEAK",
@@ -107,4 +107,4 @@
     "name": "UNKNOWN_ELEMENT",
     "message": "Non vedi nulla del genere."
   }
-}
+]

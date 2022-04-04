@@ -67,7 +67,7 @@
             },
             "person": {
               "id": 0,
-              "roomID": 0,
+              "moveToRoomID": 0,
               "description": "",
               "commandOutput": [
                 {
@@ -103,7 +103,7 @@
         },
         "person": {
           "id": 0,
-          "roomID": 0,
+          "moveToRoomID": 0,
           "description": "",
           "commandOutput": [
             {

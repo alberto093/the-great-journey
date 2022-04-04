@@ -208,7 +208,7 @@
     "id": 23,
     "room": 4,
     "name": "sole",
-    "alias": ["cielo", "mare", "spiaggia", ],
+    "alias": ["cielo", "mare", "spiaggia"],
     "description": "Niente di interessante."
   },
   {

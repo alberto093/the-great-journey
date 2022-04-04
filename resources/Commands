@@ -5,8 +5,8 @@
   },
   {
     "name": "RESTART",
-    "alias": ["restart"];
-  }
+    "alias": ["restart"]
+  },
   {
     "name": "INVENTORY",
     "alias": ["i", "inventario", "inv"]
@@ -66,5 +66,17 @@
   {
     "name": "READ",
     "alias": ["leggi", "studia"]
+  },
+  {
+    "name": "SPEAK",
+    "alias": ["parla", "chiedi", "chiacchiera"]
+  },
+  {
+    "name": "COMBINE",
+    "alias": ["combina", "unisci", "lega", "connetti", "fondi", "componi"]
+  },
+  {
+    "name": "SING",
+    "alias": ["canta", "canticchia"]
   }
 ]

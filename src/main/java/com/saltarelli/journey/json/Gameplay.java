@@ -99,7 +99,7 @@ public class Gameplay {
             public String getDescription() {
                 return description;
             }
-            
+
             public Set<CustomCommandMessage> getCustomCommandMessages() {
                 return customCommandMessages;
             }
@@ -120,32 +120,24 @@ public class Gameplay {
     public static class Input {
 
         private Command.Name command;
-        private int roomID;
+        private Integer room;
         private Set<Integer> inventaryRequirements;
-        private int person;
+        private Integer person;
         private Set<Integer> objects;
-
-        public Input(Command.Name command, int roomID, int person, Set<Integer> objects) {
-            this.command = command;
-            this.roomID = roomID;
-            this.inventaryRequirements = Collections.emptySet();
-            this.person = person;
-            this.objects = objects;
-        }
 
         public Command.Name getCommand() {
             return command;
         }
 
-        public int getRoomID() {
-            return roomID;
+        public Integer getRoom() {
+            return room;
         }
 
         public Set<Integer> getInventaryRequirements() {
             return inventaryRequirements;
         }
 
-        public int getPerson() {
+        public Integer getPerson() {
             return person;
         }
 

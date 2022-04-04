@@ -92,6 +92,8 @@ public class GameplayHandler {
                         .of(customMessageResponse(output))
                         .orElse(game.getUselessCombineCommand());
                 break;
+            case SING:
+                break;
         }
 
         GameplayHandlerResponse response = handleGameplayResponse(output);
@@ -189,12 +191,14 @@ public class GameplayHandler {
         return gameplaySet.stream()
                 .filter(gp -> {
                     return gp.getInput().getCommand() == command
-                            && gp.getInput().getRoomID() == game.getCurrentRoom().getId()
-                            && gp.getInput().getPerson() == output.getPerson().getId()
-                            && game.getInventory().stream()
+                            && (gp.getInput().getRoom() == null || gp.getInput().getRoom() == game.getCurrentRoom().getId())
+                            && (gp.getInput().getPerson() == null || gp.getInput().getPerson() == output.getPerson().getId())
+                            && (gp.getInput().getInventaryRequirements() == null || 
+                                gp.getInput().getInventaryRequirements().isEmpty() || 
+                                game.getInventory().stream()
                                     .map(o -> o.getId())
                                     .collect(Collectors.toSet())
-                                    .containsAll(gp.getInput().getInventaryRequirements());
+                                    .containsAll(gp.getInput().getInventaryRequirements()));
 
                 })
                 .findFirst()

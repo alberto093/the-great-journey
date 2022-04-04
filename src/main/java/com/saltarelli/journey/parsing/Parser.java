@@ -56,6 +56,7 @@ public class Parser {
                     case RESTART:
                     case INVENTORY:
                     case SCORE:
+                    case SING:
                         return handleSingleCommand(command, commandAlias, tokens);
                     case NORTH:
                     case SOUTH:

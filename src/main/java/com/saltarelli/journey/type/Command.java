@@ -34,7 +34,8 @@ public class Command implements Matchable {
         LOOK_AT,
         READ,
         SPEAK,
-        COMBINE
+        COMBINE,
+        SING
     }
 
     private final Name name;
