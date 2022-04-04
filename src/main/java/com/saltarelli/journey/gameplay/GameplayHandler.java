@@ -22,9 +22,6 @@ import java.util.stream.Collectors;
  * @author Alberto
  */
 public class GameplayHandler {
-
-    private static final String ERROR_MESSAGE = "Developer error: missing gameplay or customMessage";
-
     private final Game game;
     private final Collection<Gameplay> gameplaySet;
 
@@ -127,7 +124,7 @@ public class GameplayHandler {
             return GameplayHandlerResponse.newMessage(message, false, false);
         }
 
-        return GameplayHandlerResponse.newMessage(ERROR_MESSAGE, false, false);
+        return GameplayHandlerResponse.newMessage(game.getUnknownOutput(), false, false);
     }
 
     public GameplayHandlerResponse processQuestionAnswer(Boolean yesAnswer, ParserOutput output) {
@@ -136,7 +133,7 @@ public class GameplayHandler {
         if (response != null) {
             return response;
         } else {
-            return GameplayHandlerResponse.newMessage(ERROR_MESSAGE, false, false);
+            return GameplayHandlerResponse.newMessage(game.getUnknownOutput(), false, false);
         }
     }
 
@@ -163,7 +160,7 @@ public class GameplayHandler {
                 message = String.join("\n", messages);
             }
         } else {
-            message = ERROR_MESSAGE;
+            message = game.getUnknownOutput();
         }
 
         return message;

@@ -48,7 +48,7 @@
     "alias": ["vestito", "mutande", "calzini", "magliette", "abiti", "indumenti", "vesti", "vestiario"],
     "description": "Per quanto sono sporchi e puzzolenti saranno quì da settimane. Dovrebbero proprio essere lavati.",
     "canTake": true,
-    "commandOutput": [
+    "customCommandMessages": [
       {
         "command": "INVENTORY",
         "description": "Dei vestiti sporchi"
@@ -75,7 +75,7 @@
     "name": "libro",
     "alias": ["tomo", "giornale", "opera", "romanzo", "tomo", "testo", "manuale"],
     "description": "Un libro che sembri parlare di un continente al di là del mare...potrei arrivarci con una barca e realizzare il mio sogno!",
-    "commandOutput": [
+    "customCommandMessages": [
       {
         "command": "INVENTORY",
         "description": "Un libro che parla di mare"
@@ -124,7 +124,7 @@
     "name": "lenzuola",
     "alias": [],
     "description": "Sembrano lenzuola enormi, ma quindi esistono davvero i letti double king size?",
-    "commandOutput": [
+    "customCommandMessages": [
       {
         "command": "INVENTORY",
         "description": "Delle lenzuola rigide e giganti"
@@ -176,7 +176,7 @@
     "name": "ponticello",
     "alias": ["ponte"],
     "description": "Descrizione del ponte di legno.",
-    "commandOutput": [
+    "customCommandMessages": [
       {
         "command": "INVENTORY",
         "description": "Un ponticello di legno"
@@ -221,7 +221,7 @@
     "name": "antenna",
     "alias": ["palo", "asta", "pilone", "pennone", "stanga", "sostegno"],
     "description": "Descrizione dell'antenna radio.",
-    "commandOutput": [
+    "customCommandMessages": [
       {
         "command": "INVENTORY",
         "description": "Un palo di un'antenna radio"
@@ -259,7 +259,7 @@
     "name": "attrezzi",
     "alias": ["cassetta", "cassa", "cassetta attrezzi", "cassa attrezzi"],
     "description": "Descrizione della cassetta degli attrezzi",
-    "commandOutput": [
+    "customCommandMessages": [
       {
         "command": "INVENTORY",
         "description": "Una cassetta degli attrezzi"

@@ -45,6 +45,8 @@ public class Game {
     
     private String help = "";
     
+    private String unknownOutput = "";
+    
     private Set<String> yesAlias = new HashSet<>();
     
     private Set<String> noAlias = new HashSet<>();
@@ -79,6 +81,7 @@ public class Game {
         this.inventoryEmpty = json.getInventoryEmpty();
         this.inventoryFull = json.getInventoryFull();
         this.help = json.getHelp();
+        this.unknownOutput = json.getUnknownOutput();
         this.yesAlias = json.getYesAlias();
         this.noAlias = json.getNoAlias();
         this.maxScore = json.getMaxScore();
@@ -156,15 +159,17 @@ public class Game {
     public void setInventoryFull(String inventoryFull) {
         this.inventoryFull = inventoryFull;
     }
-    
-    
-
+   
     public void setHelpQuestion(String helpQuestion) {
         this.helpQuestion = helpQuestion;
     }
 
     public String getHelp() {
         return help;
+    }
+    
+    public String getUnknownOutput() {
+        return unknownOutput;
     }
 
     public void setHelp(String help) {

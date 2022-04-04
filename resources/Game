@@ -12,6 +12,7 @@
   "scoreMessage": "Finora hai totalizzato %d punti su %d possibili, in %d turni.",
   "inventoryEmpty": "Non stai portando niente.",
   "inventoryFull": "Stai portando:",
+  "unknownOutput": "Non ha alcuna importanza per lo svolgimento della tua avventura.",
   "yesAlias": ["si", "s"],
   "noAlias": ["no", "n"],
   "maxScore": 12,

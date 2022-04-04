@@ -52,16 +52,17 @@ public class Parser {
                 tokens = Collections.emptyList();
                 break;
             case 1:
-                tokens = new ArrayList<String>(Arrays.asList(trim));
+                tokens = new ArrayList<>(Arrays.asList(trim));
                 break;
             default:
-                tokens = new ArrayList<String>(Arrays.asList(trim.split("\\s+")));
+                tokens = new ArrayList<>(Arrays.asList(trim.split("\\s+")));
 
                 if (tokens.size() > 1) {
                     String firstToken = trim.split("\\s+")[0];
-                    tokens = new ArrayList<String>(Arrays.asList(firstToken));
+                    tokens = new ArrayList<>(Arrays.asList(firstToken));
                     tokens.addAll(Arrays.asList(trim.substring(firstToken.length() + 1).split(getStopwordsRegex())));
                     tokens = clearTokens(tokens, currentRoom, inventory, directions);
+                    tokens.removeAll(Arrays.asList("", null));
                 }
         }
 
@@ -204,9 +205,10 @@ public class Parser {
             case 1:
                 InteractiveElement object = matchableFromToken(tokens.get(0), objects);
                 InteractiveElement person = matchableFromToken(tokens.get(0), people);
+                InteractiveElement player = playerFromToken(tokens.get(0));
                 InteractiveElement inventoryObject = matchableFromToken(tokens.get(0), inventory);
 
-                InteractiveElement element = Stream.of(Optional.ofNullable(object), Optional.ofNullable(person), Optional.ofNullable(inventoryObject))
+                InteractiveElement element = Stream.of(Optional.ofNullable(object), Optional.ofNullable(person), Optional.ofNullable(player), Optional.ofNullable(inventoryObject))
                         .filter(Optional::isPresent)
                         .map(Optional::get)
                         .findFirst()
@@ -326,9 +328,10 @@ public class Parser {
             case 1:
                 InteractiveElement object = matchableFromToken(tokens.get(0), objects);
                 InteractiveElement person = matchableFromToken(tokens.get(0), people);
+                InteractiveElement player = playerFromToken(tokens.get(0));
                 InteractiveElement inventoryObject = matchableFromToken(tokens.get(0), inventory);
 
-                InteractiveElement element = Stream.of(Optional.ofNullable(object), Optional.ofNullable(person), Optional.ofNullable(inventoryObject))
+                InteractiveElement element = Stream.of(Optional.ofNullable(object), Optional.ofNullable(person), Optional.ofNullable(player), Optional.ofNullable(inventoryObject))
                         .filter(Optional::isPresent)
                         .map(Optional::get)
                         .findFirst()
@@ -367,15 +370,16 @@ public class Parser {
             case 1:
                 AdvObject object = matchableFromToken(tokens.get(0), objects);
                 Person person = matchableFromToken(tokens.get(0), people);
+                Person player = playerFromToken(tokens.get(0));
                 AdvObject inventoryObject = matchableFromToken(tokens.get(0), inventory);
 
                 if (object != null) {
                     throw new ParserException("Can't give object from a room", ParserException.Kind.CANT_GIVE, tokens.get(0), "");
-                } else if (person != null) {
+                } else if (person != null || player != null) {
                     throw new ParserException(
                             "Missing element",
                             ParserException.Kind.MISSING_GIVE_ELEMENT,
-                            input.substring(0, input.indexOf(tokens.get(0) + tokens.size())),
+                            input.substring(0, input.indexOf(tokens.get(0)) + tokens.get(0).length()),
                             "");
                 } else if (inventoryObject != null) {
                     return new ParserOutput(command, Player.getInstance(), inventoryObject);
@@ -384,10 +388,18 @@ public class Parser {
                 }
             case 2:
                 int objectIndex;
-                person = matchableFromToken(tokens.get(0), people);
+                person = Stream.of(Optional.ofNullable(matchableFromToken(tokens.get(0), people)), Optional.ofNullable(playerFromToken(tokens.get(0))))
+                        .filter(Optional::isPresent)
+                        .map(Optional::get)
+                        .findFirst()
+                        .orElse(null);
 
                 if (person == null) {
-                    person = matchableFromToken(tokens.get(1), people);
+                    person = Stream.of(Optional.ofNullable(matchableFromToken(tokens.get(1), people)), Optional.ofNullable(playerFromToken(tokens.get(1))))
+                            .filter(Optional::isPresent)
+                            .map(Optional::get)
+                            .findFirst()
+                            .orElse(null);
 
                     if (person == null) {
                         throw new ParserException("Unknown element", ParserException.Kind.UNKNOWN_ELEMENT);
@@ -426,12 +438,15 @@ public class Parser {
             case 1:
                 AdvObject object = matchableFromToken(tokens.get(0), currentRoom.getObjects());
                 Person person = matchableFromToken(tokens.get(0), currentRoom.getPeople());
+                Player player = playerFromToken(tokens.get(0));
                 AdvObject inventoryObject = matchableFromToken(tokens.get(0), inventory);
 
                 if (object != null) {
                     return new ParserOutput(command, object);
                 } else if (person != null) {
                     return new ParserOutput(command, person);
+                } else if (player != null) {
+                    return new ParserOutput(command, player);
                 } else if (inventoryObject != null) {
                     return new ParserOutput(command, inventoryObject);
                 } else {
@@ -469,9 +484,10 @@ public class Parser {
             case 1:
                 InteractiveElement object = matchableFromToken(tokens.get(0), objects);
                 InteractiveElement person = matchableFromToken(tokens.get(0), people);
+                InteractiveElement player = playerFromToken(tokens.get(0));
                 InteractiveElement inventoryObject = matchableFromToken(tokens.get(0), inventory);
 
-                InteractiveElement element = Stream.of(Optional.ofNullable(object), Optional.ofNullable(person), Optional.ofNullable(inventoryObject))
+                InteractiveElement element = Stream.of(Optional.ofNullable(object), Optional.ofNullable(person), Optional.ofNullable(player), Optional.ofNullable(inventoryObject))
                         .filter(Optional::isPresent)
                         .map(Optional::get)
                         .findFirst()
@@ -513,12 +529,15 @@ public class Parser {
             case 1:
                 AdvObject object = matchableFromToken(tokens.get(0), objects);
                 Person person = matchableFromToken(tokens.get(0), people);
+                Player player = playerFromToken(tokens.get(0));
                 AdvObject inventoryObject = matchableFromToken(tokens.get(0), inventory);
 
                 if (object != null || inventoryObject != null) {
                     throw new ParserException("Can't speak within an object", ParserException.Kind.CANT_SPEAK, "", "");
                 } else if (person != null) {
                     return new ParserOutput(command, person);
+                } else if (player != null) {
+                    return new ParserOutput(command, player);
                 } else {
                     throw new ParserException("Unknown element", ParserException.Kind.UNKNOWN_ELEMENT);
                 }
@@ -556,6 +575,14 @@ public class Parser {
                 .filter(c -> c.match(token.toLowerCase()))
                 .findFirst()
                 .orElse(null);
+    }
+
+    private Player playerFromToken(String token) {
+        if (Player.getInstance().match(token)) {
+            return Player.getInstance();
+        } else {
+            return null;
+        }
     }
 
     private String getStopwordsRegex() {

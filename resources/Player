@@ -3,7 +3,7 @@
   "name": "Brian Timmins",
   "description": "Descrizione di me stesso",
   "alias": ["me stesso", "brian", "brian timmins", "me"],
-  "commandOutput": [
+  "customCommandMessages": [
     {
       "command": "PICK_UP",
       "description": "Sei sempre il possessore di te stesso."

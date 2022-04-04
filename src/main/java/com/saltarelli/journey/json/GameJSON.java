@@ -26,6 +26,7 @@ public class GameJSON {
     private String inventoryEmpty;
     private String inventoryFull;
     private String help;
+    private String unknownOutput;
     private Set<String> yesAlias;
     private Set<String> noAlias;
     private int maxScore;
@@ -81,6 +82,10 @@ public class GameJSON {
 
     public String getHelp() {
         return help;
+    }
+    
+    public String getUnknownOutput() {
+        return unknownOutput;
     }
 
     public Set<String> getYesAlias() {
