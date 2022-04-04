@@ -201,7 +201,7 @@ public class Gameplay {
 
     private Input input;
     private Output output;
-    private int score;
+    private Integer score;
     private Boolean isLast;
 
     public Input getInput() {
@@ -212,7 +212,7 @@ public class Gameplay {
         return output;
     }
 
-    public int getScore() {
+    public Integer getScore() {
         return score;
     }
 
