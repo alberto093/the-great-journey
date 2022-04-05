@@ -26,6 +26,10 @@ import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.io.PrintStream;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextArea;
@@ -47,15 +51,18 @@ public class Console extends javax.swing.JFrame {
 
         @Override
         public void write(int b) throws IOException {
-            textArea.append(String.valueOf((char) b));
+          
+            String text = String.valueOf((char) b);
+            String decodedText = StandardCharsets.UTF_8.decode(ByteBuffer.wrap(text.getBytes("UTF-8"))).toString();
+            textArea.append("" + (char) b);
             textArea.setCaretPosition(textArea.getDocument().getLength());
-            textArea.update(textArea.getGraphics());
         }
     }
 
     private final PipedInputStream inputStream = new PipedInputStream();
     private final PipedOutputStream outputStream = new PipedOutputStream();
     private final PrintStream textFieldStream;
+    private final PrintStream textAreaStream;
 
     /**
      * Creates new form ConsoleUI
@@ -65,17 +72,20 @@ public class Console extends javax.swing.JFrame {
 
         try {
             outputStream.connect(inputStream);
+
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(1);
         }
 
         textFieldStream = new PrintStream(outputStream);
+
         // start engine
-        Engine engine = new Engine(inputStream, new PrintStream(new TextAreaOutputStream(textArea)));
-        
+        textAreaStream = new PrintStream(new TextAreaOutputStream(textArea));
+        Engine engine = new Engine(inputStream, textAreaStream);
         Thread engineThread = new Thread(engine);
         engineThread.start();
+
     }
 
     /**
@@ -96,8 +106,12 @@ public class Console extends javax.swing.JFrame {
 
         scrollPane.setPreferredSize(new java.awt.Dimension(600, 400));
 
+        textArea.setEditable(false);
         textArea.setColumns(20);
+        textArea.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        textArea.setLineWrap(true);
         textArea.setRows(5);
+        textArea.setWrapStyleWord(true);
         scrollPane.setViewportView(textArea);
 
         getContentPane().add(scrollPane, java.awt.BorderLayout.CENTER);
@@ -117,6 +131,7 @@ public class Console extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String input = textField.getText();
             textFieldStream.println(input);
+            textAreaStream.println(input);
             textField.setText("");
             synchronized (inputStream) {
                 inputStream.notify();

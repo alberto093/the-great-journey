@@ -35,6 +35,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  *
@@ -49,6 +50,8 @@ public class Engine implements Runnable {
     private final Parser parser;
 
     private final Scanner scanner;
+    
+    private final PrintStream printStream;
 
     private final Collection<ExceptionDescription> exceptions;
     
@@ -71,9 +74,7 @@ public class Engine implements Runnable {
         this.exceptions = ResourcesReader.fetchExceptions();
         this.predefinedCommands = ResourcesReader.fetchPredefinedCommands();
         this.parser = new Parser(ResourcesReader.fetchStopwords());
-        
-        System.setOut(printStream);
-        System.setErr(printStream);
+        this.printStream = printStream;
     }
 
     private void prepareRooms() {
@@ -179,13 +180,13 @@ public class Engine implements Runnable {
     }
 
     public void run() {
-        System.out.println(game.getIntroduction());
+        printStream.println(game.getIntroduction());
 
         Optional<Boolean> showHelp = Optional.empty();
 
         do {
-            System.out.println();
-            System.out.println(game.getHelpQuestion());
+            printStream.println();
+            printStream.println(game.getHelpQuestion());
             String answer = scanner.nextLine();
 
             if (game.getYesAlias().contains(answer.toLowerCase())) {
@@ -195,19 +196,19 @@ public class Engine implements Runnable {
             }
         } while (!showHelp.isPresent());
 
-        System.out.println();
+        printStream.println();
         if (showHelp.get()) {
             printHelp();
         }
 
-        System.out.println(game.getTitle());
-        System.out.println();
-        System.out.println(game.getDescription());
-        System.out.println();
+        printStream.println(game.getTitle());
+        printStream.println();
+        printStream.println(game.getDescription());
+        printStream.println();
 
-        System.out.println(game.getCurrentRoom().getName());
-        System.out.println(game.getCurrentRoom().getDescription());
-        System.out.println();
+        printStream.println(game.getCurrentRoom().getName());
+        printStream.println(game.getCurrentRoom().getDescription());
+        printStream.println();
 
         scanNextLine("");
     }
@@ -216,7 +217,7 @@ public class Engine implements Runnable {
         Optional<Boolean> shouldRestart = Optional.empty();
 
         do {
-            System.out.println(game.getRestartQuestion());
+            printStream.println(game.getRestartQuestion());
             String answer = scanner.nextLine();
 
             if (game.getYesAlias().contains(answer.toLowerCase())) {
@@ -227,9 +228,10 @@ public class Engine implements Runnable {
         } while (!shouldRestart.isPresent());
 
         if (shouldRestart.get()) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
-            start();
+            IntStream.range(0, 10)
+                    .forEach(i -> printStream.println());
+         
+            run();
         }
     }
 
@@ -237,7 +239,7 @@ public class Engine implements Runnable {
         Optional<Boolean> shouldEnd = Optional.empty();
 
         do {
-            System.out.println(game.getEndQuestion());
+            printStream.println(game.getEndQuestion());
             String answer = scanner.nextLine();
 
             if (game.getYesAlias().contains(answer.toLowerCase())) {
@@ -253,37 +255,37 @@ public class Engine implements Runnable {
     }
 
     private void finishGame() {
-        System.out.println(game.getEndGameMessage());
+        printStream.println(game.getEndGameMessage());
         printScore();
         scanner.nextLine();
         System.exit(0);
     }
 
     private void printScore() {
-        System.out.println(String.format(game.getScoreMessage(), game.getCurrentScore(), game.getMaxScore(), moves));
-        System.out.println();
+        printStream.println(String.format(game.getScoreMessage(), game.getCurrentScore(), game.getMaxScore(), moves));
+        printStream.println();
     }
     
     private void printHelp() {
-        System.out.println(game.getHelp());
-        System.out.println();
+        printStream.println(game.getHelp());
+        printStream.println();
     }
 
     private void printInventory() {
         if (game.getInventory().isEmpty()) {
-            System.out.println(game.getInventoryEmpty());
+            printStream.println(game.getInventoryEmpty());
         } else {
-            System.out.println(game.getInventoryFull());
+            printStream.println(game.getInventoryFull());
 
             game.getInventory().stream().forEach(o -> {
                 String inventoryDescription = Optional
                         .ofNullable(o.customMessageForCommand(Command.Name.INVENTORY))
                         .orElse(o.getName());
-                System.out.println("\t - " + inventoryDescription);
+                printStream.println("\t - " + inventoryDescription);
             });
         }
         
-        System.out.println();
+        printStream.println();
     }
 
     private void scanNextLine(String input) {
@@ -297,7 +299,7 @@ public class Engine implements Runnable {
                 newInput = previousInput + " " + scanner.nextLine();
             }
 
-            System.out.println();
+            printStream.println();
             previousInput = "";
             moves += 1;
 
@@ -350,13 +352,13 @@ public class Engine implements Runnable {
             case MESSAGE:
                 GameplayHandlerMessage responseMessage = (GameplayHandlerMessage) response;
 
-                System.out.println(responseMessage.getMessage());
-                System.out.println();
+                printStream.println(responseMessage.getMessage());
+                printStream.println();
 
                 if (responseMessage.getScore() != null && responseMessage.getScore() > 0) {
                     game.setCurrentScore(game.getCurrentScore() + responseMessage.getScore());
-                    System.out.println(String.format(game.getIncreaseScoreMessage(), responseMessage.getScore()));
-                    System.out.println();
+                    printStream.println(String.format(game.getIncreaseScoreMessage(), responseMessage.getScore()));
+                    printStream.println();
                 }
 
                 if (response.getIsLast() != null && response.getIsLast()) {
@@ -369,7 +371,7 @@ public class Engine implements Runnable {
                 Optional<Boolean> isYesAnswer = Optional.empty();
 
                 do {
-                    System.out.println(responseQuestion.getQuestion());
+                    printStream.println(responseQuestion.getQuestion());
                     String answer = scanner.nextLine();
 
                     if (game.getYesAlias().contains(answer.toLowerCase())) {
@@ -387,7 +389,7 @@ public class Engine implements Runnable {
                     questionResponse = gameplayHandler.processQuestionAnswer(false, output);
                 }
 
-                System.out.println();
+                printStream.println();
 
                 handleGameplayResponse(output, questionResponse);
                 break;
@@ -467,8 +469,8 @@ public class Engine implements Runnable {
             }
         }
 
-        System.out.println(message);
-        System.out.println();
+        printStream.println(message);
+        printStream.println();
         scanNextLine(previousInput);
     }
 
