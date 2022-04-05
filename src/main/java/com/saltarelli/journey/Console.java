@@ -16,6 +16,7 @@
  */
 package com.saltarelli.journey;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -32,8 +33,16 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
 
 /**
  *
@@ -41,21 +50,25 @@ import javax.swing.SwingUtilities;
  */
 public class Console extends javax.swing.JFrame {
 
-    public class TextAreaOutputStream extends ByteArrayOutputStream {
+    public class TextPaneOutputStream extends ByteArrayOutputStream {
 
-        private JTextArea textArea;
+        private final JTextPane textPane;
 
-        public TextAreaOutputStream(JTextArea textArea) {
-            this.textArea = textArea;
+        public TextPaneOutputStream(JTextPane textPane) {
+            this.textPane = textPane;
         }
 
         @Override
         public synchronized void write(byte[] b, int off, int len) {
             super.write(b, off, len);
-
-            textArea.append(toString());
-            textArea.setCaretPosition(textArea.getDocument().getLength());
-            count += 1;
+            Document document = textPane.getDocument();
+            try {
+                document.insertString(document.getLength(), toString(), null);
+                textPane.setCaretPosition(document.getLength());
+            } catch (BadLocationException ex) {
+                
+            }
+            
             reset();
         }
     }
@@ -82,12 +95,15 @@ public class Console extends javax.swing.JFrame {
         textFieldStream = new PrintStream(outputStream);
 
         // start engine
-        textAreaStream = new PrintStream(new TextAreaOutputStream(textArea));
+        textAreaStream = new PrintStream(new TextPaneOutputStream(textPane));
         Engine engine = new Engine(inputStream, textAreaStream);
         Thread engineThread = new Thread(engine);
         engineThread.start();
 
+        
         textField.requestFocus();
+        //scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        //scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
     }
 
     /**
@@ -100,46 +116,54 @@ public class Console extends javax.swing.JFrame {
     private void initComponents() {
 
         scrollPane = new javax.swing.JScrollPane();
-        textArea = new javax.swing.JTextArea();
+        textPane = new javax.swing.JTextPane();
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         textField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Journey");
-        setPreferredSize(new java.awt.Dimension(1000, 600));
+        setPreferredSize(new java.awt.Dimension(800, 540));
 
+        scrollPane.setBackground(new java.awt.Color(0, 0, 0));
+        scrollPane.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(40, 32, 24), 5), javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1)));
         scrollPane.setPreferredSize(new java.awt.Dimension(600, 400));
 
-        textArea.setEditable(false);
-        textArea.setColumns(20);
-        textArea.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        textArea.setLineWrap(true);
-        textArea.setRows(5);
-        textArea.setWrapStyleWord(true);
-        textArea.setFocusable(false);
-        scrollPane.setViewportView(textArea);
+        textPane.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        textPane.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        textPane.setForeground(new java.awt.Color(20, 20, 20));
+        textPane.setFocusable(false);
+        textPane.setSelectionColor(new java.awt.Color(0, 0, 0));
+        scrollPane.setViewportView(textPane);
 
         getContentPane().add(scrollPane, java.awt.BorderLayout.CENTER);
 
-        jPanel1.setBackground(new java.awt.Color(100, 100, 100));
+        jPanel1.setBackground(new java.awt.Color(40, 32, 24));
         jPanel1.setPreferredSize(new java.awt.Dimension(100, 80));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        textField.setBackground(new java.awt.Color(100, 100, 100));
+        jPanel2.setBackground(new java.awt.Color(40, 32, 24));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 8, 0, 8));
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
+
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(230, 80, 40));
+        jLabel1.setText(">");
+        jPanel2.add(jLabel1);
+
+        textField.setBackground(new java.awt.Color(40, 32, 24));
         textField.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        textField.setForeground(new java.awt.Color(206, 254, 206));
-        textField.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
-        textField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldActionPerformed(evt);
-            }
-        });
+        textField.setForeground(new java.awt.Color(230, 80, 40));
+        textField.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 2, 0, 6));
         textField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textFieldKeyPressed(evt);
             }
         });
-        jPanel1.add(textField, java.awt.BorderLayout.PAGE_START);
+        jPanel2.add(textField);
+
+        jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.SOUTH);
 
@@ -151,17 +175,31 @@ public class Console extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String input = textField.getText();
             textFieldStream.println(input);
-            textAreaStream.println(input);
             textField.setText("");
+
+            StyleContext context = StyleContext.getDefaultStyleContext();
+            AttributeSet attributes = context.addAttribute(
+                    SimpleAttributeSet.EMPTY,
+                    StyleConstants.Foreground,
+                    textField.getForeground());
+
+            attributes = context.addAttribute(attributes, StyleConstants.FontFamily, textField.getFont().getFontName());
+
+            Document document = textPane.getDocument();
+            
+            textPane.setCharacterAttributes(attributes, false);
+            
+            try {
+                document.insertString(document.getLength(), input, attributes);
+            } catch (BadLocationException ex) {
+                
+            }
+
             synchronized (inputStream) {
                 inputStream.notify();
             }
         }
     }//GEN-LAST:event_textFieldKeyPressed
-
-    private void textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,9 +237,11 @@ public class Console extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane scrollPane;
-    private javax.swing.JTextArea textArea;
     private javax.swing.JTextField textField;
+    private javax.swing.JTextPane textPane;
     // End of variables declaration//GEN-END:variables
 }

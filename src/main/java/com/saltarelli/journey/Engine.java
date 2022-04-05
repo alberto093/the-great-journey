@@ -29,7 +29,6 @@ import com.saltarelli.journey.type.Person;
 import com.saltarelli.journey.type.Player;
 import com.saltarelli.journey.type.Room;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Collection;
