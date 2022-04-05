@@ -116,6 +116,7 @@ public class Console extends javax.swing.JFrame {
         textArea.setLineWrap(true);
         textArea.setRows(5);
         textArea.setWrapStyleWord(true);
+        textArea.setFocusable(false);
         scrollPane.setViewportView(textArea);
 
         getContentPane().add(scrollPane, java.awt.BorderLayout.CENTER);
