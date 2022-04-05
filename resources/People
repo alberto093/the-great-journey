@@ -33,6 +33,10 @@
     "room": 5,
     "name": "Larry",
     "description": "Larry è un ex marinaio, che al posto di andare in pensione ha deciso di diventare imprenditore di una ditta di costruzione e noleggio barche.",
-    "alias": ["larry", "artigiano", "barcarolo", "marinario"]
+    "alias": ["larry", "artigiano", "barcarolo", "marinario"],
+    "customCommandMessages": [{
+      "command": "SPEAK",
+      "description": "Mentre sta sbraitando contro i suoi dipendenti si gira e ti dice: \"Chi sei? Hai letto l'annuncio di lavoro? Non mi sembri un tipo ferrato in materia. Se ci tieni davvero so che nel palazzo qualcuno possiede un libro di carpenteria navale locale. Studia, ti aspetto qui.\""
+    }]
   }
 ]

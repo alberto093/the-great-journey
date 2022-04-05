@@ -383,9 +383,7 @@ public class Parser {
                 Person player = playerFromToken(tokens.get(0));
                 AdvObject inventoryObject = matchableFromToken(tokens.get(0), inventory);
 
-                if (object != null) {
-                    throw new ParserException("Can't give object from a room", ParserException.Kind.CANT_GIVE, tokens.get(0), "");
-                } else if (person != null || player != null) {
+                if (person != null || player != null) {
                     throw new ParserException(
                             "Missing element",
                             ParserException.Kind.MISSING_GIVE_ELEMENT,
@@ -397,6 +395,8 @@ public class Parser {
                     } else {
                        return new ParserOutput(command, Player.getInstance(), inventoryObject); 
                     }
+                } else if (object != null) {
+                    throw new ParserException("Can't give object from a room", ParserException.Kind.CANT_GIVE, tokens.get(0), "");
                 } else {
                     throw new ParserException("Unknown element", ParserException.Kind.UNKNOWN_ELEMENT);
                 }

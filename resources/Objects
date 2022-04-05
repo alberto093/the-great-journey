@@ -44,7 +44,7 @@
     "id": 6,
     "room": 0,
     "name": "vestiti",
-    "alias": ["vestito", "mutande", "calzini", "magliette", "abiti", "indumenti", "vesti", "vestiario", "panni"],
+    "alias": ["vestito", "mutande", "calzini", "magliette", "abiti", "indumenti", "vesti", "vestiario", "panni", "panni sporchi"],
     "description": "Per quanto sono sporchi e puzzolenti sarebbe proprio l'ora di lavarli.",
     "canTake": true,
     "customCommandMessages": [{
@@ -64,10 +64,10 @@
     "room": 1,
     "name": "libro",
     "alias": ["tomo", "giornale", "opera", "romanzo", "tomo", "testo", "manuale"],
-    "description": "Sulla copertina del libro c'è una grossa nave, se solo riuscissi a prenderlo potrebbe spiegarmi come realizzare una barca per fuggire dall'isola.",
+    "description": "Sulla copertina del libro c'è una grossa nave, se solo riuscissi a prenderlo magari potrei imparare a realizzare una barca per fuggire dall'isola.",
     "customCommandMessages": [{
         "command": "INVENTORY",
-        "description": "Un libro che parla di mare"
+        "description": "Un libro di carpenteria navale."
       },
       {
         "command": "PICK_UP",
@@ -243,11 +243,18 @@
     ]
   },
   {
+    "id": 33,
+    "room": 4,
+    "name": "rum",
+    "alias": ["whiskey"],
+    "description": "Un Ron Zacapa Centenario, viene distillato nella forma più pura e con un’attenzione particolare, per ottenere un sofisticato e setoso rum dal gusto rotondo e di grande personalità."
+  },
+  {
     "id": 26,
     "room": 5,
     "name": "officina",
     "alias": ["noleggio", "cantiere", "struttura", "edificio", "negozio"],
-    "description": "Questa è l'officina delle barche, capitanata da Larry. E' un luogo rumoroso e affollato."
+    "description": "Questa è l'officina delle barche, capitanata da Larry. E' un luogo rumoroso e affollato.\n\nC'è una grande cassetta degli attrezzi non custodita."
   },
   {
     "id": 27,

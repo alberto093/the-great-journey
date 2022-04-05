@@ -39,7 +39,7 @@
   {
     "id": 5,
     "name": "L'Officina di Larry",
-    "description": "Sei all'interno dell'officina delle barche, capitanata da Larry. E' un luogo rumoroso e affollato. Ultimamente Larry ha deciso, oltre di costruire e riparare barche, anche di affittarle ai numerosi turisti dell'isola. Vista la grande mole di lavoro ti stupisci di quanto poco personale stia lavorando, forse meglio chiedere a Larry cosa sta succedendo. A est torni a cala sabbia.\n\nVedi una grande cassetta degli attrezzi non custodita.",
+    "description": "Sei all'interno dell'officina delle barche, capitanata da Larry. E' un luogo rumoroso e affollato. Ultimamente Larry ha deciso, oltre di costruire e riparare barche, anche di affittarle ai numerosi turisti dell'isola. Vista la grande mole di lavoro ti stupisci di quanto poco personale stia lavorando, forse meglio chiedere a Larry cosa sta succedendo. A est torni a cala sabbia.",
     "east": 3,
     "wrongDirectionMessage": "L'uscita dell'officina è a est"
   }
