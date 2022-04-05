@@ -215,10 +215,8 @@ public class Engine implements Runnable {
         }
 
         printStream.println(game.getTitle());
-        printStream.println();
         printStream.println(game.getDescription());
         printStream.println();
-
         printStream.println(game.getCurrentRoom().getName());
         printStream.println(game.getCurrentRoom().getDescription());
         printStream.println();

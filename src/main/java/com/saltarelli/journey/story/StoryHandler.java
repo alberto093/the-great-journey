@@ -38,11 +38,21 @@ public class StoryHandler {
                 .findFirst()
                 .orElse(null);
         
-        if (isStoryRequiredForCommand(output.getCommand()) && (story == null)) {
-            return StoryHandlerResponse.newMessage(
+        if (story == null) {
+            switch(output.getCommand()) {
+            case NORTH:
+            case SOUTH:
+            case EAST:
+            case WEST:
+            case WALK_TO:
+                return StoryHandlerResponse.newMessage(handleDirectionOutput(output), 0, false);
+            default:
+                return StoryHandlerResponse.newMessage(
                     Optional.ofNullable(customMessageResponse(output)).orElse(handleLookAtCommand(output)),
                     0,
                     false);
+            }
+            
         }
 
         String message = updateGame(output);
@@ -108,15 +118,6 @@ public class StoryHandler {
             case SCORE:
             case HELP:
                 return null;
-            case NORTH:
-            case SOUTH:
-            case EAST:
-            case WEST:
-            case WALK_TO:
-                
-                message = handleDirectionOutput(output);
-                
-                break;
             case OPEN:
                 
                     output.getObjects().stream()
@@ -183,15 +184,13 @@ public class StoryHandler {
 
     private String handleDirectionOutput(ParserOutput output) {
         game.setCurrentRoom(output.getRoom());
-        return game.getCurrentRoom().getName() + "\n" + game.getCurrentRoom().getDescription();
+        return "\n" + game.getCurrentRoom().getName() + "\n" + game.getCurrentRoom().getDescription();
     }
 
     private String handleLookAtCommand(ParserOutput output) {
         String message;
 
-        if (output.getRoom() != null) {
-            message = output.getRoom().getDescription();
-        } else if (output.getPerson() != null) {
+        if (output.getPerson() != null) {
             message = output.getPerson().getDescription();
         } else if (!output.getObjects().isEmpty()) {
             if (output.getObjects().size() == 1) {
@@ -203,6 +202,8 @@ public class StoryHandler {
 
                 message = String.join("\n", messages);
             }
+        } else if (output.getRoom() != null) {
+            message = output.getRoom().getDescription();
         } else {
             message = game.getUnknownOutput();
         }
@@ -497,7 +498,7 @@ public class StoryHandler {
                 .findFirst()
                 .orElse(null);
     }
-
+/*
     private boolean isStoryRequiredForCommand(Command.Name command) {
         switch (command) {
             case END:
@@ -527,7 +528,7 @@ public class StoryHandler {
                 throw new AssertionError(command.name());
         }
     }
-
+*/
     private boolean isValidStory(Story story) {
         Boolean isRoomValid = story.getInput().getRoom() == null
                 || story.getInput().getRoom() == game.getCurrentRoom().getId();

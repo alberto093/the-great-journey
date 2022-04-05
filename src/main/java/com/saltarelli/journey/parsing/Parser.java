@@ -427,10 +427,10 @@ public class Parser {
                 object = matchableFromToken(tokens.get(objectIndex), objects);
                 inventoryObject = matchableFromToken(tokens.get(objectIndex), inventory);
 
-                if (object != null) {
-                    throw new ParserException("Can't give object from a room", ParserException.Kind.CANT_GIVE, tokens.get(objectIndex), "");
-                } else if (inventoryObject != null) {
+                if (inventoryObject != null) {
                     return new ParserOutput(command, person, inventoryObject);
+                } else if (object != null) {
+                    throw new ParserException("Can't give object from a room", ParserException.Kind.CANT_GIVE, tokens.get(objectIndex), "");
                 } else {
                     throw new ParserException("Unknown element", ParserException.Kind.UNKNOWN_ELEMENT);
                 }
