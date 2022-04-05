@@ -28,6 +28,8 @@ import com.saltarelli.journey.type.Direction;
 import com.saltarelli.journey.type.Person;
 import com.saltarelli.journey.type.Player;
 import com.saltarelli.journey.type.Room;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Collection;
@@ -38,7 +40,7 @@ import java.util.stream.Collectors;
  *
  * @author Alberto
  */
-public class Engine {
+public class Engine implements Runnable {
 
     private final Game game;
 
@@ -46,7 +48,7 @@ public class Engine {
 
     private final Parser parser;
 
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
 
     private final Collection<ExceptionDescription> exceptions;
     
@@ -54,10 +56,10 @@ public class Engine {
 
     private int moves = 0;
 
-    public Engine() {
+    public Engine(InputStream inputStream, PrintStream printStream) {
         GameJSON gameJSON = ResourcesReader.fetchGame();
         this.game = new Game(gameJSON);
-
+        this.scanner = new Scanner(inputStream);
         prepareRooms();
         preparePeople();
         preparePlayer();
@@ -69,6 +71,9 @@ public class Engine {
         this.exceptions = ResourcesReader.fetchExceptions();
         this.predefinedCommands = ResourcesReader.fetchPredefinedCommands();
         this.parser = new Parser(ResourcesReader.fetchStopwords());
+        
+        System.setOut(printStream);
+        System.setErr(printStream);
     }
 
     private void prepareRooms() {
@@ -173,7 +178,7 @@ public class Engine {
         this.game.setDirections(directions);
     }
 
-    public void start() {
+    public void run() {
         System.out.println(game.getIntroduction());
 
         Optional<Boolean> showHelp = Optional.empty();
@@ -188,7 +193,7 @@ public class Engine {
             } else if (game.getNoAlias().contains(answer.toLowerCase())) {
                 showHelp = Optional.of(false);
             }
-        } while (showHelp.isEmpty());
+        } while (!showHelp.isPresent());
 
         System.out.println();
         if (showHelp.get()) {
@@ -219,7 +224,7 @@ public class Engine {
             } else if (game.getNoAlias().contains(answer.toLowerCase())) {
                 shouldRestart = Optional.of(false);
             }
-        } while (shouldRestart.isEmpty());
+        } while (!shouldRestart.isPresent());
 
         if (shouldRestart.get()) {
             System.out.print("\033[H\033[2J");
@@ -240,7 +245,7 @@ public class Engine {
             } else if (game.getNoAlias().contains(answer.toLowerCase())) {
                 shouldEnd = Optional.of(false);
             }
-        } while (shouldEnd.isEmpty());
+        } while (!shouldEnd.isPresent());
 
         if (shouldEnd.get()) {
             System.exit(0);
@@ -372,7 +377,7 @@ public class Engine {
                     } else if (game.getNoAlias().contains(answer.toLowerCase())) {
                         isYesAnswer = Optional.of(false);
                     }
-                } while (isYesAnswer.isEmpty());
+                } while (!isYesAnswer.isPresent());
 
                 GameplayHandlerResponse questionResponse;
 
