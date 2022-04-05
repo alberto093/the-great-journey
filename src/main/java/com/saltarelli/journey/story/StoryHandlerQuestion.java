@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.saltarelli.journey.gameplay;
+package com.saltarelli.journey.story;
 
 /**
  *
  * @author Alberto
  */
-public class GameplayHandlerQuestion extends GameplayHandlerResponse {
+public class StoryHandlerQuestion extends StoryHandlerResponse {
     private String question;
     private final String yesAnswer;
     private final String noAnswer;
     
-    protected GameplayHandlerQuestion(String question, String yesAnswer, String noAnswer) {
+    protected StoryHandlerQuestion(String question, String yesAnswer, String noAnswer) {
         this.question = question;
         this.yesAnswer = yesAnswer;
         this.noAnswer = noAnswer;
@@ -37,7 +37,7 @@ public class GameplayHandlerQuestion extends GameplayHandlerResponse {
     }
     
     @Override
-    public GameplayHandlerResponseType getType() {
-        return GameplayHandlerResponseType.QUESTION;
+    public StoryHandlerResponseType getType() {
+        return StoryHandlerResponseType.QUESTION;
     }
 }

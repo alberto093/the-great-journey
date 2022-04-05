@@ -14,33 +14,33 @@ import java.util.Objects;
 public class ParserException extends Exception {
 
     public enum Kind {
-        EMPTY_INPUT, // Sei in silenzio stampa?
-        UNKNOWN_COMMAND, // Non conosco questo verbo.
-        LONG_INPUT, // Ho capito la frase solo fino a: \(additionalDescription).
-        CANT_OPEN, // Non puoi aprire \(additionalDescription).
-        CANT_CLOSE, // Non puoi chiudere \(additionalDescription).
-        CANT_PUSH, // Non puoi spingere \(additionalDescription).
-        CANT_PULL, // Non puoi tirare \(additionalDescription).
-        CANT_GIVE, // Non puoi dare \(additionalDescription) perchè non è nell'inventario.
-        CANT_SPEAK, // Ehi! Puoi farlo solo con esseri viventi.
-        MISSING_OPEN_ELEMENT, // Cosa vuoi aprire? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
-        MISSING_CLOSE_ELEMENT, // Cosa vuoi chiudere? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
-        MISSING_PUSH_ELEMENT, // Cosa vuoi spingere? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
-        MISSING_PULL_ELEMENT, // Cosa vuoi tirare? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
-        MISSING_TAKE_ELEMENT, // Cosa puoi prendere? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
-        MISSING_GIVE_ELEMENT, // Cosa vuoi dare? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
-        MISSING_USE_ELEMENT, // Cosa vuoi usare? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
-        MISSING_READ_ELEMENT, // Cosa vuoi leggere? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
-        MISSING_SPEAK_ELEMENT, // Con chi vuoi parlare? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
-        MISSING_COMBINE_ELEMENT, // Cosa vuoi unire? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
-        MINIMUM_COMBINE, // Non puoi combinare un oggetto con se stesso.
-        CANT_COMBINE, // Puoi farlo solo con oggetti nel tuo inventario.
-        CANT_TAKE, // Non puoi prendere \(additionalDescription).
-        TAKE_FROM_INVENTORY, // Già in possesso.
-        MISSING_DIRECTION, // Dove vuoi andare? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
-        INVALID_DIRECTION, // Non è qualcosa in cui puoi entrare.
-        WRONG_DIRECTION, // Se la stanza è ha il wrongDirectionMessage mostro quello altrimenti dico: "A (additionalDescription) non c'è niente di interessante."
-        UNKNOWN_ELEMENT, // Non vedi nulla del genere.
+        EMPTY_INPUT,
+        UNKNOWN_COMMAND,
+        LONG_INPUT,
+        CANT_OPEN,
+        CANT_CLOSE,
+        CANT_PUSH,
+        CANT_PULL,
+        CANT_GIVE,
+        CANT_SPEAK,
+        MISSING_OPEN_ELEMENT,
+        MISSING_CLOSE_ELEMENT,
+        MISSING_PUSH_ELEMENT,
+        MISSING_PULL_ELEMENT,
+        MISSING_TAKE_ELEMENT,
+        MISSING_GIVE_ELEMENT,
+        MISSING_USE_ELEMENT,
+        MISSING_READ_ELEMENT,
+        MISSING_SPEAK_ELEMENT,
+        MISSING_COMBINE_ELEMENT,
+        MINIMUM_COMBINE,
+        CANT_COMBINE,
+        CANT_TAKE,
+        TAKE_FROM_INVENTORY,
+        MISSING_DIRECTION,
+        INVALID_DIRECTION,
+        WRONG_DIRECTION,
+        UNKNOWN_ELEMENT,
         PREDEFINED_COMMAND
     }
     

@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.saltarelli.journey.gameplay;
+package com.saltarelli.journey.story;
 
 /**
  *
  * @author Alberto
  */
-public class GameplayHandlerMessage extends GameplayHandlerResponse {
+public class StoryHandlerMessage extends StoryHandlerResponse {
     private String message;
     
-    protected GameplayHandlerMessage(String message, Integer score, Boolean isLast) {
+    protected StoryHandlerMessage(String message, Integer score, Boolean isLast) {
         this.message = message;
         this.score = score;
         this.isLast = isLast;
@@ -27,7 +27,7 @@ public class GameplayHandlerMessage extends GameplayHandlerResponse {
     }
  
     @Override
-    public GameplayHandlerResponseType getType() {
-        return GameplayHandlerResponseType.MESSAGE;
+    public StoryHandlerResponseType getType() {
+        return StoryHandlerResponseType.MESSAGE;
     }
 }

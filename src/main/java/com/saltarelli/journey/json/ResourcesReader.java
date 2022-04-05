@@ -30,7 +30,7 @@ public class ResourcesReader {
 
     private static final String PATH = "./resources/";
     private static final String GAME_FILENAME = "Game";
-    private static final String GAMEPLAY_FILENAME = "Gameplay";
+    private static final String STORIES_FILENAME = "Stories";
     private static final String ROOMS_FILENAME = "Rooms";
     private static final String OBJECTS_FILENAME = "Objects";
     private static final String COMMANDS_FILENAME = "Commands";
@@ -54,11 +54,11 @@ public class ResourcesReader {
         return null;
     }
     
-    public static Collection<Gameplay> fetchGameplaySet() {
+    public static Collection<Story> fetchStories() {
         try {
-            Reader reader = new BufferedReader(new FileReader(new File(PATH + GAMEPLAY_FILENAME)));
-            Type setType = new TypeToken<HashSet<Gameplay>>(){}.getType();
-            Set<Gameplay> rooms = new Gson().fromJson(reader, setType);
+            Reader reader = new BufferedReader(new FileReader(new File(PATH + STORIES_FILENAME)));
+            Type setType = new TypeToken<HashSet<Story>>(){}.getType();
+            Set<Story> rooms = new Gson().fromJson(reader, setType);
             reader.close();
             return rooms;
         } catch (JsonIOException | JsonSyntaxException | IOException ex) {

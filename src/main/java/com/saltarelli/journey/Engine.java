@@ -5,7 +5,7 @@
  */
 package com.saltarelli.journey;
 
-import com.saltarelli.journey.gameplay.GameplayHandler;
+import com.saltarelli.journey.story.StoryHandler;
 import com.saltarelli.journey.json.AdvObjectJSON;
 import com.saltarelli.journey.json.CommandJSON;
 import com.saltarelli.journey.json.ExceptionDescription;
@@ -13,9 +13,9 @@ import com.saltarelli.journey.json.GameJSON;
 import com.saltarelli.journey.json.PersonJSON;
 import com.saltarelli.journey.json.ResourcesReader;
 import com.saltarelli.journey.json.RoomJSON;
-import com.saltarelli.journey.gameplay.GameplayHandlerResponse;
-import com.saltarelli.journey.gameplay.GameplayHandlerMessage;
-import com.saltarelli.journey.gameplay.GameplayHandlerQuestion;
+import com.saltarelli.journey.story.StoryHandlerResponse;
+import com.saltarelli.journey.story.StoryHandlerMessage;
+import com.saltarelli.journey.story.StoryHandlerQuestion;
 import com.saltarelli.journey.json.PredefinedCommand;
 import java.util.Scanner;
 import java.util.Set;
@@ -44,7 +44,7 @@ public class Engine implements Runnable {
 
     private final Game game;
 
-    private final GameplayHandler gameplayHandler;
+    private final StoryHandler storyHandler;
 
     private final Parser parser;
 
@@ -70,7 +70,7 @@ public class Engine implements Runnable {
         prepareDirections();
         
 
-        this.gameplayHandler = new GameplayHandler(this.game, ResourcesReader.fetchGameplaySet());
+        this.storyHandler = new StoryHandler(this.game, ResourcesReader.fetchStories());
         this.exceptions = ResourcesReader.fetchExceptions();
         this.predefinedCommands = ResourcesReader.fetchPredefinedCommands();
         this.parser = new Parser(ResourcesReader.fetchStopwords());
@@ -337,8 +337,8 @@ public class Engine implements Runnable {
                         printHelp();
                         break;
                     default:
-                        GameplayHandlerResponse gameplayResponse = gameplayHandler.processOutput(output);
-                        handleGameplayResponse(output, gameplayResponse);
+                        StoryHandlerResponse storyResponse = storyHandler.processOutput(output);
+                        handleStoryResponse(output, storyResponse);
                         break;
                 }
             } catch (ParserException ex) {
@@ -347,11 +347,11 @@ public class Engine implements Runnable {
         }
     }
 
-    private void handleGameplayResponse(ParserOutput output, GameplayHandlerResponse response) {
+    private void handleStoryResponse(ParserOutput output, StoryHandlerResponse response) {
 
         switch (response.getType()) {
             case MESSAGE:
-                GameplayHandlerMessage responseMessage = (GameplayHandlerMessage) response;
+                StoryHandlerMessage responseMessage = (StoryHandlerMessage) response;
 
                 printStream.println(responseMessage.getMessage());
                 printStream.println();
@@ -367,7 +367,7 @@ public class Engine implements Runnable {
                 }
                 break;
             case QUESTION:
-                GameplayHandlerQuestion responseQuestion = (GameplayHandlerQuestion) response;
+                StoryHandlerQuestion responseQuestion = (StoryHandlerQuestion) response;
 
                 Optional<Boolean> isYesAnswer = Optional.empty();
 
@@ -382,17 +382,17 @@ public class Engine implements Runnable {
                     }
                 } while (!isYesAnswer.isPresent());
 
-                GameplayHandlerResponse questionResponse;
+                StoryHandlerResponse questionResponse;
 
                 if (isYesAnswer.get()) {
-                    questionResponse = gameplayHandler.processQuestionAnswer(true, output);
+                    questionResponse = storyHandler.processQuestionAnswer(true, output);
                 } else {
-                    questionResponse = gameplayHandler.processQuestionAnswer(false, output);
+                    questionResponse = storyHandler.processQuestionAnswer(false, output);
                 }
 
                 printStream.println();
 
-                handleGameplayResponse(output, questionResponse);
+                handleStoryResponse(output, questionResponse);
                 break;
             default:
                 throw new AssertionError(response.getType().name());

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  *
  * @author Alberto
  */
-public class Gameplay {
+public class Story {
 
     public class Editing {
 

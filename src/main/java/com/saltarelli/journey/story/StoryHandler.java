@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.saltarelli.journey.gameplay;
+package com.saltarelli.journey.story;
 
 import com.saltarelli.journey.Game;
-import com.saltarelli.journey.json.Gameplay;
+import com.saltarelli.journey.json.Story;
 import com.saltarelli.journey.parsing.ParserOutput;
 import com.saltarelli.journey.type.AdvObject;
 import com.saltarelli.journey.type.Command;
@@ -22,26 +22,24 @@ import java.util.stream.Collectors;
  *
  * @author Alberto
  */
-public class GameplayHandler {
+public class StoryHandler {
 
     private final Game game;
-    private final Collection<Gameplay> gameplaySet;
+    private final Collection<Story> stories;
 
-    public GameplayHandler(Game game, Collection<Gameplay> gameplaySet) {
+    public StoryHandler(Game game, Collection<Story> stories) {
         this.game = game;
-        this.gameplaySet = gameplaySet;
+        this.stories = stories;
     }
 
-    public GameplayHandlerResponse processOutput(ParserOutput output) {
-        Gameplay gameplay = gameplaySet.stream()
+    public StoryHandlerResponse processOutput(ParserOutput output) {
+        Story story = stories.stream()
                 .filter(g -> g.match(output, game.getInventory()))
                 .findFirst()
                 .orElse(null);
         
-        boolean isGameplayRequired = isGameplayRequiredForCommand(output.getCommand());
-   
-        if (isGameplayRequired && (gameplay == null)) {
-            return GameplayHandlerResponse.newMessage(
+        if (isStoryRequiredForCommand(output.getCommand()) && (story == null)) {
+            return StoryHandlerResponse.newMessage(
                     Optional.ofNullable(customMessageResponse(output)).orElse(handleLookAtCommand(output)),
                     0,
                     false);
@@ -49,33 +47,33 @@ public class GameplayHandler {
 
         String message = updateGame(output);
 
-        GameplayHandlerResponse response = handleGameplay(gameplay, false, false);
+        StoryHandlerResponse response = handleStory(story, false, false);
 
         if (response != null) {
             switch (response.getType()) {
                 case MESSAGE:
                     if (message != null && !message.isEmpty()) {
-                        message = message + "\n\n" + ((GameplayHandlerMessage) response).getMessage();
+                        message = message + "\n\n" + ((StoryHandlerMessage) response).getMessage();
                     } else {
-                        message = ((GameplayHandlerMessage) response).getMessage();
+                        message = ((StoryHandlerMessage) response).getMessage();
                     }
 
-                    ((GameplayHandlerMessage) response).setMessage(message);
+                    ((StoryHandlerMessage) response).setMessage(message);
                     return response;
                 case QUESTION:
                     if (message != null && !message.isEmpty()) {
-                        message = message + "\n\n" + ((GameplayHandlerQuestion) response).getQuestion();
+                        message = message + "\n\n" + ((StoryHandlerQuestion) response).getQuestion();
                     } else {
-                        message = ((GameplayHandlerQuestion) response).getQuestion();
+                        message = ((StoryHandlerQuestion) response).getQuestion();
                     }
 
-                    ((GameplayHandlerQuestion) response).setQuestion(message);
+                    ((StoryHandlerQuestion) response).setQuestion(message);
                     return response;
                 default:
                     throw new AssertionError(response.getType().name());
             }
         } else if (message != null && !message.isEmpty()) {
-            return GameplayHandlerResponse.newMessage(message, 0, false);
+            return StoryHandlerResponse.newMessage(message, 0, false);
         }
 
         switch (output.getCommand()) {
@@ -86,17 +84,17 @@ public class GameplayHandler {
             case HELP:
                 return null;
             default:
-                return GameplayHandlerResponse.newMessage(game.getUnknownOutput(), 0, false);
+                return StoryHandlerResponse.newMessage(game.getUnknownOutput(), 0, false);
         }
     }
 
-    public GameplayHandlerResponse processQuestionAnswer(Boolean yesAnswer, ParserOutput output) {
-        Gameplay gameplay = fetchGameplayFrom(output);
-        GameplayHandlerResponse response = handleGameplay(gameplay, true, yesAnswer);
+    public StoryHandlerResponse processQuestionAnswer(Boolean yesAnswer, ParserOutput output) {
+        Story story = fetchStoryFrom(output);
+        StoryHandlerResponse response = handleStory(story, true, yesAnswer);
         if (response != null) {
             return response;
         } else {
-            return GameplayHandlerResponse.newMessage(game.getUnknownOutput(), 0, false);
+            return StoryHandlerResponse.newMessage(game.getUnknownOutput(), 0, false);
         }
     }
 
@@ -232,10 +230,10 @@ public class GameplayHandler {
         return null;
     }
 
-    private Gameplay fetchGameplayFrom(ParserOutput output) {
+    private Story fetchStoryFrom(ParserOutput output) {
         Command.Name command = output.getCommand();
 
-        return gameplaySet.stream()
+        return stories.stream()
                 .filter(gp -> {
                     return gp.getInput().getCommand() == command
                             && (gp.getInput().getPerson() == null || gp.getInput().getPerson() == output.getPerson().getId())
@@ -249,66 +247,62 @@ public class GameplayHandler {
                 .orElse(null);
     }
 
-    private GameplayHandlerResponse handleGameplay(Gameplay gameplay, Boolean checkAnswer, Boolean yesAnswer) {
-        if (gameplay == null) {
+    private StoryHandlerResponse handleStory(Story story, Boolean checkAnswer, Boolean yesAnswer) {
+        if (story == null) {
             return null;
         }
 
         // Editing game
-        if (gameplay.getOutput().getEditing() != null) {
-            handleEditing(gameplay.getOutput().getEditing());
+        if (story.getOutput().getEditing() != null) {
+            handleEditing(story.getOutput().getEditing());
         }
 
         // Editing game with answer
-        if (gameplay.getOutput().getQuestion() != null && checkAnswer) {
+        if (story.getOutput().getQuestion() != null && checkAnswer) {
             if (yesAnswer) {
-                if (gameplay.getOutput().getQuestion().getYesAnswer().getEditing() != null) {
-                    handleEditing(gameplay.getOutput().getQuestion().getYesAnswer().getEditing());
+                if (story.getOutput().getQuestion().getYesAnswer().getEditing() != null) {
+                    handleEditing(story.getOutput().getQuestion().getYesAnswer().getEditing());
                 }
             } else {
-                if (gameplay.getOutput().getQuestion().getNoAnswer().getEditing() != null) {
-                    handleEditing(gameplay.getOutput().getQuestion().getNoAnswer().getEditing());
+                if (story.getOutput().getQuestion().getNoAnswer().getEditing() != null) {
+                    handleEditing(story.getOutput().getQuestion().getNoAnswer().getEditing());
                 }
             }
         }
 
-        if (gameplay.getDelete() != null && gameplay.getDelete()
-                || (checkAnswer && yesAnswer && gameplay.getOutput().getQuestion().getYesAnswer().getDelete())
-                || (checkAnswer && !yesAnswer && gameplay.getOutput().getQuestion().getNoAnswer().getDelete())) {
-            this.gameplaySet.remove(gameplay);
+        if (story.getDelete() != null && story.getDelete()
+                || (checkAnswer && yesAnswer && story.getOutput().getQuestion().getYesAnswer().getDelete())
+                || (checkAnswer && !yesAnswer && story.getOutput().getQuestion().getNoAnswer().getDelete())) {
+            this.stories.remove(story);
         }
 
-        // create gameplay response
+        // create story response
         if (checkAnswer) {
             if (yesAnswer) {
-                return GameplayHandlerResponse.newMessage(
-                        gameplay.getOutput().getQuestion().getYesAnswer().getMessage(),
-                        gameplay.getOutput().getQuestion().getYesAnswer().getScore(),
-                        gameplay.getOutput().getQuestion().getYesAnswer().getIsLast());
+                return StoryHandlerResponse.newMessage(story.getOutput().getQuestion().getYesAnswer().getMessage(),
+                        story.getOutput().getQuestion().getYesAnswer().getScore(),
+                        story.getOutput().getQuestion().getYesAnswer().getIsLast());
             } else {
-                return GameplayHandlerResponse.newMessage(
-                        gameplay.getOutput().getQuestion().getNoAnswer().getMessage(),
-                        gameplay.getOutput().getQuestion().getNoAnswer().getScore(),
-                        gameplay.getOutput().getQuestion().getNoAnswer().getIsLast());
+                return StoryHandlerResponse.newMessage(story.getOutput().getQuestion().getNoAnswer().getMessage(),
+                        story.getOutput().getQuestion().getNoAnswer().getScore(),
+                        story.getOutput().getQuestion().getNoAnswer().getIsLast());
             }
         } else {
-            if (gameplay.getOutput().getQuestion() != null) {
-                return GameplayHandlerResponse.newQuestion(
-                        gameplay.getOutput().getMessage(),
-                        gameplay.getOutput().getQuestion().getYesAnswer().getMessage(),
-                        gameplay.getOutput().getQuestion().getNoAnswer().getMessage());
-            } else if (gameplay.getOutput().getMessage() != null && !gameplay.getOutput().getMessage().isEmpty()) {
-                return GameplayHandlerResponse.newMessage(
-                        gameplay.getOutput().getMessage(),
-                        Optional.ofNullable(gameplay.getScore()).orElse(0),
-                        Optional.ofNullable(gameplay.getIsLast()).orElse(false));
+            if (story.getOutput().getQuestion() != null) {
+                return StoryHandlerResponse.newQuestion(story.getOutput().getMessage(),
+                        story.getOutput().getQuestion().getYesAnswer().getMessage(),
+                        story.getOutput().getQuestion().getNoAnswer().getMessage());
+            } else if (story.getOutput().getMessage() != null && !story.getOutput().getMessage().isEmpty()) {
+                return StoryHandlerResponse.newMessage(story.getOutput().getMessage(),
+                        Optional.ofNullable(story.getScore()).orElse(0),
+                        Optional.ofNullable(story.getIsLast()).orElse(false));
             }
         }
 
         return null;
     }
 
-    private void handleEditing(Gameplay.Editing editing) {
+    private void handleEditing(Story.Editing editing) {
         if (editing.getObjects() != null && !editing.getObjects().isEmpty()) {
             editing.getObjects().stream()
                     .forEach(this::editObject);
@@ -325,7 +319,7 @@ public class GameplayHandler {
         }
     }
 
-    private void editObject(Gameplay.Editing.EditingObject editingObject) {
+    private void editObject(Story.Editing.EditingObject editingObject) {
         AdvObject object = getGameObject(editingObject.getId());
         Room room = getRoomOfObject(object.getId());
 
@@ -405,7 +399,7 @@ public class GameplayHandler {
         }
     }
 
-    private void editPerson(Gameplay.Editing.EditingPerson editingPerson) {
+    private void editPerson(Story.Editing.EditingPerson editingPerson) {
         Person person = getPerson(editingPerson.getId());
         Room room = getRoomOfPerson(person.getId());
 
@@ -504,7 +498,7 @@ public class GameplayHandler {
                 .orElse(null);
     }
 
-    private boolean isGameplayRequiredForCommand(Command.Name command) {
+    private boolean isStoryRequiredForCommand(Command.Name command) {
         switch (command) {
             case END:
             case RESTART:
@@ -534,19 +528,19 @@ public class GameplayHandler {
         }
     }
 
-    private boolean isValidGameplay(Gameplay gameplay) {
-        Boolean isRoomValid = gameplay.getInput().getRoom() == null
-                || gameplay.getInput().getRoom() == game.getCurrentRoom().getId();
+    private boolean isValidStory(Story story) {
+        Boolean isRoomValid = story.getInput().getRoom() == null
+                || story.getInput().getRoom() == game.getCurrentRoom().getId();
 
         if (!isRoomValid) {
             return false;
         }
 
-        return gameplay.getInput().getInventoryRequirements() == null
-                || gameplay.getInput().getInventoryRequirements().isEmpty()
+        return story.getInput().getInventoryRequirements() == null
+                || story.getInput().getInventoryRequirements().isEmpty()
                 || game.getInventory().stream()
                         .map(o -> o.getId())
                         .collect(Collectors.toSet())
-                        .containsAll(gameplay.getInput().getInventoryRequirements());
+                        .containsAll(story.getInput().getInventoryRequirements());
     }
 }

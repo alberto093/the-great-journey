@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.saltarelli.journey.gameplay;
+package com.saltarelli.journey.story;
 
 /**
  *
  * @author Alberto
  */
-public enum GameplayHandlerResponseType {
+public enum StoryHandlerResponseType {
     MESSAGE,
     QUESTION
 }
