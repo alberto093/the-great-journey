@@ -224,7 +224,38 @@
       ]
     },
     "output": {
-      "message": "\"Lo scafo ce l'ho!\""
+      "message": "\"Lo scafo ce l'ho!\"",
+      "editing": {
+        "objects": [
+          {
+            "id": 25,
+            "customCommandMessages": [
+              {
+                "command": "COMBINE",
+                "description": "Sicuramente potrei farci una barca, ma devo scegliere il posto giusto per farla."
+              }
+            ]
+          },
+          {
+            "id": 20,
+            "customCommandMessages": [
+              {
+                "command": "COMBINE",
+                "description": "Sicuramente potrei farci una barca, ma devo scegliere il posto giusto per farla."
+              }
+            ]
+          },
+          {
+            "id": 14,
+            "customCommandMessages": [
+              {
+                "command": "COMBINE",
+                "description": "Sicuramente potrei farci una barca, ma devo scegliere il posto giusto per farla."
+              }
+            ]
+          }
+        ]
+      }
     },
     "score": 1
   },
@@ -309,6 +340,23 @@
         20,
         14,
         25
+      ]
+    },
+    "output": {
+      "message": "Finalmente posso viaggiare in lugo e in largo. Gioco finito!"
+    },
+    "score": 3,
+    "isLast": true
+  },
+  {
+    "input": {
+      "command": "COMBINE",
+      "room": 5,
+      "objects": [
+        20,
+        14,
+        25,
+        29
       ]
     },
     "output": {

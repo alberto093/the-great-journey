@@ -127,7 +127,7 @@
     "id": 15,
     "room": 2,
     "name": "lavatrice",
-    "alias": ["lavabiancheria", "lavasciuga"],
+    "alias": ["lavabiancheria", "lavasciuga", "lavatrici"],
     "description": "Enormi lavatrici sempre in funzione."
   },
   {
@@ -162,7 +162,7 @@
     "id": 20,
     "room": 3,
     "name": "pontile",
-    "alias": ["ponte", "ponticello"],
+    "alias": ["ponte", "ponticello", "assi", "asse"],
     "description": "Un piccolo pontile fatto da assi di legno massiccio.",
     "customCommandMessages": [{
         "command": "INVENTORY",

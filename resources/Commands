@@ -57,11 +57,11 @@
   },
   {
     "name": "GIVE",
-    "alias": ["dai", "offri", "regala", "cedi"]
+    "alias": ["dai", "offri", "regala", "cedi", "lascia"]
   },
   {
     "name": "LOOK_AT",
-    "alias": ["osserva", "guarda", "vedi", "esamina", "x", "g"]
+    "alias": ["osserva", "guarda", "vedi", "esamina", "x", "g", "ispeziona"]
   },
   {
     "name": "READ",
@@ -73,7 +73,7 @@
   },
   {
     "name": "COMBINE",
-    "alias": ["combina", "unisci", "lega", "connetti", "fondi", "componi"]
+    "alias": ["combina", "unisci", "lega", "connetti", "fondi", "componi", "costruisci"]
   },
   {
     "name": "SING",
