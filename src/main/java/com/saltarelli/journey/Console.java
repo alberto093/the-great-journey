@@ -124,7 +124,7 @@ public class Console extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Journey");
-        setPreferredSize(new java.awt.Dimension(800, 540));
+        setPreferredSize(new java.awt.Dimension(850, 600));
 
         scrollPane.setBackground(new java.awt.Color(0, 0, 0));
         scrollPane.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(40, 32, 24), 5), javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1)));
