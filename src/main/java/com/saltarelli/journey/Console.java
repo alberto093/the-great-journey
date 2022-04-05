@@ -31,6 +31,8 @@ import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JScrollPane;
@@ -66,9 +68,9 @@ public class Console extends javax.swing.JFrame {
                 document.insertString(document.getLength(), toString(), null);
                 textPane.setCaretPosition(document.getLength());
             } catch (BadLocationException ex) {
-                
+
             }
-            
+
             reset();
         }
     }
@@ -77,6 +79,9 @@ public class Console extends javax.swing.JFrame {
     private final PipedOutputStream outputStream = new PipedOutputStream();
     private final PrintStream textFieldStream;
     private final PrintStream textAreaStream;
+
+    private List<String> previousInputs = new ArrayList<>();
+    private Integer previousInputsIndex;
 
     /**
      * Creates new form ConsoleUI
@@ -100,7 +105,6 @@ public class Console extends javax.swing.JFrame {
         Thread engineThread = new Thread(engine);
         engineThread.start();
 
-        
         textField.requestFocus();
         //scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         //scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
@@ -171,33 +175,54 @@ public class Console extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void textFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldKeyPressed
-        // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            String input = textField.getText();
-            textFieldStream.println(input);
-            textField.setText("");
 
-            StyleContext context = StyleContext.getDefaultStyleContext();
-            AttributeSet attributes = context.addAttribute(
-                    SimpleAttributeSet.EMPTY,
-                    StyleConstants.Foreground,
-                    textField.getForeground());
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                String input = textField.getText();
+                previousInputs.add(input);
+                previousInputsIndex = previousInputs.size();
+                textFieldStream.println(input);
+                textField.setText("");
 
-            attributes = context.addAttribute(attributes, StyleConstants.FontFamily, textField.getFont().getFontName());
+                StyleContext context = StyleContext.getDefaultStyleContext();
+                AttributeSet attributes = context.addAttribute(
+                        SimpleAttributeSet.EMPTY,
+                        StyleConstants.Foreground,
+                        textField.getForeground());
 
-            Document document = textPane.getDocument();
-            
-            textPane.setCharacterAttributes(attributes, false);
-            
-            try {
-                document.insertString(document.getLength(), input, attributes);
-            } catch (BadLocationException ex) {
+                attributes = context.addAttribute(attributes, StyleConstants.FontFamily, textField.getFont().getFontName());
+
+                Document document = textPane.getDocument();
+
+                textPane.setCharacterAttributes(attributes, false);
+
+                try {
+                    document.insertString(document.getLength(), input, attributes);
+                } catch (BadLocationException ex) {
+
+                }
+
+                synchronized (inputStream) {
+                    inputStream.notify();
+                }
+                break;
+            case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_UP:
+                previousInputsIndex += evt.getKeyCode() == KeyEvent.VK_DOWN ? 1 : -1;
+
+                if (previousInputsIndex > 0 && previousInputsIndex < previousInputs.size()) {
+                    java.awt.EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            if (previousInputsIndex > 0 && previousInputsIndex < previousInputs.size()) {
+                                textField.setText(previousInputs.get(previousInputsIndex));
+                            }
+                        }
+                    });
+                }
                 
-            }
-
-            synchronized (inputStream) {
-                inputStream.notify();
-            }
+                break;
+            default:
+                break;
         }
     }//GEN-LAST:event_textFieldKeyPressed
 

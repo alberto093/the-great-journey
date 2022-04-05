@@ -3,42 +3,78 @@
     "room": 0,
     "name": "casa",
     "alias": ["stanza", "camera", "depandance", "monolocale"],
-    "description": "La depandance è il monolacale in cui vivi, lontano dai tuoi genitori. È sempre tutto in disordine."
+    "description": "La depandance è il monolacale in cui vivi, lontano dai tuoi genitori. È sempre tutto in disordine.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "Per quale motivo dovrei farlo?"
+      }
+    ]
   },
   {
     "id": 1,
     "room": 0,
     "name": "muro",
     "alias": ["muri", "parete", "pareti", "soffitto", "pavimento"],
-    "description": "Niente di interessante."
+    "description": "Niente di interessante.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "Per quale motivo dovrei farlo?"
+      }
+    ]
   },
   {
     "id": 2,
     "room": 0,
     "name": "finestra",
     "alias": [],
-    "description": "Dalla finestra vedo i magnifici giardini del palazzo reale che pullano di fiori colorati."
+    "description": "Dalla finestra vedo i magnifici giardini del palazzo reale che pullano di fiori colorati.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "Non è necessario, sta bene al suo posto."
+      }
+    ]
   },
   {
     "id": 3,
     "room": 0,
     "name": "cucina",
     "alias": ["cucinino", "stufa", "tavolo", "sedia", "sedie", "tv", "televisione", "televisore", "cestino", "divano"],
-    "description": "L'arredamento di casa non ha alcuna importanza per lo svolgimento della tua avventura."
+    "description": "L'arredamento di casa non ha alcuna importanza per lo svolgimento della tua avventura.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "Non servirebbe a niente."
+      }
+    ]
   },
   {
     "id": 4,
     "room": 0,
     "name": "frigorifero",
     "alias": ["frigo", "refrigeratore"],
-    "description": "Per fortuna non è in funzione, è vuoto da settimane."
+    "description": "Per fortuna non è in funzione, è vuoto da settimane.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "È un vecchio frigorifero, meglio lasciarlo lì."
+      }
+    ]
   },
   {
     "id": 5,
     "room": 0,
     "name": "letto",
     "alias": [],
-    "description": "Il letto è disfatto, si vede che non è ancora passata la colf! Ci sono dei vestiti sporchi... non farei una bella figura a lasciarli lì."
+    "description": "Il letto è disfatto, si vede che non è ancora passata la colf! Ci sono dei vestiti sporchi... non farei una bella figura a lasciarli lì.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "Mi serve per riposare!"
+      }
+    ]
   },
   {
     "id": 6,
@@ -147,7 +183,13 @@
     "room": 2,
     "name": "lavatrice",
     "alias": ["lavabiancheria", "lavasciuga", "lavatrici"],
-    "description": "Enormi lavatrici sempre in funzione."
+    "description": "Enormi lavatrici sempre in funzione.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "Sono forzuto, ma non fino a tal punto."
+      }
+    ]
   },
   {
     "id": 16,
@@ -168,7 +210,13 @@
     "room": 3,
     "name": "sdraio",
     "alias": ["lettini", "sedia", "sedie", "lettino", "sdrai", "sdraie", "sdraia", "ombrelloni"],
-    "description": "È solo scenografia."
+    "description": "È solo scenografia.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "Sono tutte occupate dai bagnanti!"
+      }
+    ]
   },
   {
     "id": 19,
@@ -210,7 +258,13 @@
     "room": 4,
     "name": "bar",
     "alias": ["cafe", "cafè", "caffè", "caffe", "bar soleluna"],
-    "description": "Il Bar Soleluna è il luogo cult dell'isola, conosciuto anche nelle isole limitrofe per i suoi rum importanti da tutto il mondo. Il barista, tuo grande amico, non fa altro che offrirti da bere in quanto paghi sempre anche per i tuoi amici, sei il figlio del governatore dell'isola d'altronde!"
+    "description": "Il Bar Soleluna è il luogo cult dell'isola, conosciuto anche nelle isole limitrofe per i suoi rum importanti da tutto il mondo. Il barista, tuo grande amico, non fa altro che offrirti da bere in quanto paghi sempre anche per i tuoi amici, sei il figlio del governatore dell'isola d'altronde!",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "Il bar è molto carino, ma il caffè non è un granchè qui."
+      }
+    ]
   },
   {
     "id": 23,
@@ -223,8 +277,14 @@
     "id": 24,
     "room": 4,
     "name": "bancone",
-    "alias": ["sgabelli", "bevande", "cocktails", "cibo", "vetrine", "birre", "vini"],
-    "description": "Non sei qui per bere, ma per trovare un modo per affrontare nuove avventure!"
+    "alias": ["bevande", "cocktails", "cibo", "vetrine", "birre", "vini", "coca cola", "birra", "focaccia"],
+    "description": "Coca Cola, birre, focaccia... non sei qui per bere, ma per trovare un modo per affrontare nuove avventure!",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "Magari, ma non ho un soldo in tasca!"
+      }
+    ]
   },
   {
     "id": 25,
@@ -247,14 +307,26 @@
     "room": 4,
     "name": "rum",
     "alias": ["whiskey"],
-    "description": "Un Ron Zacapa Centenario, viene distillato nella forma più pura e con un’attenzione particolare, per ottenere un sofisticato e setoso rum dal gusto rotondo e di grande personalità."
+    "description": "Un Ron Zacapa Centenario, viene distillato nella forma più pura e con un’attenzione particolare, per ottenere un sofisticato e setoso rum dal gusto rotondo e di grande personalità.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "È mattina, ma non fa niente lo berrei a qualsiasi ora!"
+      }
+    ]
   },
   {
     "id": 26,
     "room": 5,
     "name": "officina",
     "alias": ["noleggio", "cantiere", "struttura", "edificio", "negozio"],
-    "description": "Questa è l'officina delle barche, capitanata da Larry. E' un luogo rumoroso e affollato.\n\nC'è una grande cassetta degli attrezzi non custodita."
+    "description": "Questa è l'officina delle barche, capitanata da Larry. E' un luogo rumoroso e affollato.\n\nC'è una grande cassetta degli attrezzi non custodita.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "Bah"
+      }
+    ]
   },
   {
     "id": 27,
@@ -268,7 +340,13 @@
     "room": 5,
     "name": "barca",
     "alias": ["barche", "scafi", "motoscafi"],
-    "description": "Numerose imbarcazioni di legno, molte delle quali hanno bisogno dell'intervento di Larry e i suoi dipendenti."
+    "description": "Numerose imbarcazioni di legno, molte delle quali hanno bisogno dell'intervento di Larry e i suoi dipendenti.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "\"Non puoi ragazzaccio!\" ti dice Larry con tono minaccioso."
+      }
+    ]
   },
   {
     "id": 29,

@@ -237,8 +237,10 @@
             "id": 25,
             "description": "Un palo d'acciaio lungo e robusto. Potrei usarlo come sostegno per qualcosa...",
             "customCommandMessages": [
-              "command": "PICK_UP",
-              "description": "\"Hei amico, che fai!? A cosa mai potrebbe serviti un palo di una antenna radio.\"\nDovrei cercare un modo per distrarre il mio amico barista."
+              {
+                "command": "PICK_UP",
+                "description": "\"Hei amico, che fai!? A cosa mai potrebbe serviti un palo di una antenna radio.\"\nDovrei cercare un modo per distrarre il mio amico barista."
+              }
             ]
           },
           {
