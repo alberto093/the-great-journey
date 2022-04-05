@@ -16,6 +16,7 @@ import com.saltarelli.journey.json.RoomJSON;
 import com.saltarelli.journey.gameplay.GameplayHandlerResponse;
 import com.saltarelli.journey.gameplay.GameplayHandlerMessage;
 import com.saltarelli.journey.gameplay.GameplayHandlerQuestion;
+import com.saltarelli.journey.json.PredefinedCommand;
 import java.util.Scanner;
 import java.util.Set;
 import com.saltarelli.journey.parsing.Parser;
@@ -47,9 +48,9 @@ public class Engine {
 
     private final Scanner scanner = new Scanner(System.in);
 
-    private final PrintStream console;
-
     private final Collection<ExceptionDescription> exceptions;
+    
+    private final Set<PredefinedCommand> predefinedCommands;
 
     private int moves = 0;
 
@@ -66,8 +67,8 @@ public class Engine {
 
         this.gameplayHandler = new GameplayHandler(this.game, ResourcesReader.fetchGameplaySet());
         this.exceptions = ResourcesReader.fetchExceptions();
+        this.predefinedCommands = ResourcesReader.fetchPredefinedCommands();
         this.parser = new Parser(ResourcesReader.fetchStopwords());
-        this.console = System.out;
     }
 
     private void prepareRooms() {
@@ -173,13 +174,13 @@ public class Engine {
     }
 
     public void start() {
-        console.println(game.getIntroduction());
+        System.out.println(game.getIntroduction());
 
         Optional<Boolean> showHelp = Optional.empty();
 
         do {
-            console.println();
-            console.println(game.getHelpQuestion());
+            System.out.println();
+            System.out.println(game.getHelpQuestion());
             String answer = scanner.nextLine();
 
             if (game.getYesAlias().contains(answer.toLowerCase())) {
@@ -189,19 +190,19 @@ public class Engine {
             }
         } while (showHelp.isEmpty());
 
-        console.println();
+        System.out.println();
         if (showHelp.get()) {
             printHelp();
         }
 
-        console.println(game.getTitle());
-        console.println();
-        console.println(game.getDescription());
-        console.println();
+        System.out.println(game.getTitle());
+        System.out.println();
+        System.out.println(game.getDescription());
+        System.out.println();
 
-        console.println(game.getCurrentRoom().getName());
-        console.println(game.getCurrentRoom().getDescription());
-        console.println();
+        System.out.println(game.getCurrentRoom().getName());
+        System.out.println(game.getCurrentRoom().getDescription());
+        System.out.println();
 
         scanNextLine("");
     }
@@ -210,7 +211,7 @@ public class Engine {
         Optional<Boolean> shouldRestart = Optional.empty();
 
         do {
-            console.println(game.getRestartQuestion());
+            System.out.println(game.getRestartQuestion());
             String answer = scanner.nextLine();
 
             if (game.getYesAlias().contains(answer.toLowerCase())) {
@@ -221,8 +222,8 @@ public class Engine {
         } while (shouldRestart.isEmpty());
 
         if (shouldRestart.get()) {
-            console.print("\033[H\033[2J");
-            console.flush();
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
             start();
         }
     }
@@ -231,7 +232,7 @@ public class Engine {
         Optional<Boolean> shouldEnd = Optional.empty();
 
         do {
-            console.println(game.getEndQuestion());
+            System.out.println(game.getEndQuestion());
             String answer = scanner.nextLine();
 
             if (game.getYesAlias().contains(answer.toLowerCase())) {
@@ -247,37 +248,37 @@ public class Engine {
     }
 
     private void finishGame() {
-        console.println(game.getEndGameMessage());
+        System.out.println(game.getEndGameMessage());
         printScore();
         scanner.nextLine();
         System.exit(0);
     }
 
     private void printScore() {
-        console.println(String.format(game.getScoreMessage(), game.getCurrentScore(), game.getMaxScore(), moves));
-        console.println();
+        System.out.println(String.format(game.getScoreMessage(), game.getCurrentScore(), game.getMaxScore(), moves));
+        System.out.println();
     }
     
     private void printHelp() {
-        console.println(game.getHelp());
-        console.println();
+        System.out.println(game.getHelp());
+        System.out.println();
     }
 
     private void printInventory() {
         if (game.getInventory().isEmpty()) {
-            console.println(game.getInventoryEmpty());
+            System.out.println(game.getInventoryEmpty());
         } else {
-            console.println(game.getInventoryFull());
+            System.out.println(game.getInventoryFull());
 
             game.getInventory().stream().forEach(o -> {
                 String inventoryDescription = Optional
                         .ofNullable(o.customMessageForCommand(Command.Name.INVENTORY))
                         .orElse(o.getName());
-                console.println("\t - " + inventoryDescription);
+                System.out.println("\t - " + inventoryDescription);
             });
         }
         
-        console.println();
+        System.out.println();
     }
 
     private void scanNextLine(String input) {
@@ -291,7 +292,7 @@ public class Engine {
                 newInput = previousInput + " " + scanner.nextLine();
             }
 
-            console.println();
+            System.out.println();
             previousInput = "";
             moves += 1;
 
@@ -301,7 +302,8 @@ public class Engine {
                         game.getCommands(),
                         game.getDirections(),
                         game.getInventory(),
-                        game.getCurrentRoom());
+                        game.getCurrentRoom(),
+                        predefinedCommands);
                 
                 if (output.getRoom() == null) {
                     output.setRoom(game.getCurrentRoom());
@@ -343,13 +345,13 @@ public class Engine {
             case MESSAGE:
                 GameplayHandlerMessage responseMessage = (GameplayHandlerMessage) response;
 
-                console.println(responseMessage.getMessage());
-                console.println();
+                System.out.println(responseMessage.getMessage());
+                System.out.println();
 
                 if (responseMessage.getScore() != null && responseMessage.getScore() > 0) {
                     game.setCurrentScore(game.getCurrentScore() + responseMessage.getScore());
-                    console.println(String.format(game.getIncreaseScoreMessage(), responseMessage.getScore()));
-                    console.println();
+                    System.out.println(String.format(game.getIncreaseScoreMessage(), responseMessage.getScore()));
+                    System.out.println();
                 }
 
                 if (response.getIsLast() != null && response.getIsLast()) {
@@ -362,7 +364,7 @@ public class Engine {
                 Optional<Boolean> isYesAnswer = Optional.empty();
 
                 do {
-                    console.println(responseQuestion.getQuestion());
+                    System.out.println(responseQuestion.getQuestion());
                     String answer = scanner.nextLine();
 
                     if (game.getYesAlias().contains(answer.toLowerCase())) {
@@ -380,7 +382,7 @@ public class Engine {
                     questionResponse = gameplayHandler.processQuestionAnswer(false, output);
                 }
 
-                console.println();
+                System.out.println();
 
                 handleGameplayResponse(output, questionResponse);
                 break;
@@ -460,8 +462,8 @@ public class Engine {
             }
         }
 
-        console.println(message);
-        console.println();
+        System.out.println(message);
+        System.out.println();
         scanNextLine(previousInput);
     }
 

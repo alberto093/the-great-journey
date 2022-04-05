@@ -1,0 +1,36 @@
+[{
+    "commands": [
+      "cazzo",
+      "merda",
+      "dannazione",
+      "porco"
+    ],
+    "answer": "Modera i termini o ti rinchiudo nelle prigioni del palazzo!"
+  },
+  {
+    "commands": [
+      "dormi",
+      "sonnecchia"
+    ],
+    "answer": "Non hai sonno!"
+  },
+  {
+    "commands": [
+      "spiacente",
+      "scusa"
+    ],
+    "answer": "Oh, non scusarti."
+  },
+  {
+    "commands": [
+      "nuota"
+    ],
+    "answer": "Il tuo costume da bagno sarà in qualche lavatrice della lavanderia. Sarà per la prossima volta"
+  },
+  {
+    "commands": [
+      "costruisci"
+    ],
+    "answer": "Sicuramente devo costruire qualcosa per andarmene da qui ed essendo un isola sarà per forza una barca o qualcosa di simile.\nProva a combinare qualche oggetto nell'inventario"
+  }
+]

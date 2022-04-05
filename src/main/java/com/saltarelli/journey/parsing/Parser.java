@@ -5,6 +5,7 @@ package com.saltarelli.journey.parsing;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.saltarelli.journey.json.PredefinedCommand;
 import com.saltarelli.journey.type.AdvObject;
 import com.saltarelli.journey.type.Matchable;
 import com.saltarelli.journey.type.Command;
@@ -43,7 +44,8 @@ public class Parser {
             Set<Command> commands,
             Set<Direction> directions,
             Set<AdvObject> inventory,
-            Room currentRoom) throws ParserException {
+            Room currentRoom,
+            Set<PredefinedCommand> predefinedCommands) throws ParserException {
 
         String trim = input.trim();
         List<String> tokens;
@@ -71,6 +73,12 @@ public class Parser {
             throw new ParserException("Invalid input", ParserException.Kind.EMPTY_INPUT);
         } else {
             String commandAlias = tokens.remove(0);
+            
+            PredefinedCommand predefinedCommand= predefinedAnswerForCommand(commandAlias, predefinedCommands);
+                    
+            if (predefinedCommand != null) {
+                throw new ParserException("Predefined answer", ParserException.Kind.PREDEFINED_COMMAND, "", predefinedCommand.getAnswer());
+            }
 
             Command command = matchableFromToken(commandAlias, commands);
 
@@ -581,6 +589,13 @@ public class Parser {
     private <T extends Matchable> T matchableFromToken(String token, Set<T> items) {
         return items.stream()
                 .filter(c -> c.match(token.toLowerCase()))
+                .findFirst()
+                .orElse(null);
+    }
+    
+    private PredefinedCommand predefinedAnswerForCommand(String command, Set<PredefinedCommand> predefinedCommands) {
+        return predefinedCommands.stream()
+                .filter(pc -> pc.getCommands().contains(command))
                 .findFirst()
                 .orElse(null);
     }

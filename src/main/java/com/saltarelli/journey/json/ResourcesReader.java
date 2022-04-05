@@ -38,6 +38,7 @@ public class ResourcesReader {
     private static final String PLAYER_FILENAME = "Player";
     private static final String EXCEPTIONS_FILENAME = "Exceptions";
     private static final String STOPWORDS_FILENAME = "Stopwords";
+    private static final String PREDEFINED_FILENAME = "PredefinedCommands";
     
 
     public static GameJSON fetchGame() {
@@ -56,8 +57,8 @@ public class ResourcesReader {
     public static Collection<Gameplay> fetchGameplaySet() {
         try {
             Reader reader = new BufferedReader(new FileReader(new File(PATH + GAMEPLAY_FILENAME)));
-            Type setType = new TypeToken<ArrayList<Gameplay>>(){}.getType();
-            List<Gameplay> rooms = new Gson().fromJson(reader, setType);
+            Type setType = new TypeToken<HashSet<Gameplay>>(){}.getType();
+            Set<Gameplay> rooms = new Gson().fromJson(reader, setType);
             reader.close();
             return rooms;
         } catch (JsonIOException | JsonSyntaxException | IOException ex) {
@@ -149,6 +150,20 @@ public class ResourcesReader {
 
         return null;
     }
+    
+    public static Set<PredefinedCommand> fetchPredefinedCommands() {
+        try {
+            Reader reader = new BufferedReader(new FileReader(new File(PATH + PREDEFINED_FILENAME)));
+            Type setType = new TypeToken<HashSet<PredefinedCommand>>(){}.getType();
+            Set<PredefinedCommand> commands = new Gson().fromJson(reader, setType);
+            reader.close();
+            return commands;
+        } catch (JsonIOException | JsonSyntaxException | IOException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
 
     public static Set<String> fetchStopwords() {
         Set<String> set = new HashSet<>();
@@ -164,5 +179,5 @@ public class ResourcesReader {
         }
 
         return Collections.emptySet();
-    }
+    } 
 }

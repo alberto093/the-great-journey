@@ -40,7 +40,8 @@ public class ParserException extends Exception {
         MISSING_DIRECTION, // Dove vuoi andare? --> al parser verrà inviata la stringa precedente (additionalDescription) + il nuovo input
         INVALID_DIRECTION, // Non è qualcosa in cui puoi entrare.
         WRONG_DIRECTION, // Se la stanza è ha il wrongDirectionMessage mostro quello altrimenti dico: "A (additionalDescription) non c'è niente di interessante."
-        UNKNOWN_ELEMENT // Non vedi nulla del genere.
+        UNKNOWN_ELEMENT, // Non vedi nulla del genere.
+        PREDEFINED_COMMAND
     }
     
     private final Kind kind;
