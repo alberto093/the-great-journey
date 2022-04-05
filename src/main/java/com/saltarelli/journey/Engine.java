@@ -69,6 +69,7 @@ public class Engine implements Runnable {
         prepareObjects();
         prepareCommands();
         prepareDirections();
+        
 
         this.gameplayHandler = new GameplayHandler(this.game, ResourcesReader.fetchGameplaySet());
         this.exceptions = ResourcesReader.fetchExceptions();
@@ -187,6 +188,7 @@ public class Engine implements Runnable {
         do {
             printStream.println();
             printStream.println(game.getHelpQuestion());
+            
             String answer = scanner.nextLine();
 
             if (game.getYesAlias().contains(answer.toLowerCase())) {

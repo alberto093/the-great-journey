@@ -41,7 +41,7 @@ import javax.swing.SwingUtilities;
  */
 public class Console extends javax.swing.JFrame {
 
-    public class TextAreaOutputStream extends OutputStream {
+    public class TextAreaOutputStream extends ByteArrayOutputStream {
 
         private JTextArea textArea;
 
@@ -50,12 +50,13 @@ public class Console extends javax.swing.JFrame {
         }
 
         @Override
-        public void write(int b) throws IOException {
-          
-            String text = String.valueOf((char) b);
-            String decodedText = StandardCharsets.UTF_8.decode(ByteBuffer.wrap(text.getBytes("UTF-8"))).toString();
-            textArea.append("" + (char) b);
+        public synchronized void write(byte[] b, int off, int len) {
+            super.write(b, off, len);
+
+            textArea.append(toString());
             textArea.setCaretPosition(textArea.getDocument().getLength());
+            count += 1;
+            reset();
         }
     }
 
@@ -86,6 +87,7 @@ public class Console extends javax.swing.JFrame {
         Thread engineThread = new Thread(engine);
         engineThread.start();
 
+        textField.requestFocus();
     }
 
     /**
@@ -99,10 +101,12 @@ public class Console extends javax.swing.JFrame {
 
         scrollPane = new javax.swing.JScrollPane();
         textArea = new javax.swing.JTextArea();
+        jPanel1 = new javax.swing.JPanel();
         textField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Journey");
+        setPreferredSize(new java.awt.Dimension(1000, 600));
 
         scrollPane.setPreferredSize(new java.awt.Dimension(600, 400));
 
@@ -116,12 +120,27 @@ public class Console extends javax.swing.JFrame {
 
         getContentPane().add(scrollPane, java.awt.BorderLayout.CENTER);
 
+        jPanel1.setBackground(new java.awt.Color(100, 100, 100));
+        jPanel1.setPreferredSize(new java.awt.Dimension(100, 80));
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        textField.setBackground(new java.awt.Color(100, 100, 100));
+        textField.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        textField.setForeground(new java.awt.Color(206, 254, 206));
+        textField.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        textField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldActionPerformed(evt);
+            }
+        });
         textField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textFieldKeyPressed(evt);
             }
         });
-        getContentPane().add(textField, java.awt.BorderLayout.PAGE_END);
+        jPanel1.add(textField, java.awt.BorderLayout.PAGE_START);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -138,6 +157,10 @@ public class Console extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_textFieldKeyPressed
+
+    private void textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,6 +198,7 @@ public class Console extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JTextArea textArea;
     private javax.swing.JTextField textField;
