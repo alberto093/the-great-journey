@@ -33,9 +33,9 @@ import java.util.stream.Stream;
  */
 public class Parser {
 
-    private final Set<String> stopwords;
+    private final Collection<String> stopwords;
 
-    public Parser(Set<String> stopwords) {
+    public Parser(Collection<String> stopwords) {
         this.stopwords = stopwords;
     }
 
@@ -45,7 +45,7 @@ public class Parser {
             Set<Direction> directions,
             Set<AdvObject> inventory,
             Room currentRoom,
-            Set<PredefinedCommand> predefinedCommands) throws ParserException {
+            Collection<PredefinedCommand> predefinedCommands) throws ParserException {
 
         String trim = input.trim();
         List<String> tokens;
@@ -593,7 +593,7 @@ public class Parser {
                 .orElse(null);
     }
     
-    private PredefinedCommand predefinedAnswerForCommand(String command, Set<PredefinedCommand> predefinedCommands) {
+    private PredefinedCommand predefinedAnswerForCommand(String command, Collection<PredefinedCommand> predefinedCommands) {
         return predefinedCommands.stream()
                 .filter(pc -> pc.getCommands().contains(command))
                 .findFirst()

@@ -22,7 +22,7 @@ public class Story {
 
     public class Editing {
 
-        public class EditingObject {
+        public class AdvObject {
 
             private int id;
             private Integer moveToRoomID; // -1, sparisce dal gioco
@@ -86,7 +86,7 @@ public class Story {
             }
         }
 
-        public class EditingPerson {
+        public class Person {
 
             private int id;
             private Integer moveToRoomID; // -1, sparisce dal gioco
@@ -110,7 +110,7 @@ public class Story {
             }
         }
 
-        public class EditingRoom {
+        public class Room {
 
             private int id;
             private String description;
@@ -124,19 +124,19 @@ public class Story {
             }
         }
 
-        private Set<EditingObject> objects;
-        private Set<EditingPerson> people;
-        private Set<EditingRoom> rooms;
+        private Set<AdvObject> objects;
+        private Set<Person> people;
+        private Set<Room> rooms;
 
-        public Set<EditingObject> getObjects() {
+        public Set<AdvObject> getObjects() {
             return objects;
         }
 
-        public Set<EditingPerson> getPeople() {
+        public Set<Person> getPeople() {
             return people;
         }
 
-        public Set<EditingRoom> getRooms() {
+        public Set<Room> getRooms() {
             return rooms;
         }
     }
@@ -262,16 +262,16 @@ public class Story {
         if (input.command != output.getCommand()) {
             return false;
         }
-        
+
         boolean matchPerson;
         if (input.person == null && output.getPerson() == null) {
             matchPerson = true;
-        } else if (input.person != null && output.getPerson() != null) { 
+        } else if (input.person != null && output.getPerson() != null) {
             matchPerson = input.person == output.getPerson().getId();
-        } else { 
+        } else {
             matchPerson = false;
         }
-        
+
         boolean matchObjects;
         if ((input.objects == null || input.objects.isEmpty()) && (output.getObjects() == null || output.getObjects().isEmpty())) {
             matchObjects = true;
@@ -280,9 +280,9 @@ public class Story {
         } else {
             matchObjects = false;
         }
-        
+
         boolean matchRoom = input.room == null || input.room == output.getRoom().getId();
-                
+
         boolean matchInventory;
         if (input.inventoryRequirements == null || input.inventoryRequirements.isEmpty()) {
             matchInventory = true;
@@ -294,8 +294,7 @@ public class Story {
         } else {
             matchInventory = false;
         }
-        
+
         return matchPerson && matchObjects && matchRoom && matchInventory;
     }
-
 }

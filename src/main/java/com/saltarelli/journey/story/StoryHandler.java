@@ -319,7 +319,7 @@ public class StoryHandler {
         }
     }
 
-    private void editObject(Story.Editing.EditingObject editingObject) {
+    private void editObject(Story.Editing.AdvObject editingObject) {
         AdvObject object = getGameObject(editingObject.getId());
         Room room = getRoomOfObject(object.getId());
 
@@ -399,7 +399,7 @@ public class StoryHandler {
         }
     }
 
-    private void editPerson(Story.Editing.EditingPerson editingPerson) {
+    private void editPerson(Story.Editing.Person editingPerson) {
         Person person = getPerson(editingPerson.getId());
         Room room = getRoomOfPerson(person.getId());
 
