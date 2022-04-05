@@ -384,7 +384,11 @@ public class Parser {
                             input.substring(0, input.indexOf(tokens.get(0)) + tokens.get(0).length()),
                             "");
                 } else if (inventoryObject != null) {
-                    return new ParserOutput(command, Player.getInstance(), inventoryObject);
+                    if (people.size() == 1) {
+                        return new ParserOutput(command, people.iterator().next(), inventoryObject);
+                    } else {
+                       return new ParserOutput(command, Player.getInstance(), inventoryObject); 
+                    }
                 } else {
                     throw new ParserException("Unknown element", ParserException.Kind.UNKNOWN_ELEMENT);
                 }
