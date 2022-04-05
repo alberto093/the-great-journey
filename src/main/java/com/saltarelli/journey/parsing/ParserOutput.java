@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class ParserOutput {
     private final Command.Name command;
-    private final Room room;
+    private Room room;
     private final Person person;
     private final List<AdvObject> objects;
 
@@ -65,6 +65,10 @@ public class ParserOutput {
     public Room getRoom() {
         return room;
     }
+    
+    public void setRoom(Room room) {
+        this.room = room;
+    } 
 
     public Person getPerson() {
         return person;

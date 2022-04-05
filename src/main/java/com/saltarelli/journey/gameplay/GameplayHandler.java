@@ -33,80 +33,23 @@ public class GameplayHandler {
     }
 
     public GameplayHandlerResponse processOutput(ParserOutput output) {
-        Gameplay gameplay = fetchGameplayFrom(output);
+        Gameplay gameplay = gameplaySet.stream()
+                .filter(g -> g.match(output, game.getInventory()))
+                .findFirst()
+                .orElse(null);
         
-        if (gameplay != null && !isValidGameplay(gameplay)) {
+        boolean isGameplayRequired = isGameplayRequiredForCommand(output.getCommand());
+   
+        if (isGameplayRequired && (gameplay == null)) {
             return GameplayHandlerResponse.newMessage(
-                    Optional.ofNullable(customMessageResponse(output)).orElse(handleLookAtCommand(output)), 
-                    0, 
+                    Optional.ofNullable(customMessageResponse(output)).orElse(handleLookAtCommand(output)),
+                    0,
                     false);
         }
-        
-        String message = null;
 
-        switch (output.getCommand()) {
-            case END:
-            case RESTART:
-            case INVENTORY:
-            case SCORE:
-                return null;
-            case NORTH:
-            case SOUTH:
-            case EAST:
-            case WEST:
-            case WALK_TO:
-                message = handleDirectionOutput(output);
-                break;
-            case OPEN:
-                output.getObjects().stream()
-                        .forEach(o -> o.setIsOpen(true));
-                break;
-            case CLOSE:
-                output.getObjects().stream()
-                        .forEach(o -> o.setIsOpen(false));
-                break;
-            case PUSH:
-                output.getObjects().stream()
-                        .forEach(o -> o.setIsPush(true));
-                break;
-            case PULL:
-                output.getObjects().stream()
-                        .forEach(o -> o.setIsPush(false));
-                break;
-            case PICK_UP:
-                output.getObjects().stream()
-                        .forEach(o -> {
-                            game.getCurrentRoom().getObjects().remove(o);
-                            game.getInventory().add(o);
-                        });
-                break;
-            case GIVE:
-                output.getObjects().stream()
-                        .forEach(o -> {
-                            game.getInventory().remove(o);
-                        });
-                break;
-            case LOOK_AT:
-                message = handleLookAtCommand(output);
-                break;
-            case READ:
-            case SPEAK:
-                message = Optional
-                        .ofNullable(customMessageResponse(output))
-                        .orElse(handleLookAtCommand(output));
-                break;
-            case COMBINE:
-                message = Optional
-                        .ofNullable(customMessageResponse(output))
-                        .orElse(game.getUselessCombineCommand());
-                break;
-            case SING:
-                break;
-            default:
-                throw new AssertionError(output.getCommand().name());
-        }
+        String message = updateGame(output);
 
-        GameplayHandlerResponse response = handleGameplayResponse(output, gameplay);
+        GameplayHandlerResponse response = handleGameplay(gameplay, false, false);
 
         if (response != null) {
             switch (response.getType()) {
@@ -135,7 +78,16 @@ public class GameplayHandler {
             return GameplayHandlerResponse.newMessage(message, 0, false);
         }
 
-        return GameplayHandlerResponse.newMessage(game.getUnknownOutput(), 0, false);
+        switch (output.getCommand()) {
+            case END:
+            case RESTART:
+            case INVENTORY:
+            case SCORE:
+            case HELP:
+                return null;
+            default:
+                return GameplayHandlerResponse.newMessage(game.getUnknownOutput(), 0, false);
+        }
     }
 
     public GameplayHandlerResponse processQuestionAnswer(Boolean yesAnswer, ParserOutput output) {
@@ -146,6 +98,89 @@ public class GameplayHandler {
         } else {
             return GameplayHandlerResponse.newMessage(game.getUnknownOutput(), 0, false);
         }
+    }
+
+    private String updateGame(ParserOutput output) {
+        String message = null;
+
+        switch (output.getCommand()) {
+            case END:
+            case RESTART:
+            case INVENTORY:
+            case SCORE:
+            case HELP:
+                return null;
+            case NORTH:
+            case SOUTH:
+            case EAST:
+            case WEST:
+            case WALK_TO:
+                
+                message = handleDirectionOutput(output);
+                
+                break;
+            case OPEN:
+                
+                    output.getObjects().stream()
+                            .forEach(o -> o.setIsOpen(true));
+                
+                break;
+            case CLOSE:
+                
+                    output.getObjects().stream()
+                            .forEach(o -> o.setIsOpen(false));
+                
+                break;
+            case PUSH:
+                
+                    output.getObjects().stream()
+                            .forEach(o -> o.setIsPush(true));
+                
+                break;
+            case PULL:
+                
+                    output.getObjects().stream()
+                            .forEach(o -> o.setIsPush(false));
+                
+                break;
+            case PICK_UP:
+                
+                    output.getObjects().stream()
+                            .forEach(o -> {
+                                game.getCurrentRoom().getObjects().remove(o);
+                                game.getInventory().add(o);
+                            });
+                
+                break;
+            case GIVE:
+                
+                    output.getObjects().stream()
+                            .forEach(o -> {
+                                game.getInventory().remove(o);
+                            });
+                
+                break;
+            case LOOK_AT:
+                message = handleLookAtCommand(output);
+                break;
+            case READ:
+            case SPEAK:
+                message = Optional
+                        .ofNullable(customMessageResponse(output))
+                        .orElse(handleLookAtCommand(output));
+                break;
+            case COMBINE:
+                message = Optional
+                        .ofNullable(customMessageResponse(output))
+                        .orElse(game.getUselessCombineCommand());
+                break;
+            case SING:
+                break;
+            default:
+                throw new AssertionError(output.getCommand().name());
+        }
+
+        return message;
     }
 
     private String handleDirectionOutput(ParserOutput output) {
@@ -175,14 +210,6 @@ public class GameplayHandler {
         }
 
         return message;
-    }
-
-    private GameplayHandlerResponse handleGameplayResponse(ParserOutput output, Gameplay gameplay) {
-        if (gameplay != null) {
-            return handleGameplay(gameplay, false, false);
-        } else {
-            return null;
-        }
     }
 
     private String customMessageResponse(ParserOutput output) {
@@ -223,6 +250,10 @@ public class GameplayHandler {
     }
 
     private GameplayHandlerResponse handleGameplay(Gameplay gameplay, Boolean checkAnswer, Boolean yesAnswer) {
+        if (gameplay == null) {
+            return null;
+        }
+
         // Editing game
         if (gameplay.getOutput().getEditing() != null) {
             handleEditing(gameplay.getOutput().getEditing());
@@ -240,7 +271,7 @@ public class GameplayHandler {
                 }
             }
         }
-        
+
         if (gameplay.getDelete() != null && gameplay.getDelete()
                 || (checkAnswer && yesAnswer && gameplay.getOutput().getQuestion().getYesAnswer().getDelete())
                 || (checkAnswer && !yesAnswer && gameplay.getOutput().getQuestion().getNoAnswer().getDelete())) {
@@ -472,20 +503,50 @@ public class GameplayHandler {
                 .findFirst()
                 .orElse(null);
     }
-    
-    private Boolean isValidGameplay(Gameplay gameplay) {
-        Boolean isRoomValid = gameplay.getInput().getRoom() == null ||
-                gameplay.getInput().getRoom() == game.getCurrentRoom().getId();
-        
+
+    private boolean isGameplayRequiredForCommand(Command.Name command) {
+        switch (command) {
+            case END:
+            case RESTART:
+            case INVENTORY:
+            case SCORE:
+            case HELP:
+            case NORTH:
+            case SOUTH:
+            case EAST:
+            case WEST:
+            case WALK_TO:
+            case LOOK_AT:
+            case READ:
+            case SPEAK:
+            case COMBINE:
+            case SING:
+                return false;
+            case OPEN:
+            case CLOSE:
+            case PUSH:
+            case PULL:
+            case PICK_UP:
+            case GIVE:
+                return true;
+            default:
+                throw new AssertionError(command.name());
+        }
+    }
+
+    private boolean isValidGameplay(Gameplay gameplay) {
+        Boolean isRoomValid = gameplay.getInput().getRoom() == null
+                || gameplay.getInput().getRoom() == game.getCurrentRoom().getId();
+
         if (!isRoomValid) {
             return false;
         }
-        
-        return gameplay.getInput().getInventoryRequirements() == null || 
-                gameplay.getInput().getInventoryRequirements().isEmpty() || 
-                game.getInventory().stream()
-                                    .map(o -> o.getId())
-                                    .collect(Collectors.toSet())
-                                    .containsAll(gameplay.getInput().getInventoryRequirements());
+
+        return gameplay.getInput().getInventoryRequirements() == null
+                || gameplay.getInput().getInventoryRequirements().isEmpty()
+                || game.getInventory().stream()
+                        .map(o -> o.getId())
+                        .collect(Collectors.toSet())
+                        .containsAll(gameplay.getInput().getInventoryRequirements());
     }
 }

@@ -5,9 +5,14 @@
  */
 package com.saltarelli.journey.json;
 
+import com.saltarelli.journey.parsing.ParserOutput;
+import com.saltarelli.journey.type.AdvObject;
 import com.saltarelli.journey.type.Command;
+import com.saltarelli.journey.type.Matchable;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -104,8 +109,9 @@ public class Gameplay {
                 return customCommandMessages;
             }
         }
-        
+
         public class EditingRoom {
+
             private int id;
             private String description;
 
@@ -129,7 +135,7 @@ public class Gameplay {
         public Set<EditingPerson> getPeople() {
             return people;
         }
-        
+
         public Set<EditingRoom> getRooms() {
             return rooms;
         }
@@ -179,7 +185,7 @@ public class Gameplay {
                 public String getMessage() {
                     return message;
                 }
-                
+
                 public Integer getScore() {
                     return score != null ? score : 0;
                 }
@@ -191,7 +197,7 @@ public class Gameplay {
                 public Editing getEditing() {
                     return editing;
                 }
-                
+
                 public Boolean getIsLast() {
                     return isLast;
                 }
@@ -251,4 +257,45 @@ public class Gameplay {
     public Boolean getDelete() {
         return delete != null ? delete : false;
     }
+
+    public boolean match(ParserOutput output, Set<AdvObject> inventory) {
+        if (input.command != output.getCommand()) {
+            return false;
+        }
+        
+        boolean matchPerson;
+        if (input.person == null && output.getPerson() == null) {
+            matchPerson = true;
+        } else if (input.person != null && output.getPerson() != null) { 
+            matchPerson = input.person == output.getPerson().getId();
+        } else { 
+            matchPerson = false;
+        }
+        
+        boolean matchObjects;
+        if ((input.objects == null || input.objects.isEmpty()) && (output.getObjects() == null || output.getObjects().isEmpty())) {
+            matchObjects = true;
+        } else if ((input.objects != null && !input.objects.isEmpty()) && (output.getObjects() != null && !output.getObjects().isEmpty())) {
+            matchObjects = input.objects.equals(output.getObjects().stream().map(o -> o.getId()).collect(Collectors.toSet()));
+        } else {
+            matchObjects = false;
+        }
+        
+        boolean matchRoom = input.room == null || input.room == output.getRoom().getId();
+                
+        boolean matchInventory;
+        if (input.inventoryRequirements == null || input.inventoryRequirements.isEmpty()) {
+            matchInventory = true;
+        } else if ((input.inventoryRequirements != null && !input.inventoryRequirements.isEmpty()) && (inventory != null && !inventory.isEmpty())) {
+            matchInventory = inventory.stream()
+                    .map(o -> o.getId())
+                    .collect(Collectors.toSet())
+                    .containsAll(input.inventoryRequirements);
+        } else {
+            matchInventory = false;
+        }
+        
+        return matchPerson && matchObjects && matchRoom && matchInventory;
+    }
+
 }

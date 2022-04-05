@@ -302,6 +302,10 @@ public class Engine {
                         game.getDirections(),
                         game.getInventory(),
                         game.getCurrentRoom());
+                
+                if (output.getRoom() == null) {
+                    output.setRoom(game.getCurrentRoom());
+                }
 
                 switch (output.getCommand()) {
                     case END:
