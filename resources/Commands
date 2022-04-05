@@ -81,6 +81,6 @@
   },
   {
     "name": "HELP",
-    "alias": ["aiuto", "help", "info"]
+    "alias": ["aiuto", "help", "info", "istruzioni"]
   }
 ]

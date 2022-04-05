@@ -64,7 +64,7 @@
     "room": 1,
     "name": "libro",
     "alias": ["tomo", "giornale", "opera", "romanzo", "tomo", "testo", "manuale"],
-    "description": "Un libro che sembri parlare di un continente al di là del mare...potrei arrivarci con una barca e realizzare il mio sogno!",
+    "description": "Sulla copertina del libro c'è una grossa nave, se solo riuscissi a prenderlo potrebbe spiegarmi come realizzare una barca per fuggire dall'isola.",
     "customCommandMessages": [{
         "command": "INVENTORY",
         "description": "Un libro che parla di mare"
@@ -92,6 +92,13 @@
     "name": "palazzo",
     "alias": ["castello", "dimora", "residenza", "casa", "reggia", "edificio"],
     "description": "Il maestoso palazzo di famiglia oggi è chiuso e presidiato da una guardia."
+  },
+  {
+    "id": 32,
+    "room": 1,
+    "name": "fiori",
+    "alias": ["alberi", "fontane", "farfalle", "prato", "erba", "lago", "laghetto"],
+    "description": "È solo scenografia."
   },
   {
     "id": 12,
@@ -124,6 +131,18 @@
     ]
   },
   {
+    "id": 31,
+    "room": 2,
+    "name": "vestiti",
+    "alias": ["biancheria"],
+    "description": "Numerosi capi di tutti i generi e di tutte le taglie già belli puliti e stirati.",
+    "customCommandMessages": [{
+        "command": "PICK_UP",
+        "description": "Sono già vestito."
+      }
+    ]
+  },
+  {
     "id": 15,
     "room": 2,
     "name": "lavatrice",
@@ -148,7 +167,7 @@
     "id": 18,
     "room": 3,
     "name": "sdraio",
-    "alias": ["lettini", "sedia", "sedie", "lettino", "sdrai", "sdraie", "sdraia"],
+    "alias": ["lettini", "sedia", "sedie", "lettino", "sdrai", "sdraie", "sdraia", "ombrelloni"],
     "description": "È solo scenografia."
   },
   {

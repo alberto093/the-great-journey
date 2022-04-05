@@ -7,7 +7,7 @@
     "alias": ["guardia", "guardiano", "poliziotto", "gendarme", "guardia reale", "guardia palazzo"],
     "customCommandMessages": [{
       "command": "SPEAK",
-      "description": "Ciao Brian, vedo che sei tornato dal tuo safari avventuroso. Oggi il palazzo è chiuso per una importante riunione. Passa più tardi se vuoi incontrare il mio collega."
+      "description": "\"Ciao Brian, vedo che sei tornato dal tuo safari avventuroso. Oggi il palazzo è chiuso per una importante riunione.\nFinisco il turno tra un paio d'ore, magari ci becchiamo più tardi in spiaggia.\"\n\nMi tocca aspettare la fine del turno allora, potrei approfittarne e andare a salutare il mio amico barista."
     }]
   },
   {
@@ -18,7 +18,7 @@
     "alias": ["lavandaia", "donna", "mariola", "colf", "mariola colf"],
     "customCommandMessages": [{
       "command": "SPEAK",
-      "description": "Ciao Brian, finalmente ti sei deciso a passare di qui. Non viene a trovarmi mai nessuno.\nLascia pure i tuoi panni sporchi se ne hai bisogno."
+      "description": "\"Ciao Brian, finalmente ti sei deciso a passare di qui. Non viene a trovarmi mai nessuno.\nLascia pure i tuoi panni sporchi se ne hai bisogno.\""
     }]
   },
   {
