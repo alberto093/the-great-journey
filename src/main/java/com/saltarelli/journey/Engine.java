@@ -10,6 +10,7 @@ import com.saltarelli.journey.json.AdvObjectJSON;
 import com.saltarelli.journey.json.CommandJSON;
 import com.saltarelli.journey.json.ExceptionDescription;
 import com.saltarelli.journey.json.GameJSON;
+import com.saltarelli.journey.json.LocalReader;
 import com.saltarelli.journey.json.PersonJSON;
 import com.saltarelli.journey.json.ResourcesReader;
 import com.saltarelli.journey.json.RoomJSON;
@@ -32,6 +33,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -42,6 +44,8 @@ import java.util.stream.IntStream;
  */
 public class Engine implements Runnable {
 
+    private final Game restorationGame;
+    
     private final Game game;
 
     private final StoryHandler storyHandler;
@@ -52,34 +56,38 @@ public class Engine implements Runnable {
     
     private final PrintStream printStream;
 
+    private final ResourcesReader resourcesReader;
+    
     private final Collection<ExceptionDescription> exceptions;
     
-    private final Set<PredefinedCommand> predefinedCommands;
+    private final Collection<PredefinedCommand> predefinedCommands;
 
     private int moves = 0;
 
     public Engine(InputStream inputStream, PrintStream printStream) {
-        GameJSON gameJSON = ResourcesReader.fetchGame();
+        this.resourcesReader = new LocalReader();
+        GameJSON gameJSON = resourcesReader.fetchGame();
         this.game = new Game(gameJSON);
+        this.restorationGame = new Game(gameJSON);
         this.scanner = new Scanner(inputStream);
         prepareRooms();
-        preparePeople();
+        preparePeople(this.game);
         preparePlayer();
-        prepareObjects();
+        prepareObjects(this.game);
         prepareCommands();
         prepareDirections();
         
 
-        this.storyHandler = new StoryHandler(this.game, ResourcesReader.fetchStories());
-        this.exceptions = ResourcesReader.fetchExceptions();
-        this.predefinedCommands = ResourcesReader.fetchPredefinedCommands();
-        this.parser = new Parser(ResourcesReader.fetchStopwords());
+        this.storyHandler = new StoryHandler(this.game, resourcesReader.fetchStories());
+        this.exceptions = resourcesReader.fetchExceptions();
+        this.predefinedCommands = resourcesReader.fetchPredefinedCommands();
+        this.parser = new Parser(resourcesReader.fetchStopwords());
         this.printStream = printStream;
     }
 
     private void prepareRooms() {
 
-        Collection<RoomJSON> roomsJSON = ResourcesReader.fetchRooms();
+        Collection<RoomJSON> roomsJSON = resourcesReader.fetchRooms();
 
         Set<Room> rooms = roomsJSON.stream()
                 .map(Room::new)
@@ -108,10 +116,14 @@ public class Engine implements Runnable {
 
         this.game.setRooms(rooms);
         this.game.setCurrentRoom(findRoomWithID(this.game.getInitialRoom(), rooms));
+        
+        Set<Room> restorationRooms = new HashSet<>(rooms);
+        this.restorationGame.setRooms(new HashSet<>(rooms));
+        this.restorationGame.setCurrentRoom(findRoomWithID(this.restorationGame.getInitialRoom(), restorationRooms));
     }
 
-    private void preparePeople() {
-        Collection<PersonJSON> peopleJSON = ResourcesReader.fetchPeople();
+    private void preparePeople(Game game) {
+        Collection<PersonJSON> peopleJSON = resourcesReader.fetchPeople();
 
         Set<Person> people = peopleJSON.stream()
                 .map(Person::new)
@@ -119,7 +131,7 @@ public class Engine implements Runnable {
 
         peopleJSON.stream()
                 .forEach(json -> {
-                    Room room = findRoomWithID(json.getRoom(), this.game.getRooms());
+                    Room room = findRoomWithID(json.getRoom(), game.getRooms());
                     Person person = people.stream()
                             .filter(p -> p.getId() == json.getId())
                             .findFirst()
@@ -130,12 +142,12 @@ public class Engine implements Runnable {
     }
 
     private void preparePlayer() {
-        PersonJSON playerJSON = ResourcesReader.fetchPlayer();
+        PersonJSON playerJSON = resourcesReader.fetchPlayer();
         Player.setInstance(new Player(playerJSON));
     }
 
-    private void prepareObjects() {
-        Collection<AdvObjectJSON> objectsJSON = ResourcesReader.fetchObjects();
+    private void prepareObjects(Game game) {
+        Collection<AdvObjectJSON> objectsJSON = resourcesReader.fetchObjects();
 
         Set<AdvObject> objects = objectsJSON.stream()
                 .map(AdvObject::new)
@@ -148,7 +160,7 @@ public class Engine implements Runnable {
                             .findFirst()
                             .get();
 
-                    Room room = findRoomWithID(json.getRoom(), this.game.getRooms());
+                    Room room = findRoomWithID(json.getRoom(), game.getRooms());
 
                     if (room != null) {
                         room.getObjects().add(object);
@@ -159,7 +171,7 @@ public class Engine implements Runnable {
     }
 
     private void prepareCommands() {
-        Collection<CommandJSON> commandsJSON = ResourcesReader.fetchCommands();
+        Collection<CommandJSON> commandsJSON = resourcesReader.fetchCommands();
 
         Set<Command> commands = commandsJSON.stream()
                 .map(Command::new)
@@ -229,6 +241,16 @@ public class Engine implements Runnable {
         } while (!shouldRestart.isPresent());
 
         if (shouldRestart.get()) {
+            this.moves = 0;
+            this.game.getInventory().clear();
+            this.game.setCurrentScore(0);
+            
+            Set<Room> rooms = new HashSet<>(this.restorationGame.getRooms());
+            this.game.setRooms(rooms);
+            this.game.setCurrentRoom(findRoomWithID(this.restorationGame.getInitialRoom(), rooms));
+            preparePeople(this.game);
+            prepareObjects(this.game);
+            
             IntStream.range(0, 10)
                     .forEach(i -> printStream.println());
          
