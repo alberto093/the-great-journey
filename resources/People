@@ -1,0 +1,42 @@
+[
+  {
+    "id": 0,
+    "room": 1,
+    "name": "Guardia del palazzo",
+    "description": "Vestita di tutto punto e con dei baffi enormi, la guardia reale ti incute paura. Porta con sè un voluminoso libro, nessuno ha mai osato prenderlo.",
+    "alias": ["guardia", "guardiano", "poliziotto", "gendarme", "guardia reale", "guardia palazzo"],
+    "customCommandMessages": [{
+      "command": "SPEAK",
+      "description": "\"Ciao Brian, vedo che sei tornato dal tuo safari avventuroso. Oggi il palazzo è chiuso per una importante riunione.\nFinisco il turno tra un paio d'ore, magari ci becchiamo più tardi in spiaggia.\"\n\nMi tocca aspettare la fine del turno allora per entrare nel palazzo, potrei approfittarne e andare a salutare il mio amico barista."
+    }]
+  },
+  {
+    "id": 1,
+    "room": 2,
+    "name": "Mariola",
+    "description": "Da sempre con la famiglia reale, Mariola si occupa di far risplendere e di tenere in ordine tutte le stanze del palazzo",
+    "alias": ["lavandaia", "donna", "mariola", "colf", "mariola colf"],
+    "customCommandMessages": [{
+      "command": "SPEAK",
+      "description": "\"Ciao Brian, finalmente ti sei deciso a passare di qui. Non viene a trovarmi mai nessuno.\nLascia pure i tuoi panni sporchi se ne hai bisogno.\""
+    }]
+  },
+  {
+    "id": 2,
+    "room": 4,
+    "name": "Barista",
+    "description": "Corpulento e sempre paonazzo, il barista ama stare dietro il bancone per offrire ai clienti sempre nuove bevande (ovviamente alcoliche).Ti consoce da quando eri piccolo ed è affezionato a te, di tutta risposta tu non hai mai imparato il suo nome.",
+    "alias": ["barista", "barman", "garzone", "amico"]
+  },
+  {
+    "id": 3,
+    "room": 5,
+    "name": "Larry",
+    "description": "Larry è un ex marinaio, che al posto di andare in pensione ha deciso di diventare imprenditore di una ditta di costruzione e noleggio barche.",
+    "alias": ["larry", "artigiano", "barcarolo", "marinario"],
+    "customCommandMessages": [{
+      "command": "SPEAK",
+      "description": "Mentre sta sbraitando contro i suoi dipendenti si gira e ti dice: \"Chi sei? Hai letto l'annuncio di lavoro? Non mi sembri un tipo ferrato in materia. Se ci tieni davvero so che nel palazzo qualcuno possiede un libro di carpenteria navale locale. Studia, ti aspetto qui.\""
+    }]
+  }
+]

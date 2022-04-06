@@ -1,0 +1,383 @@
+[{
+    "id": 0,
+    "room": 0,
+    "name": "casa",
+    "alias": ["stanza", "camera", "depandance", "monolocale"],
+    "description": "La depandance è il monolacale in cui vivi, lontano dai tuoi genitori. È sempre tutto in disordine.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "Per quale motivo dovrei farlo?"
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "room": 0,
+    "name": "muro",
+    "alias": ["muri", "parete", "pareti", "soffitto", "pavimento"],
+    "description": "Niente di interessante.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "Per quale motivo dovrei farlo?"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "room": 0,
+    "name": "finestra",
+    "alias": [],
+    "description": "Dalla finestra vedo i magnifici giardini del palazzo reale che pullano di fiori colorati.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "Non è necessario, sta bene al suo posto."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "room": 0,
+    "name": "cucina",
+    "alias": ["cucinino", "stufa", "tavolo", "sedia", "sedie", "tv", "televisione", "televisore", "cestino", "divano"],
+    "description": "L'arredamento di casa non ha alcuna importanza per lo svolgimento della tua avventura.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "Non servirebbe a niente."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "room": 0,
+    "name": "frigorifero",
+    "alias": ["frigo", "refrigeratore"],
+    "description": "Per fortuna non è in funzione, è vuoto da settimane.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "È un vecchio frigorifero, meglio lasciarlo lì."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "room": 0,
+    "name": "letto",
+    "alias": [],
+    "description": "Il letto è disfatto, si vede che non è ancora passata la colf! Ci sono dei vestiti sporchi... non farei una bella figura a lasciarli lì.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "Mi serve per riposare!"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "room": 0,
+    "name": "vestiti",
+    "alias": ["vestito", "mutande", "calzini", "magliette", "abiti", "indumenti", "vesti", "vestiario", "panni", "panni sporchi"],
+    "description": "Per quanto sono sporchi e puzzolenti sarebbe proprio l'ora di lavarli.",
+    "canTake": true,
+    "customCommandMessages": [{
+      "command": "INVENTORY",
+      "description": "Dei vestiti sporchi"
+    }]
+  },
+  {
+    "id": 7,
+    "room": 1,
+    "name": "giardini",
+    "alias": ["vivai", "paradisi", "giardino", "campi", "fiori", "prato", "erba"],
+    "description": "I magnifici giardini del palazzo, da piccolo mi divertivo a rincorerre le farfalle."
+  },
+  {
+    "id": 9,
+    "room": 1,
+    "name": "libro",
+    "alias": ["tomo", "giornale", "opera", "romanzo", "tomo", "testo", "manuale"],
+    "description": "Sulla copertina del libro c'è una grossa nave, se solo riuscissi a prenderlo magari potrei imparare a realizzare una barca per fuggire dall'isola.",
+    "customCommandMessages": [{
+        "command": "INVENTORY",
+        "description": "Un libro di carpenteria navale."
+      },
+      {
+        "command": "PICK_UP",
+        "description": "\"Ehi, ma che fai, è il mio libro!\" Sembra che la guardia non voglia proprio disfarsene."
+      },
+      {
+        "command": "READ",
+        "description": "\"Ehi, ma che fai, è il mio libro!\" Sembra che la guardia non voglia proprio disfarsene."
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "room": 1,
+    "name": "sole",
+    "alias": ["cielo"],
+    "description": "Niente di interessante."
+  },
+  {
+    "id": 11,
+    "room": 1,
+    "name": "palazzo",
+    "alias": ["castello", "dimora", "residenza", "casa", "reggia", "edificio"],
+    "description": "Il maestoso palazzo di famiglia oggi è chiuso e presidiato da una guardia."
+  },
+  {
+    "id": 32,
+    "room": 1,
+    "name": "fiori",
+    "alias": ["alberi", "fontane", "farfalle", "prato", "erba", "lago", "laghetto"],
+    "description": "È solo scenografia."
+  },
+  {
+    "id": 12,
+    "room": 2,
+    "name": "lavanderia",
+    "alias": ["lavasecco"],
+    "description": "La lavanderia è il luogo meno bazzicato del palazzo. Ci sono enormi lavatrici e lavasciuga."
+  },
+  {
+    "id": 13,
+    "room": 2,
+    "name": "muro",
+    "alias": ["muri", "parete", "pareti", "soffitto", "pavimento"],
+    "description": "Niente di interessante."
+  },
+  {
+    "id": 14,
+    "room": 2,
+    "name": "lenzuola",
+    "alias": ["set lenzuola", "set"],
+    "description": "Delle lenzuola enormi, ma quindi esistono davvero i letti double king size?",
+    "customCommandMessages": [{
+        "command": "INVENTORY",
+        "description": "Delle lenzuola rigide e giganti"
+      },
+      {
+        "command": "PICK_UP",
+        "description": "\"Ladro!\" ti strilla Mariola nelle orecchie, mentre tenti di afferrare il set di lenzuola. \"Le lenzuola appartengono al palazzo.\""
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "room": 2,
+    "name": "vestiti",
+    "alias": ["biancheria"],
+    "description": "Numerosi capi di tutti i generi e di tutte le taglie già belli puliti e stirati.",
+    "customCommandMessages": [{
+        "command": "PICK_UP",
+        "description": "Sono già vestito."
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "room": 2,
+    "name": "lavatrice",
+    "alias": ["lavabiancheria", "lavasciuga", "lavatrici"],
+    "description": "Enormi lavatrici sempre in funzione.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "Sono forzuto, ma non fino a tal punto."
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "room": 3,
+    "name": "spiaggia",
+    "alias": ["costa", "litorale", "riva", "lido", "bagnasciuga", "battigia", "cala", "cala sabbia"],
+    "description": "Cala sabbia è la spiaggia più affollata dell'isola, tutti i paesani amano sdraiarsi sul bagnasciuga o nuotare nel mare cristallino."
+  },
+  {
+    "id": 17,
+    "room": 3,
+    "name": "sole",
+    "alias": ["cielo", "sabbia"],
+    "description": "Niente di interessante."
+  },
+  {
+    "id": 18,
+    "room": 3,
+    "name": "sdraio",
+    "alias": ["lettini", "sedia", "sedie", "lettino", "sdrai", "sdraie", "sdraia", "ombrelloni"],
+    "description": "È solo scenografia.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "Sono tutte occupate dai bagnanti!"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "room": 3,
+    "name": "mare",
+    "alias": ["acqua", "acque", "oceano"],
+    "description": "Acqua limpida e cristallina, ma non c'è tempo per un bagno rilassante!"
+  },
+  {
+    "id": 20,
+    "room": 3,
+    "name": "pontile",
+    "alias": ["ponte", "ponticello", "assi", "asse"],
+    "description": "Un piccolo pontile fatto da assi di legno massiccio.",
+    "customCommandMessages": [{
+        "command": "INVENTORY",
+        "description": "Un pontile di legno"
+      },
+      {
+        "command": "PICK_UP",
+        "description": "Al momento non saprei cosa farne, tuttavia servirebbero degli attrezzi da lavoro."
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "room": 3,
+    "name": "bagnanti",
+    "alias": ["persone", "uomini", "donne", "bambini", "paesani"],
+    "description": "Provi solo tanta invidia.",
+    "customCommandMessages": [{
+        "command": "SPEAK",
+        "description": "Meglio non disturbali mentre prendono il sole."
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "room": 4,
+    "name": "bar",
+    "alias": ["cafe", "cafè", "caffè", "caffe", "bar soleluna"],
+    "description": "Il Bar Soleluna è il luogo cult dell'isola, conosciuto anche nelle isole limitrofe per i suoi rum importanti da tutto il mondo. Il barista, tuo grande amico, non fa altro che offrirti da bere in quanto paghi sempre anche per i tuoi amici, sei il figlio del governatore dell'isola d'altronde!",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "Il bar è molto carino, ma il caffè non è un granchè qui."
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "room": 4,
+    "name": "sole",
+    "alias": ["cielo", "mare", "spiaggia"],
+    "description": "Niente di interessante."
+  },
+  {
+    "id": 24,
+    "room": 4,
+    "name": "bancone",
+    "alias": ["bevande", "cocktails", "cibo", "vetrine", "birre", "vini", "coca cola", "birra", "focaccia"],
+    "description": "Coca Cola, birre, focaccia... non sei qui per bere, ma per trovare un modo per affrontare nuove avventure!",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "Magari, ma non ho un soldo in tasca!"
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "room": 4,
+    "name": "antenna",
+    "alias": ["palo", "asta", "pilone", "pennone", "stanga", "sostegno"],
+    "description": "Un palo d'acciaio lungo e robusto.",
+    "customCommandMessages": [{
+        "command": "INVENTORY",
+        "description": "Un palo d'acciaio lungo e robusto"
+      },
+      {
+        "command": "PICK_UP",
+        "description": "Al momento non saprei cosa farne, tuttavia servirebbero degli attrezzi da lavoro."
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "room": 4,
+    "name": "rum",
+    "alias": ["whiskey"],
+    "description": "Un Ron Zacapa Centenario, viene distillato nella forma più pura e con un’attenzione particolare, per ottenere un sofisticato e setoso rum dal gusto rotondo e di grande personalità.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "È mattina, ma non fa niente lo berrei a qualsiasi ora!"
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "room": 5,
+    "name": "officina",
+    "alias": ["noleggio", "cantiere", "struttura", "edificio", "negozio"],
+    "description": "Questa è l'officina delle barche, capitanata da Larry. E' un luogo rumoroso e affollato.\n\nC'è una grande cassetta degli attrezzi non custodita.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "Bah"
+      },
+      {
+        "command": "USE",
+        "description": "Potrei usarli per smontare qualcosa..."
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "room": 5,
+    "name": "muro",
+    "alias": ["muri", "parete", "pareti", "soffitto", "pavimento"],
+    "description": "Niente di interessante."
+  },
+  {
+    "id": 28,
+    "room": 5,
+    "name": "barca",
+    "alias": ["barche", "scafi", "motoscafi"],
+    "description": "Numerose imbarcazioni di legno, molte delle quali hanno bisogno dell'intervento di Larry e i suoi dipendenti.",
+    "customCommandMessages": [
+      {
+        "command": "PICK_UP",
+        "description": "\"Non puoi ragazzaccio!\" ti dice Larry con tono minaccioso."
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "room": 5,
+    "name": "attrezzi",
+    "alias": ["cassetta", "cassa", "cassetta attrezzi", "cassa attrezzi"],
+    "description": "Cassetta piena di attrezzi da lavoro di ogni tipo.",
+    "customCommandMessages": [{
+        "command": "INVENTORY",
+        "description": "Una cassetta degli attrezzi"
+      },
+      {
+        "command": "PICK_UP",
+        "description": "\"Ma cosa ti dice il cervello! Sono gli attrezzi da lavoro dei nostri dipendenti.\""
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "room": -1,
+    "name": "mazzetta di soldi",
+    "alias": ["mazzetta", "mazzetta soldi", "soldi", "banconote"],
+    "description": "Numerose banconote ripiegate su se stesse.",
+    "customCommandMessages": [{
+        "command": "INVENTORY",
+        "description": "Una mazzetta di soldi"
+      }
+    ]
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "id": -1,
+  "name": "Brian Timmins",
+  "description": "Hai sempre lo stesso bell'aspetto.",
+  "alias": ["me stesso", "brian", "brian timmins", "me"],
+  "customCommandMessages": [
+    {
+      "command": "PICK_UP",
+      "description": "Sei sempre il possessore di te stesso."
+    },
+    {
+      "command": "PUSH",
+      "description": "Questo sarebbe meno che cortese."
+    },
+    {
+      "command": "PULL",
+      "description": "Questo sarebbe meno che cortese."
+    },
+    {
+      "command": "GIVE",
+      "description": "Sei sempre il possessore di te stesso."
+    },
+    {
+      "command": "SPEAK",
+      "description": "Stai parlando a te stesso."
+    }
+  ]
+}

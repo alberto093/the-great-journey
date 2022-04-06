@@ -1,0 +1,583 @@
+[
+  {
+    "input": {
+      "command": "SING"
+    },
+    "output": {
+      "message": "Risparmia il fiato per cose più importanti."
+    }
+  },
+  {
+    "input": {
+      "command": "SPEAK",
+      "person": 2
+    },
+    "output": {
+      "message": "\"Da quanto tempo Brian! Ho appena importato dal sudamerica una nuova birra, la Polar, una Pilsen 4,5° prodotta a Cuba.\n\nTi va di chiacchierare e berla con me?\" (s/n)",
+      "question": {
+        "yesAnswer": {
+          "message": "Diverse ore dopo... \"Io devo andare, è stato un piacere rivivere tutte le nostre disavventure!\"\n\nSon passate diverse ore, forse c'è stato il cambio della guardia a palazzo?",
+          "delete": true,
+          "score": 1,
+          "editing": {
+            "objects": [
+              {
+                "id": 9,
+                "canTake": true,
+                "customCommandMessages": [
+                  {
+                    "command": "READ",
+                    "description": "Eviterei di leggerlo proprio qui. Non oso immaginare cosa accadrebbe se dovesse vedermi la guardia."
+                  }
+                ]
+              },
+              {
+                "id": 11,
+                "description": "Il maestoso palazzo di famiglia oggi è chiuso.\n\nNascosto nell'erba intravedi il libro che la guardia portava con se."
+              }
+            ],
+            "people": [
+              {
+                "id": 2,
+                "customCommandMessages": [
+                  {
+                    "command": "SPEAK",
+                    "description": "\"Adesso sono indaffarato. Devo prepare 50 cocktails per la riunione al palazzo!\""
+                  }
+                ]
+              },
+              {
+                "id": 0,
+                "moveToRoomID": -1
+              }
+            ],
+            "rooms": [
+              {
+                "id": 1,
+                "description": "Sei all'interno dei magnifici giardini, il biglietto da visita del palazzo reale. Intorno a te ci sono maestosi alberi e fontane, farfalle che danzano su piccoli e coloratissimi fiori.\nOggi il palazzo è chiuso in quanto è in corso una riunione top secret. A est c'è l'ingresso della depandance, a nord la lavanderia, mentre a sud vai verso il mare.\n\nLa guardia ha finito il turno e sembra che il cambio turno stia subendo dei ritardi, non vedi nessuno.\n\nNascosto nell'erba intravedi il libro che la guardia portava con se."
+              }
+            ]
+          }
+        },
+        "noAnswer": {
+          "message": "Come non detto."
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "command": "PICK_UP",
+      "objects": [
+        9
+      ]
+    },
+    "output": {
+      "message": "Un tomo di oltre 500 pagine!\n\nPotrei studiarlo per diventare un abile maestro d'ascia e riuscire ad entrare nell'officina. Leggendo le prime pagine si rivela molto interessante, nel giro di qualche ora hai capito che a pochi miglia da qui c'è il sudamerica.\n\"Potrei utilizzare materiali d'uso comune per costruire una vera imbarcazione e andar via da qui!\"",
+      "editing": {
+        "objects": [
+          {
+            "id": 14,
+            "description": "Queste lenzuola enormi potrebbero fungere da vele? Meglio prenderle non si sa mai."
+          },
+          {
+            "id": 20,
+            "description": "Assi di legno molto resistenti ed impermeabili. Chissà come si comportano in mare aperto.\nA mani nude è difficile smontarlo.",
+            "customCommandMessages": [
+              {
+                "command": "PICK_UP",
+                "description": "A mani nude è difficile smontarlo."
+              }
+            ]
+          },
+          {
+            "id": 25,
+            "description": "Un palo d'acciaio lungo e robusto. Potrei usarlo come sostegno per qualcosa...\nA mani nude è difficile smontarlo."
+          },
+          {
+            "id": 9,
+            "customCommandMessages": [
+              {
+                "command": "READ",
+                "description": "Leggendo le prime pagine si rivela molto interessante, nel giro di qualche ora hai capito che a pochi miglia da qui c'è il sudamerica.\n\"Potrei utilizzare materiali d'uso comune per costruire una vera imbarcazione e andar via da qui!\""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "score": 2
+  },
+  {
+    "input": {
+      "command": "PICK_UP",
+      "objects": [
+        6
+      ]
+    },
+    "output": {
+      "message": "Presi.",
+      "editing": {
+        "objects": [
+          {
+            "id": 5,
+            "description": "Il letto è disfatto, si vede che non è ancora passata la colf!"
+          }
+        ],
+        "rooms": [
+          {
+            "id": 0,
+            "description": "Sei nella depandance, il posto in cui vivi, un arredamento moderno ma con un vecchio frigo che ogni tanto smette di funzionare. Dalla finestra vedi i giardini reali.\nL'uscita è a ovest."
+          }
+        ]
+      }
+    },
+    "score": 1
+  },
+  {
+    "input": {
+      "command": "GIVE",
+      "person": 1,
+      "objects": [
+        6
+      ]
+    },
+    "output": {
+      "message": "\"Ma che schifo, li porto subito via!\" dice Mariola, tappandosi il naso dal fetore emanato dai tuoi vestiti.\n\nMariola va nel retrobottega lasciando incustodita la lavanderia.",
+      "editing": {
+        "objects": [
+          {
+            "id": 14,
+            "canTake": true,
+            "customCommandMessages": [
+              {
+                "command": "PICK_UP",
+                "description": "Al momento non saprei cosa farne. Meglio lasciarli qui."
+              }
+            ]
+          }
+        ],
+        "people": [
+          {
+            "id": 1,
+            "moveToRoomID": -1
+          }
+        ],
+        "rooms": [
+          {
+            "id": 2,
+            "description": "Hai raggiunto la lavanderia, il luogo meno bazzicato del palazzo. A sud torni ai giardini.\n\nVedi un bel set di lenzuola pulite e ben piegate."
+          }
+        ]
+      }
+    },
+    "score": 2
+  },
+  {
+    "input": {
+      "command": "PICK_UP",
+      "objects": [
+        14
+      ],
+      "inventoryRequirements": [
+        9
+      ]
+    },
+    "output": {
+      "message": "\"Mi torneranno utili.\"",
+      "editing": {
+        "objects": [
+          {
+            "id": 14,
+            "description": "Queste lenzuola enormi potrebbero fungere da vele?"
+          }
+        ]
+      }
+    },
+    "score": 1
+  },
+  {
+    "input": {
+      "command": "SPEAK",
+      "inventoryRequirements": [
+        9
+      ],
+      "person": 3
+    },
+    "output": {
+      "message": "\"Giovanotto vedo che hai seguito il mio consiglio. Ho bisogno di due braccia robuste come le tue questo weekend, visto che un mio dipendente ha deciso di ammalarsi.\"\nL'officina è in affanno e Larry ti dice che potrebbe darti un piccolo anticipo se cominciassi subito.\n\nAccetti? (s/n)",
+      "question": {
+        "yesAnswer": {
+          "message": "\"Ottimo, iniziamo subito. Ti lascio, come promesso, un piccolo regalo! Forza prendi la cassetta degli attrezzi ed inizia a lavorare.\"\n\nHai ottenuto una mazzetta di soldi.",
+          "delete": true,
+          "score": 1,
+          "editing": {
+            "objects": [
+              {
+                "id": 30,
+                "moveToInventory": true
+              },
+              {
+                "id": 29,
+                "canTake": true
+              }
+            ],
+            "people": [
+              {
+                "id": 3,
+                "customCommandMessages": [
+                  {
+                    "command": "SPEAK",
+                    "description": "\"Non perdere tempo, mettiti subito al lavoro!\""
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "noAnswer": {
+          "message": "Come non detto!"
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "command": "PICK_UP",
+      "objects": [
+        29
+      ]
+    },
+    "output": {
+      "message": "\"Potrebbero tornarmi utili.\"",
+      "editing": {
+        "objects": [
+          {
+            "id": 20,
+            "description": "Assi di legno molto resistenti ed impermeabili. Chissà come si comportano in mare aperto.",
+            "canTake": true
+          },
+          {
+            "id": 25,
+            "description": "Un palo d'acciaio lungo e robusto. Potrei usarlo come sostegno per qualcosa...",
+            "customCommandMessages": [
+              {
+                "command": "PICK_UP",
+                "description": "\"Hei amico, che fai!? A cosa mai potrebbe serviti un palo di una antenna radio.\"\nDovrei cercare un modo per distrarre il mio amico barista."
+              }
+            ]
+          },
+          {
+            "id": 26,
+            "description": "Questa è l'officina delle barche, capitanata da Larry. E' un luogo rumoroso e affollato. Ora è anche il luogo di lavoro."
+          }
+        ]
+      }
+    },
+    "score": 1
+  },
+  {
+    "input": {
+      "command": "PICK_UP",
+      "objects": [
+        20
+      ],
+      "inventoryRequirements": [
+        29
+      ]
+    },
+    "output": {
+      "message": "\"Con un po' di fatica e grazie agli attrezzi sei riuscito a portarti dietro il pontile. Sicuramente potrà funzionare come scafo della barca!\"",
+      "editing": {
+        "objects": [
+          {
+            "id": 25,
+            "customCommandMessages": [
+              {
+                "command": "COMBINE",
+                "description": "Sicuramente potrei farci una barca, ma devo scegliere il posto giusto per farla."
+              }
+            ]
+          },
+          {
+            "id": 20,
+            "description": "Assi di legno molto resistenti ed impermeabili. Chissà come si comportano in mare aperto.",
+            "customCommandMessages": [
+              {
+                "command": "COMBINE",
+                "description": "Sicuramente potrei farci una barca, ma devo scegliere il posto giusto per farla."
+              }
+            ]
+          },
+          {
+            "id": 14,
+            "customCommandMessages": [
+              {
+                "command": "COMBINE",
+                "description": "Sicuramente potrei farci una barca, ma devo scegliere il posto giusto per farla."
+              }
+            ]
+          }
+        ],
+        "rooms": [
+          {
+            "id": 3,
+            "description": "Sei giunto a Cala sabbia, la spiaggia più affollata dell'isola. Tutti i paesani amano sdraiarsi sul bagnasciuga o nuotare nel mare cristallino. Oggi la spiaggia pullula di ombrelloni, mentre a est puoi vedere il famosissimo bar \"Soleluna\". A ovest noti un cantiere navale."
+          }
+        ]
+      }
+    },
+    "score": 1
+  },
+  {
+    "input": {
+      "command": "USE",
+      "objects": [
+        20,
+        29
+      ],
+      "inventoryRequirements": [
+        29
+      ]
+    },
+    "output": {
+      "message": "\"Grazie agli attrezzi sei riuscito a smontare in un lampo il pontile. Sicuramente potrà funzionare come scafo della barca!\""
+    },
+    "delete": true
+  },
+  {
+    "input": {
+      "command": "GIVE",
+      "person": 2,
+      "objects": [
+        30
+      ]
+    },
+    "output": {
+      "message": "Consegni la mazzetta di soldi al tuo amico barista affermando di voler offrire da bere a tutti i bagnanti per festeggiare il mio nuovo lavoro da maestro d'ascia. Il barista corre subito in spiaggia a raccogliere le ordinazioni.",
+      "editing": {
+        "objects": [
+          {
+            "id": 25,
+            "canTake": true
+          }
+        ],
+        "people": [
+          {
+            "id": 2,
+            "moveToRoomID": 3
+          }
+        ],
+        "rooms": [
+          {
+            "id": 3,
+            "description": "Sei giunto a Cala sabbia, la spiaggia più affollata dell'isola. Tutti i paesani amano sdraiarsi sul bagnasciuga o nuotare nel mare cristallino. Oggi la spiaggia pullula di ombrelloni e di persone intente a raggiungere il barista per ordinare qualcosa da bere (grazie al tuo lavoro da maestro d'ascia). Ad est puoi vedere il famosissimo bar \"Soleluna\". A ovest noti un cantiere navale."
+          }
+        ]
+      }
+    },
+    "score": 2
+  },
+  {
+    "input": {
+      "command": "PICK_UP",
+      "objects": [
+        25
+      ],
+      "inventoryRequirements": [
+        29
+      ]
+    },
+    "output": {
+      "message": "Per fortuna che il barista è indaffarato con i bagnanti, ci è voluto un po' per staccarlo via. Questo si che potrebbe essere un albero maestro.",
+      "editing": {
+        "objects": [
+          {
+            "id": 25,
+            "description": "Un palo d'acciaio lungo e robusto. Potrei usarlo come sostegno per qualcosa...",
+            "customCommandMessages": [
+              {
+                "command": "COMBINE",
+                "description": "Sicuramente potrei farci una barca, ma devo scegliere il posto giusto per farla."
+              }
+            ]
+          },
+          {
+            "id": 20,
+            "customCommandMessages": [
+              {
+                "command": "COMBINE",
+                "description": "Sicuramente potrei farci una barca, ma devo scegliere il posto giusto per farla."
+              }
+            ]
+          },
+          {
+            "id": 14,
+            "customCommandMessages": [
+              {
+                "command": "COMBINE",
+                "description": "Sicuramente potrei farci una barca, ma devo scegliere il posto giusto per farla."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "score": 1
+  },
+  {
+    "input": {
+      "command": "USE",
+      "objects": [
+        25,
+        29
+      ],
+      "inventoryRequirements": [
+        29
+      ]
+    },
+    "output": {
+      "message": "Clang! Il palo scivola per terra, ma non si fa neanche un graffio. Questo si che potrebbe essere un albero maestro."
+    },
+    "delete": true
+  },
+  {
+    "input": {
+      "command": "COMBINE",
+      "room": 5,
+      "objects": [
+        20,
+        14,
+        25
+      ]
+    },
+    "output": {
+      "message": "Dopo aver girato in lungo e in largo per tutta l'isola ti sei nascosto nell'officina di Larry e, fingendo di riparare una barca, hai finalmente costruito una \"barca\" tutta tua! Ora sei pronto per affrontare un mare di avventure, in senso letterario!\n\nBravissimo! La tua missione ha avuto successo! Sei riuscito con semplici materiali a raggiungere  il tuo obiettivo, potrai finalmente visitare il sudamerica...\nNel frattempo la guardia ha già allertato l'intera isola, lei sa di cosa parla il libro! :)"
+    },
+    "score": 3,
+    "isLast": true
+  },
+  {
+    "input": {
+      "command": "COMBINE",
+      "room": 5,
+      "objects": [
+        20,
+        14,
+        25,
+        29
+      ]
+    },
+    "output": {
+      "message": "Dopo aver girato in lungo e in largo per tutta l'isola ti sei nascosto nell'officina di Larry e, fingendo di riparare una barca, hai finalmente costruito una \"barca\" tutta tua! Ora sei pronto per affrontare un mare di avventure, in senso letterario!\n\nBravissimo! La tua missione ha avuto successo! Sei riuscito con semplici materiali a raggiungere  il tuo obiettivo, potrai finalmente visitare il sudamerica...\nNel frattempo la guardia ha già allertato l'intera isola, lei sa di cosa parla il libro! :)"
+    },
+    "score": 3,
+    "isLast": true
+  },
+  {
+    "input": {
+      "command": "COMBINE",
+      "room": 5,
+      "objects": [
+        20,
+        14
+      ]
+    },
+    "output": {
+      "message": "mmm...così non riuscirei a costruire una barca. Mi serve altro!"
+    }
+  },
+  {
+    "input": {
+      "command": "COMBINE",
+      "room": 5,
+      "objects": [
+        20,
+        25
+      ]
+    },
+    "output": {
+      "message": "mmm...così non riuscirei a costruire una barca. Mi serve altro!"
+    }
+  },
+  {
+    "input": {
+      "command": "COMBINE",
+      "room": 5,
+      "objects": [
+        20,
+        29
+      ]
+    },
+    "output": {
+      "message": "mmm...così non riuscirei a costruire una barca. Mi serve altro!"
+    }
+  },
+  {
+    "input": {
+      "command": "COMBINE",
+      "room": 5,
+      "objects": [
+        14,
+        25
+      ]
+    },
+    "output": {
+      "message": "mmm...così non riuscirei a costruire una barca. Mi serve altro!"
+    }
+  },
+  {
+    "input": {
+      "command": "COMBINE",
+      "room": 5,
+      "objects": [
+        29,
+        14
+      ]
+    },
+    "output": {
+      "message": "mmm...così non riuscirei a costruire una barca. Mi serve altro!"
+    }
+  },
+  {
+    "input": {
+      "command": "COMBINE",
+      "room": 5,
+      "objects": [
+        25,
+        29
+      ]
+    },
+    "output": {
+      "message": "mmm...così non riuscirei a costruire una barca. Mi serve altro!"
+    }
+  },
+  {
+    "input": {
+      "command": "COMBINE",
+      "room": 5,
+      "objects": [
+        20,
+        14,
+        29
+      ]
+    },
+    "output": {
+      "message": "mmm...così non riuscirei a costruire una barca. Mi serve altro!"
+    }
+  },
+  {
+    "input": {
+      "command": "COMBINE",
+      "room": 5,
+      "objects": [
+        25,
+        14,
+        29
+      ]
+    },
+    "output": {
+      "message": "mmm...così non riuscirei a costruire una barca. Mi serve altro!"
+    }
+  }
+]
