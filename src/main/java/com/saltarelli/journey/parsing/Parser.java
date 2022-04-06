@@ -624,6 +624,8 @@ public class Parser {
                     throw new ParserException("Missing element", ParserException.Kind.CANT_USE_SELF);
                 } else if ((firstPerson != null || firstPlayer != null) && (secondPerson != null || secondPlayer != null)) {
                     throw new ParserException("Missing element", ParserException.Kind.CANT_USE_PERSON_ON_PERSON);
+                } else if (firstInventory != null && secondInventory != null) { 
+                    throw new ParserException("Use combine command",  ParserException.Kind.SUGGEST_COMBINE);
                 } else {
                     Person outputPerson = Stream.of(firstPerson, firstPlayer, secondPerson, secondPlayer)
                             .filter(p -> p != null)

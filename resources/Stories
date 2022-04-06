@@ -281,7 +281,7 @@
       ]
     },
     "output": {
-      "message": "\"Grazie agli attrezzi sei riuscito a smontare in un lampo il pontile. Sicuramente potrà funzionare come scafo della barca!\"",
+      "message": "\"Con un po' di fatica e grazie agli attrezzi sei riuscito a portarti dietro il pontile. Sicuramente potrà funzionare come scafo della barca!\"",
       "editing": {
         "objects": [
           {
@@ -322,6 +322,22 @@
       }
     },
     "score": 1
+  },
+  {
+    "input": {
+      "command": "USE",
+      "objects": [
+        20,
+        29
+      ],
+      "inventoryRequirements": [
+        29
+      ]
+    },
+    "output": {
+      "message": "\"Grazie agli attrezzi sei riuscito a smontare in un lampo il pontile. Sicuramente potrà funzionare come scafo della barca!\""
+    },
+    "delete": true
   },
   {
     "input": {
@@ -367,7 +383,7 @@
       ]
     },
     "output": {
-      "message": "Clang! Il palo scivola per terra, ma non si fa neanche un graffio. Questo si che potrebbe essere un albero maestro.",
+      "message": "Per fortuna che il barista è indaffarato con i bagnanti, ci è voluto un po' per staccarlo via. Questo si che potrebbe essere un albero maestro.",
       "editing": {
         "objects": [
           {
@@ -405,6 +421,22 @@
   },
   {
     "input": {
+      "command": "USE",
+      "objects": [
+        25,
+        29
+      ],
+      "inventoryRequirements": [
+        29
+      ]
+    },
+    "output": {
+      "message": "Clang! Il palo scivola per terra, ma non si fa neanche un graffio. Questo si che potrebbe essere un albero maestro."
+    },
+    "delete": true
+  },
+  {
+    "input": {
       "command": "COMBINE",
       "room": 5,
       "objects": [
@@ -414,7 +446,7 @@
       ]
     },
     "output": {
-      "message": "Dopo aver girato in lungo e in largo per tutta l'isola ti sei nascosto nell'officina di Larry e, fingendo di riparare una barca, hai finalmente costruito una \"barca\" tutta tua! Ora sei pronto per affrontare un mare di avventure, in senso letterario!\n\nBravissimo! La tua missione ha avuto successo! Sei riuscito con semplici materiali a raggiungere  il tuo obiettivo, potrai fialmente visitare il sudamerica... ora i tuoi genitori ti stanno cercando! :)"
+      "message": "Dopo aver girato in lungo e in largo per tutta l'isola ti sei nascosto nell'officina di Larry e, fingendo di riparare una barca, hai finalmente costruito una \"barca\" tutta tua! Ora sei pronto per affrontare un mare di avventure, in senso letterario!\n\nBravissimo! La tua missione ha avuto successo! Sei riuscito con semplici materiali a raggiungere  il tuo obiettivo, potrai finalmente visitare il sudamerica...\nNel frattempo la guardia ha già allertato l'intera isola, lei sa di cosa parla il libro! :)"
     },
     "score": 3,
     "isLast": true
@@ -431,7 +463,7 @@
       ]
     },
     "output": {
-      "message": "Dopo aver girato in lungo e in largo per tutta l'isola ti sei nascosto nell'officina di Larry e, fingendo di riparare una barca, hai finalmente costruito una \"barca\" tutta tua! Ora sei pronto per affrontare un mare di avventure, in senso letterario!\n\nBravissimo! La tua missione ha avuto successo! Sei riuscito con semplici materiali a raggiungere  il tuo obiettivo, potrai fialmente visitare il sudamerica... ora i tuoi genitori ti stanno cercando! :)"
+      "message": "Dopo aver girato in lungo e in largo per tutta l'isola ti sei nascosto nell'officina di Larry e, fingendo di riparare una barca, hai finalmente costruito una \"barca\" tutta tua! Ora sei pronto per affrontare un mare di avventure, in senso letterario!\n\nBravissimo! La tua missione ha avuto successo! Sei riuscito con semplici materiali a raggiungere  il tuo obiettivo, potrai finalmente visitare il sudamerica...\nNel frattempo la guardia ha già allertato l'intera isola, lei sa di cosa parla il libro! :)"
     },
     "score": 3,
     "isLast": true

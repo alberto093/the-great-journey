@@ -44,6 +44,7 @@ public class ParserException extends Exception {
         INVALID_DIRECTION,
         WRONG_DIRECTION,
         UNKNOWN_ELEMENT,
+        SUGGEST_COMBINE,
         PREDEFINED_COMMAND
     }
     

@@ -437,6 +437,7 @@ public class Engine implements Runnable {
                 case UNKNOWN_ELEMENT:
                 case CANT_USE_SELF:
                 case CANT_USE_PERSON_ON_PERSON:
+                case SUGGEST_COMBINE:
                     message = this.exceptions.stream()
                             .filter(e -> e.getName().name().equals(ex.getKind().name()))
                             .findFirst()
