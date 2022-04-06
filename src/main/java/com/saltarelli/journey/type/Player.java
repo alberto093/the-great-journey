@@ -11,6 +11,8 @@ import com.saltarelli.journey.json.PersonJSON;
  *
  * @author Alberto
  */
+
+// This should be a singleton but requires a constructor method in order create from JSON.
 public class Player extends Person {
 
     private static Player instance = null;

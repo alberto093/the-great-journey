@@ -45,7 +45,7 @@ import java.util.stream.IntStream;
 public class Engine implements Runnable {
 
     private final Game restorationGame;
-    
+
     private final Game game;
 
     private final StoryHandler storyHandler;
@@ -53,13 +53,13 @@ public class Engine implements Runnable {
     private final Parser parser;
 
     private final Scanner scanner;
-    
+
     private final PrintStream printStream;
 
     private final ResourcesReader resourcesReader;
-    
+
     private final Collection<ExceptionDescription> exceptions;
-    
+
     private final Collection<PredefinedCommand> predefinedCommands;
 
     private int moves = 0;
@@ -76,7 +76,6 @@ public class Engine implements Runnable {
         prepareObjects(this.game);
         prepareCommands();
         prepareDirections();
-        
 
         this.storyHandler = new StoryHandler(this.game, resourcesReader.fetchStories());
         this.exceptions = resourcesReader.fetchExceptions();
@@ -116,7 +115,7 @@ public class Engine implements Runnable {
 
         this.game.setRooms(rooms);
         this.game.setCurrentRoom(findRoomWithID(this.game.getInitialRoom(), rooms));
-        
+
         Set<Room> restorationRooms = new HashSet<>(rooms);
         this.restorationGame.setRooms(new HashSet<>(rooms));
         this.restorationGame.setCurrentRoom(findRoomWithID(this.restorationGame.getInitialRoom(), restorationRooms));
@@ -199,7 +198,7 @@ public class Engine implements Runnable {
         do {
             printStream.println();
             printStream.println(game.getHelpQuestion());
-            
+
             String answer = scanner.nextLine();
 
             if (game.getYesAlias().contains(answer.toLowerCase())) {
@@ -224,34 +223,39 @@ public class Engine implements Runnable {
         scanNextLine("");
     }
 
-    private void restartGame() {
+    private void restartGame(boolean check) {
+
         Optional<Boolean> shouldRestart = Optional.empty();
 
-        do {
-            printStream.println(game.getRestartQuestion());
-            String answer = scanner.nextLine();
+        if (check) {
+            do {
+                printStream.println(game.getRestartQuestion());
+                String answer = scanner.nextLine();
 
-            if (game.getYesAlias().contains(answer.toLowerCase())) {
-                shouldRestart = Optional.of(true);
-            } else if (game.getNoAlias().contains(answer.toLowerCase())) {
-                shouldRestart = Optional.of(false);
-            }
-        } while (!shouldRestart.isPresent());
-
+                if (game.getYesAlias().contains(answer.toLowerCase())) {
+                    shouldRestart = Optional.of(true);
+                } else if (game.getNoAlias().contains(answer.toLowerCase())) {
+                    shouldRestart = Optional.of(false);
+                }
+            } while (!shouldRestart.isPresent());
+        } else {
+            shouldRestart = Optional.of(true);
+        }
+        
         if (shouldRestart.get()) {
             this.moves = 0;
             this.game.getInventory().clear();
             this.game.setCurrentScore(0);
-            
+
             Set<Room> rooms = new HashSet<>(this.restorationGame.getRooms());
             this.game.setRooms(rooms);
             this.game.setCurrentRoom(findRoomWithID(this.restorationGame.getInitialRoom(), rooms));
             preparePeople(this.game);
             prepareObjects(this.game);
-            
+
             IntStream.range(0, 10)
                     .forEach(i -> printStream.println());
-         
+
             run();
         }
     }
@@ -276,17 +280,51 @@ public class Engine implements Runnable {
     }
 
     private void finishGame() {
-        printStream.println(game.getEndGameMessage());
-        printScore();
-        scanner.nextLine();
-        System.exit(0);
+        Optional<Boolean> restart = Optional.empty();
+
+        do {
+            String message = String.format(game.getEndGameMessage(), game.getCurrentScore(), game.getMaxScore(), moves);
+            printStream.println(message);
+            String answer = scanner.nextLine();
+
+            try {
+                ParserOutput output = parser.parse(
+                        answer,
+                        game.getCommands(),
+                        game.getDirections(),
+                        game.getInventory(),
+                        game.getCurrentRoom(),
+                        predefinedCommands);
+
+                switch (output.getCommand()) {
+                    case END:
+                        restart = Optional.of(false);
+                        break;
+                    case RESTART:
+                        restart = Optional.of(true);
+                        break;
+                    default:
+                        break;
+                }
+            } catch (ParserException ex) {
+
+            }
+        } while (!restart.isPresent());
+
+        if (restart.get()) {
+            restartGame(false);
+        } else {
+
+            System.exit(0);
+
+        }
     }
 
     private void printScore() {
         printStream.println(String.format(game.getScoreMessage(), game.getCurrentScore(), game.getMaxScore(), moves));
         printStream.println();
     }
-    
+
     private void printHelp() {
         printStream.println(game.getHelp());
         printStream.println();
@@ -305,7 +343,7 @@ public class Engine implements Runnable {
                 printStream.println("\t - " + inventoryDescription);
             });
         }
-        
+
         printStream.println();
     }
 
@@ -332,7 +370,7 @@ public class Engine implements Runnable {
                         game.getInventory(),
                         game.getCurrentRoom(),
                         predefinedCommands);
-                
+
                 if (output.getRoom() == null) {
                     output.setRoom(game.getCurrentRoom());
                 }
@@ -342,7 +380,7 @@ public class Engine implements Runnable {
                         endGame();
                         break;
                     case RESTART:
-                        restartGame();
+                        restartGame(true);
                         break;
                     case INVENTORY:
                         moves -= 1;
