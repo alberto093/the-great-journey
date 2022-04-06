@@ -82,7 +82,13 @@
           },
           {
             "id": 20,
-            "description": "Assi di legno molto resistenti ed impermeabili. Chissà come si comportano in mare aperto.\nA mani nude è difficile smontarlo."
+            "description": "Assi di legno molto resistenti ed impermeabili. Chissà come si comportano in mare aperto.\nA mani nude è difficile smontarlo.",
+            "customCommandMessages": [
+              {
+                "command": "PICK_UP",
+                "description": "A mani nude è difficile smontarlo."
+              }
+            ]
           },
           {
             "id": 25,
@@ -467,5 +473,111 @@
     },
     "score": 3,
     "isLast": true
+  },
+  {
+    "input": {
+      "command": "COMBINE",
+      "room": 5,
+      "objects": [
+        20,
+        14
+      ]
+    },
+    "output": {
+      "message": "mmm...così non riuscirei a costruire una barca. Mi serve altro!"
+    }
+  },
+  {
+    "input": {
+      "command": "COMBINE",
+      "room": 5,
+      "objects": [
+        20,
+        25
+      ]
+    },
+    "output": {
+      "message": "mmm...così non riuscirei a costruire una barca. Mi serve altro!"
+    }
+  },
+  {
+    "input": {
+      "command": "COMBINE",
+      "room": 5,
+      "objects": [
+        20,
+        29
+      ]
+    },
+    "output": {
+      "message": "mmm...così non riuscirei a costruire una barca. Mi serve altro!"
+    }
+  },
+  {
+    "input": {
+      "command": "COMBINE",
+      "room": 5,
+      "objects": [
+        14,
+        25
+      ]
+    },
+    "output": {
+      "message": "mmm...così non riuscirei a costruire una barca. Mi serve altro!"
+    }
+  },
+  {
+    "input": {
+      "command": "COMBINE",
+      "room": 5,
+      "objects": [
+        29,
+        14
+      ]
+    },
+    "output": {
+      "message": "mmm...così non riuscirei a costruire una barca. Mi serve altro!"
+    }
+  },
+  {
+    "input": {
+      "command": "COMBINE",
+      "room": 5,
+      "objects": [
+        25,
+        29
+      ]
+    },
+    "output": {
+      "message": "mmm...così non riuscirei a costruire una barca. Mi serve altro!"
+    }
+  },
+  {
+    "input": {
+      "command": "COMBINE",
+      "room": 5,
+      "objects": [
+        20,
+        14,
+        29
+      ]
+    },
+    "output": {
+      "message": "mmm...così non riuscirei a costruire una barca. Mi serve altro!"
+    }
+  },
+  {
+    "input": {
+      "command": "COMBINE",
+      "room": 5,
+      "objects": [
+        25,
+        14,
+        29
+      ]
+    },
+    "output": {
+      "message": "mmm...così non riuscirei a costruire una barca. Mi serve altro!"
+    }
   }
 ]

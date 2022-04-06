@@ -117,8 +117,8 @@
   },
   {
     "name": "SUGGEST_COMBINE",
-    "message: "Prova ad utilizzare il comando \"combina\"."
-  }
+    "message": "Prova ad utilizzare il comando \"combina\"."
+  },
   {
     "name": "UNKNOWN_ELEMENT",
     "message": "Non vedi nulla del genere."
