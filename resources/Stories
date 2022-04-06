@@ -23,7 +23,13 @@
             "objects": [
               {
                 "id": 9,
-                "canTake": true
+                "canTake": true,
+                "customCommandMessages": [
+                  {
+                    "command": "READ",
+                    "description": "Eviterei di leggerlo proprio qui. Non oso immaginare cosa accadrebbe se dovesse vedermi la guardia."
+                  }
+                ]
               },
               {
                 "id": 11,
@@ -67,18 +73,7 @@
       ]
     },
     "output": {
-      "message": "\"Un tomo di oltre 500 pagine!\"\n\nPotrei studiarlo per diventare un abile maestro d'ascia e riuscire ad entrare nell'officina. Magari potrei leggere almeno le prime pagine per capire di cosa parla"
-    }
-  },
-  {
-    "input": {
-      "command": "READ",
-      "objects": [
-        9
-      ]
-    },
-    "output": {
-      "message": "Molto interessante, mi sembra di aver capito che a pochi miglia da qui c'è il sudamerica. Potrei utilizzare materiali d'uso comune per costruire una vera imbarcazione e andar via da qui!",
+      "message": "Un tomo di oltre 500 pagine!\n\nPotrei studiarlo per diventare un abile maestro d'ascia e riuscire ad entrare nell'officina. Leggendo le prime pagine si rivela molto interessante, nel giro di qualche ora hai capito che a pochi miglia da qui c'è il sudamerica.\n\"Potrei utilizzare materiali d'uso comune per costruire una vera imbarcazione e andar via da qui!\"",
       "editing": {
         "objects": [
           {
@@ -98,7 +93,7 @@
             "customCommandMessages": [
               {
                 "command": "READ",
-                "description": "Molto interessante, mi sembra di aver capito che a pochi miglia da qui c'è il sudamerica. Potrei utilizzare materiali d'uso comune per costruire una vera imbarcazione e andar via da qui!"
+                "description": "Leggendo le prime pagine si rivela molto interessante, nel giro di qualche ora hai capito che a pochi miglia da qui c'è il sudamerica.\n\"Potrei utilizzare materiali d'uso comune per costruire una vera imbarcazione e andar via da qui!\""
               }
             ]
           }
