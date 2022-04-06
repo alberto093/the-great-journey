@@ -1,7 +1,7 @@
 [
   {
     "name": "END",
-    "alias": ["end, fine, abbandona, quit, muori"]
+    "alias": ["end", "fine", "abbandona", "quit", "muori"]
   },
   {
     "name": "RESTART",
