@@ -48,7 +48,7 @@ import javax.swing.text.StyleContext;
 
 /**
  *
- * @author pierpaolo
+ * @author Alberto
  */
 public class Console extends javax.swing.JFrame {
 
