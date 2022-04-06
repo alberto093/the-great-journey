@@ -325,6 +325,10 @@
       {
         "command": "PICK_UP",
         "description": "Bah"
+      },
+      {
+        "command": "USE",
+        "description": "Potrei usarli per smontare qualcosa..."
       }
     ]
   },

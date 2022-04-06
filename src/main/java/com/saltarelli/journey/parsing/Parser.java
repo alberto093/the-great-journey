@@ -73,9 +73,9 @@ public class Parser {
             throw new ParserException("Invalid input", ParserException.Kind.EMPTY_INPUT);
         } else {
             String commandAlias = tokens.remove(0);
-            
-            PredefinedCommand predefinedCommand= predefinedAnswerForCommand(commandAlias, predefinedCommands);
-                    
+
+            PredefinedCommand predefinedCommand = predefinedAnswerForCommand(commandAlias, predefinedCommands);
+
             if (predefinedCommand != null) {
                 throw new ParserException("Predefined answer", ParserException.Kind.PREDEFINED_COMMAND, "", predefinedCommand.getAnswer());
             }
@@ -165,6 +165,8 @@ public class Parser {
                         return handleSpeakCommand(commandName, commandAlias, trim, tokens, currentRoom.getPeople(), currentRoom.getObjects(), inventory);
                     case COMBINE:
                         return handleCombineCommand(commandName, commandAlias, trim, tokens, inventory);
+                    case USE:
+                        return handleUseCommand(commandName, commandAlias, trim, tokens, currentRoom.getPeople(), currentRoom.getObjects(), inventory);
                     default:
                         throw new AssertionError(commandName.name());
                 }
@@ -218,9 +220,8 @@ public class Parser {
                 InteractiveElement player = playerFromToken(tokens.get(0));
                 InteractiveElement inventoryObject = matchableFromToken(tokens.get(0), inventory);
 
-                InteractiveElement element = Stream.of(Optional.ofNullable(object), Optional.ofNullable(person), Optional.ofNullable(player), Optional.ofNullable(inventoryObject))
-                        .filter(Optional::isPresent)
-                        .map(Optional::get)
+                InteractiveElement element = Stream.of(object, person, player, inventoryObject)
+                        .filter(o -> o != null)
                         .findFirst()
                         .orElse(null);
 
@@ -341,9 +342,8 @@ public class Parser {
                 InteractiveElement player = playerFromToken(tokens.get(0));
                 InteractiveElement inventoryObject = matchableFromToken(tokens.get(0), inventory);
 
-                InteractiveElement element = Stream.of(Optional.ofNullable(object), Optional.ofNullable(person), Optional.ofNullable(player), Optional.ofNullable(inventoryObject))
-                        .filter(Optional::isPresent)
-                        .map(Optional::get)
+                InteractiveElement element = Stream.of(object, person, player, inventoryObject)
+                        .filter(o -> o != null)
                         .findFirst()
                         .orElse(null);
 
@@ -393,7 +393,7 @@ public class Parser {
                     if (people.size() == 1) {
                         return new ParserOutput(command, people.iterator().next(), inventoryObject);
                     } else {
-                       return new ParserOutput(command, Player.getInstance(), inventoryObject); 
+                        return new ParserOutput(command, Player.getInstance(), inventoryObject);
                     }
                 } else if (object != null) {
                     throw new ParserException("Can't give object from a room", ParserException.Kind.CANT_GIVE, tokens.get(0), "");
@@ -402,16 +402,14 @@ public class Parser {
                 }
             case 2:
                 int objectIndex;
-                person = Stream.of(Optional.ofNullable(matchableFromToken(tokens.get(0), people)), Optional.ofNullable(playerFromToken(tokens.get(0))))
-                        .filter(Optional::isPresent)
-                        .map(Optional::get)
+                person = Stream.of(matchableFromToken(tokens.get(0), people), playerFromToken(tokens.get(0)))
+                        .filter(p -> p != null)
                         .findFirst()
                         .orElse(null);
 
                 if (person == null) {
-                    person = Stream.of(Optional.ofNullable(matchableFromToken(tokens.get(1), people)), Optional.ofNullable(playerFromToken(tokens.get(1))))
-                            .filter(Optional::isPresent)
-                            .map(Optional::get)
+                    person = Stream.of(matchableFromToken(tokens.get(1), people), playerFromToken(tokens.get(1)))
+                            .filter(p -> p != null)
                             .findFirst()
                             .orElse(null);
 
@@ -500,10 +498,9 @@ public class Parser {
                 InteractiveElement person = matchableFromToken(tokens.get(0), people);
                 InteractiveElement player = playerFromToken(tokens.get(0));
                 InteractiveElement inventoryObject = matchableFromToken(tokens.get(0), inventory);
-
-                InteractiveElement element = Stream.of(Optional.ofNullable(object), Optional.ofNullable(person), Optional.ofNullable(player), Optional.ofNullable(inventoryObject))
-                        .filter(Optional::isPresent)
-                        .map(Optional::get)
+                
+                InteractiveElement element = Stream.of(object, person, player, inventoryObject)
+                        .filter(o -> o != null)
                         .findFirst()
                         .orElse(null);
 
@@ -577,12 +574,85 @@ public class Parser {
                         .map(t -> matchableFromToken(t, inventory))
                         .filter(o -> o != null)
                         .collect(Collectors.toList());
-                
+
                 if (objects.size() == tokens.size()) {
                     return new ParserOutput(command, objects.toArray(new AdvObject[0]));
                 } else {
                     throw new ParserException("Can't combine objects/people not in inventory", ParserException.Kind.CANT_COMBINE, "", "");
                 }
+        }
+    }
+
+    private ParserOutput handleUseCommand(
+            Command.Name command,
+            String commandAlias,
+            String input,
+            List<String> tokens,
+            Set<Person> people,
+            Set<AdvObject> objects,
+            Set<AdvObject> inventory) throws ParserException {
+
+        switch (tokens.size()) {
+            case 0:
+                throw new ParserException("Missing element", ParserException.Kind.MISSING_USE_ELEMENT, commandAlias, "");
+            case 1:
+                throw new ParserException("Missing element", ParserException.Kind.MISSING_USE_WITH_ELEMENT, input, "");
+            case 2:
+                AdvObject firstObject = matchableFromToken(tokens.get(0), objects);
+                Person firstPerson = matchableFromToken(tokens.get(0), people);
+                Player firstPlayer = playerFromToken(tokens.get(0));
+                AdvObject firstInventory = matchableFromToken(tokens.get(0), inventory);
+
+                AdvObject secondObject = matchableFromToken(tokens.get(1), objects);
+                Person secondPerson = matchableFromToken(tokens.get(1), people);
+                Player secondPlayer = playerFromToken(tokens.get(1));
+                AdvObject secondInventory = matchableFromToken(tokens.get(1), inventory);
+
+                InteractiveElement firstElement = Stream.of(firstObject, firstPerson, firstPlayer, firstInventory)
+                        .filter(o -> o != null)
+                        .findFirst()
+                        .orElse(null);
+
+                InteractiveElement secondElement = Stream.of(secondObject, secondPerson, secondPlayer, secondInventory)
+                        .filter(o -> o != null)
+                        .findFirst()
+                        .orElse(null);
+                
+                if (firstElement == null || secondElement == null) {      
+                    throw new ParserException("Unknown element", ParserException.Kind.UNKNOWN_ELEMENT);
+                } else if (firstElement == secondElement) {
+                    throw new ParserException("Missing element", ParserException.Kind.CANT_USE_SELF);
+                } else if ((firstPerson != null || firstPlayer != null) && (secondPerson != null || secondPlayer != null)) {
+                    throw new ParserException("Missing element", ParserException.Kind.CANT_USE_PERSON_ON_PERSON);
+                } else {
+                    Person outputPerson = Stream.of(firstPerson, firstPlayer, secondPerson, secondPlayer)
+                            .filter(p -> p != null)
+                            .findFirst()
+                            .orElse(null);
+                    
+                    AdvObject outputFirstObject = Stream.of(firstObject, firstInventory)
+                            .filter(o -> o != null)
+                            .findFirst()
+                            .orElse(null);
+                    
+                    AdvObject outputSecondObject = Stream.of(secondObject, secondInventory)
+                            .filter(o -> o != null)
+                            .findFirst()
+                            .orElse(null);
+                    
+                    if (outputPerson != null) {
+                        AdvObject outputObject = Stream.of(outputFirstObject,outputSecondObject)
+                                .filter(o -> o != null)
+                                .findFirst()
+                                .orElse(null);
+                                
+                        return new ParserOutput(command, outputPerson, outputObject);
+                    } else {
+                        return new ParserOutput(command, outputFirstObject, outputSecondObject);
+                    }
+                }
+            default:
+                throw getLongInputException(input.substring(0, input.indexOf(tokens.get(1)) + tokens.get(1).length()));
         }
     }
 
@@ -592,7 +662,7 @@ public class Parser {
                 .findFirst()
                 .orElse(null);
     }
-    
+
     private PredefinedCommand predefinedAnswerForCommand(String command, Collection<PredefinedCommand> predefinedCommands) {
         return predefinedCommands.stream()
                 .filter(pc -> pc.getCommands().contains(command))

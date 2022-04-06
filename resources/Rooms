@@ -2,7 +2,7 @@
   {
     "id": 0,
     "name": "Depandance privata",
-    "description": "Sei nella depandance, il monolacale in cui vivi, lontano dai tuoi genitori.\nL'uscita è a ovest.\n\nSul letto, ovviamente disfatto, vedi qualcosa.",
+    "description": "Sei nella depandance, il posto in cui vivi, un arredamento moderno ma con un vecchio frigo che ogni tanto smette di funzionare. Dalla finestra vedi i giardini reali.\nL'uscita è a ovest.\n\nSul letto, ovviamente disfatto, vedi qualcosa.",
     "west": 1,
     "wrongDirectionMessage": "L'uscita della depandance è a ovest"
   },

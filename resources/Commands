@@ -82,5 +82,9 @@
   {
     "name": "HELP",
     "alias": ["aiuto", "help", "info", "istruzioni"]
+  },
+  {
+    "name": "USE",
+    "alias": ["usa"]
   }
 ]

@@ -131,11 +131,11 @@ public class Console extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(850, 600));
 
         scrollPane.setBackground(new java.awt.Color(0, 0, 0));
-        scrollPane.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(40, 32, 24), 5), javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1)));
+        scrollPane.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(70, 60, 60), 5), javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1)));
         scrollPane.setPreferredSize(new java.awt.Dimension(600, 400));
 
         textPane.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
-        textPane.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        textPane.setFont(textPane.getFont().deriveFont((float)16));
         textPane.setForeground(new java.awt.Color(20, 20, 20));
         textPane.setFocusable(false);
         textPane.setSelectionColor(new java.awt.Color(0, 0, 0));
@@ -143,23 +143,28 @@ public class Console extends javax.swing.JFrame {
 
         getContentPane().add(scrollPane, java.awt.BorderLayout.CENTER);
 
-        jPanel1.setBackground(new java.awt.Color(40, 32, 24));
+        jPanel1.setBackground(new java.awt.Color(70, 60, 60));
         jPanel1.setPreferredSize(new java.awt.Dimension(100, 80));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jPanel2.setBackground(new java.awt.Color(40, 32, 24));
+        jPanel2.setBackground(new java.awt.Color(70, 60, 60));
         jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 8, 0, 8));
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(230, 80, 40));
+        jLabel1.setForeground(new java.awt.Color(255, 69, 0));
         jLabel1.setText(">");
         jPanel2.add(jLabel1);
 
-        textField.setBackground(new java.awt.Color(40, 32, 24));
-        textField.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        textField.setForeground(new java.awt.Color(230, 80, 40));
+        textField.setBackground(new java.awt.Color(70, 60, 60));
+        textField.setFont(textField.getFont().deriveFont(textField.getFont().getStyle() | java.awt.Font.BOLD, 16));
+        textField.setForeground(new java.awt.Color(255, 69, 0));
         textField.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 2, 0, 6));
+        textField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldActionPerformed(evt);
+            }
+        });
         textField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textFieldKeyPressed(evt);
@@ -225,6 +230,10 @@ public class Console extends javax.swing.JFrame {
                 break;
         }
     }//GEN-LAST:event_textFieldKeyPressed
+
+    private void textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldActionPerformed
 
     /**
      * @param args the command line arguments

@@ -7,7 +7,7 @@
     "alias": ["guardia", "guardiano", "poliziotto", "gendarme", "guardia reale", "guardia palazzo"],
     "customCommandMessages": [{
       "command": "SPEAK",
-      "description": "\"Ciao Brian, vedo che sei tornato dal tuo safari avventuroso. Oggi il palazzo è chiuso per una importante riunione.\nFinisco il turno tra un paio d'ore, magari ci becchiamo più tardi in spiaggia.\"\n\nMi tocca aspettare la fine del turno allora, potrei approfittarne e andare a salutare il mio amico barista."
+      "description": "\"Ciao Brian, vedo che sei tornato dal tuo safari avventuroso. Oggi il palazzo è chiuso per una importante riunione.\nFinisco il turno tra un paio d'ore, magari ci becchiamo più tardi in spiaggia.\"\n\nMi tocca aspettare la fine del turno allora per entrare nel palazzo, potrei approfittarne e andare a salutare il mio amico barista."
     }]
   },
   {

@@ -117,7 +117,7 @@ public class StoryHandler {
             case INVENTORY:
             case SCORE:
             case HELP:
-                return null;
+                break;
             case OPEN:
                 
                     output.getObjects().stream()
@@ -160,19 +160,20 @@ public class StoryHandler {
                 
                 break;
             case LOOK_AT:
-                message = handleLookAtCommand(output);
-                break;
+          //      message = handleLookAtCommand(output);
+          //      break;
             case READ:
             case SPEAK:
-                message = Optional
-                        .ofNullable(customMessageResponse(output))
-                        .orElse(handleLookAtCommand(output));
-                break;
+         //       message = Optional
+           //             .ofNullable(customMessageResponse(output))
+            //            .orElse(handleLookAtCommand(output));
+           //     break;
             case COMBINE:
-                message = Optional
-                        .ofNullable(customMessageResponse(output))
-                        .orElse(game.getUselessCombineCommand());
-                break;
+           //     message = Optional
+            //            .ofNullable(customMessageResponse(output))
+            //            .orElse(game.getUselessCombineCommand());
+           //     break;
+            case USE:
             case SING:
                 break;
             default:

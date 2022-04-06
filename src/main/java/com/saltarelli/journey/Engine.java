@@ -435,6 +435,8 @@ public class Engine implements Runnable {
                 case TAKE_FROM_INVENTORY:
                 case INVALID_DIRECTION:
                 case UNKNOWN_ELEMENT:
+                case CANT_USE_SELF:
+                case CANT_USE_PERSON_ON_PERSON:
                     message = this.exceptions.stream()
                             .filter(e -> e.getName().name().equals(ex.getKind().name()))
                             .findFirst()
@@ -465,6 +467,7 @@ public class Engine implements Runnable {
                 case MISSING_SPEAK_ELEMENT:
                 case MISSING_COMBINE_ELEMENT:
                 case MISSING_DIRECTION:
+                case MISSING_USE_WITH_ELEMENT:
                     message = this.exceptions.stream()
                             .filter(e -> e.getName().name().equals(ex.getKind().name()))
                             .findFirst()

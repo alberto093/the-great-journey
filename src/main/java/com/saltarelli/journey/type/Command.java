@@ -36,7 +36,8 @@ public class Command implements Matchable {
         SPEAK,
         COMBINE,
         SING,
-        HELP
+        HELP,
+        USE
     }
 
     private final Name name;

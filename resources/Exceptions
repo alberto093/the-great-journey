@@ -36,6 +36,14 @@
     "message": "Ehi! Puoi farlo solo con esseri viventi."
   },
   {
+    "name": "CANT_USE_SELF",
+    "message": "Non puoi usarlo con se stesso."
+  },
+  {
+    "name": "CANT_USE_PERSON_ON_PERSON",
+    "message": "Non puoi usare persone con altre persone."
+  },
+  {
     "name": "MISSING_OPEN_ELEMENT",
     "message": "Cosa vuoi aprire?"
   },
@@ -62,6 +70,10 @@
   {
     "name": "MISSING_USE_ELEMENT",
     "message": "Cosa vuoi usare?"
+  },
+  {
+    "name": "MISSING_USE_WITH_ELEMENT",
+    "message": "Con cosa/chi?"
   },
   {
     "name": "MISSING_READ_ELEMENT",
