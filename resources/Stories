@@ -23,17 +23,7 @@
             "objects": [
               {
                 "id": 9,
-                "canTake": true,
-                "customCommandMessages": [
-                  {
-                    "command": "PICK_UP",
-                    "description": "\"Ma quanto pesa!\""
-                  },
-                  {
-                    "command": "READ",
-                    "description": "\"Un tomo di oltre 500 pagine!\"\n\n\"Dalla prefazione ho letto che esiste un altro continente al di là del mare. Per fortuna il capitolo 5 mi ha insegnato a costruire/ripare barche. Forse potrei costruirne una e finalmente andarmene da questo posto...\""
-                  }
-                ]
+                "canTake": true
               },
               {
                 "id": 11,
@@ -77,7 +67,18 @@
       ]
     },
     "output": {
-      "message": "\"Un tomo di oltre 500 pagine!\"\n\nPotrei studiarlo per diventare un abile maestro d'ascia e riuscire ad entrare nell'officina. Magari potrei leggere almeno le prime pagine.",
+      "message": "\"Un tomo di oltre 500 pagine!\"\n\nPotrei studiarlo per diventare un abile maestro d'ascia e riuscire ad entrare nell'officina. Magari potrei leggere almeno le prime pagine per capire di cosa parla"
+    }
+  },
+  {
+    "input": {
+      "command": "READ",
+      "objects": [
+        9
+      ]
+    },
+    "output": {
+      "message": "Molto interessante, mi sembra di aver capito che a pochi miglia da qui c'è il sudamerica. Potrei utilizzare materiali d'uso comune per costruire una vera imbarcazione e andar via da qui!",
       "editing": {
         "objects": [
           {
@@ -114,7 +115,21 @@
       ]
     },
     "output": {
-      "message": "Presi."
+      "message": "Presi.",
+      "editing": {
+        "objects": [
+          {
+            "id": 5,
+            "description": "Il letto è disfatto, si vede che non è ancora passata la colf!"
+          }
+        ],
+        "rooms": [
+          {
+            "id": 0,
+            "description": "Sei nella depandance, il posto in cui vivi, un arredamento moderno ma con un vecchio frigo che ogni tanto smette di funzionare. Dalla finestra vedi i giardini reali.\nL'uscita è a ovest."
+          }
+        ]
+      }
     },
     "score": 1
   },
@@ -168,7 +183,15 @@
       ]
     },
     "output": {
-      "message": "\"Mi torneranno utili.\""
+      "message": "\"Mi torneranno utili.\"",
+      "editing": {
+        "objects": [
+          {
+            "id": 14,
+            "description": "Queste lenzuola enormi potrebbero fungere da vele?"
+          }
+        ]
+      }
     },
     "score": 1
   },
@@ -277,6 +300,7 @@
           },
           {
             "id": 20,
+            "description": "Assi di legno molto resistenti ed impermeabili. Chissà come si comportano in mare aperto.",
             "customCommandMessages": [
               {
                 "command": "COMBINE",
@@ -353,6 +377,7 @@
         "objects": [
           {
             "id": 25,
+            "description": "Un palo d'acciaio lungo e robusto. Potrei usarlo come sostegno per qualcosa...",
             "customCommandMessages": [
               {
                 "command": "COMBINE",
