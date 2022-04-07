@@ -444,7 +444,7 @@
           },
           {
             "id": 4,
-            "description": "Sei al Bar Soleluna, il luogo cult dell'isola, famoso per i suoi rum importanti da tutto il mondo.\nL'uscita è a ovest"
+            "description": "Sei al Bar Soleluna, il luogo cult dell'isola, famoso per i suoi rum importanti da tutto il mondo.\nL'uscita è a ovest\n\nC'è un piccolo pontile di legno che si aggetta sul mare."
           }
         ]
       }
@@ -481,7 +481,7 @@
           },
           {
             "id": 4,
-            "description": "Sei al Bar Soleluna, il luogo cult dell'isola, famoso per i suoi rum importanti da tutto il mondo.\nL'uscita è a ovest"
+            "description": "Sei al Bar Soleluna, il luogo cult dell'isola, famoso per i suoi rum importanti da tutto il mondo.\nL'uscita è a ovest\n\nC'è un piccolo pontile di legno che si aggetta sul mare."
           }
         ]
       }
@@ -534,7 +534,7 @@
         "rooms": [
           {
             "id": 4,
-            "description": "Sei al Bar Soleluna, il luogo cult dell'isola, famoso per i suoi rum importanti da tutto il mondo. Il barista, tuo grande amico, non fa altro che offrirti da bere in quanto paghi sempre anche per i tuoi amici, sei il figlio del governatore dell'isola d'altronde!\nL'uscita è a ovest."
+            "description": "Sei al Bar Soleluna, il luogo cult dell'isola, famoso per i suoi rum importanti da tutto il mondo.\nL'uscita è a ovest."
           }
         ]
       }
