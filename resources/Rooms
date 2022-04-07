@@ -24,7 +24,7 @@
   {
     "id": 3,
     "name": "Cala sabbia",
-    "description": "Sei giunto a Cala sabbia, la spiaggia più affollata dell'isola. Tutti i paesani amano sdraiarsi sul bagnasciuga o nuotare nel mare cristallino. Oggi la spiaggia pullula di ombrelloni, mentre a est puoi vedere il famosissimo bar \"Soleluna\". A ovest noti un cantiere navale.\n\nC'è un piccolo pontile di legno che si aggetta sul mare.",
+    "description": "Sei giunto a Cala sabbia, la spiaggia più affollata dell'isola. Tutti i paesani amano sdraiarsi sul bagnasciuga o nuotare nel mare cristallino. Oggi la spiaggia pullula di ombrelloni, tuttavia a est puoi vedere il famosissimo bar \"Soleluna\". A ovest noti un cantiere navale, mentre a nord torni ai giardini.\n\nC'è un piccolo pontile di legno che si aggetta sul mare.",
     "east": 4,
     "west": 5,
     "north": 1

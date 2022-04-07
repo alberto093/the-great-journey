@@ -103,6 +103,12 @@
               }
             ]
           }
+        ],
+        "rooms": [
+          {
+            "id": 1,
+            "description": "Sei all'interno dei magnifici giardini, il biglietto da visita del palazzo reale. Intorno a te ci sono maestosi alberi e fontane, farfalle che danzano su piccoli e coloratissimi fiori.\nOggi il palazzo è chiuso in quanto è in corso una riunione top secret. A est c'è l'ingresso della depandance, a nord la lavanderia, mentre a sud vai verso il mare.\n\nLa guardia ha finito il turno e sembra che il cambio turno stia subendo dei ritardi, non vedi nessuno."
+          }
         ]
       }
     },
@@ -322,7 +328,7 @@
         "rooms": [
           {
             "id": 3,
-            "description": "Sei giunto a Cala sabbia, la spiaggia più affollata dell'isola. Tutti i paesani amano sdraiarsi sul bagnasciuga o nuotare nel mare cristallino. Oggi la spiaggia pullula di ombrelloni, mentre a est puoi vedere il famosissimo bar \"Soleluna\". A ovest noti un cantiere navale."
+            "description": "Sei giunto a Cala sabbia, la spiaggia più affollata dell'isola. Tutti i paesani amano sdraiarsi sul bagnasciuga o nuotare nel mare cristallino. Oggi la spiaggia pullula di ombrelloni, tuttavia a est puoi vedere il famosissimo bar \"Soleluna\". A ovest noti un cantiere navale, mentre a nord torni a giardini."
           }
         ]
       }
@@ -371,7 +377,7 @@
         "rooms": [
           {
             "id": 3,
-            "description": "Sei giunto a Cala sabbia, la spiaggia più affollata dell'isola. Tutti i paesani amano sdraiarsi sul bagnasciuga o nuotare nel mare cristallino. Oggi la spiaggia pullula di ombrelloni e di persone intente a raggiungere il barista per ordinare qualcosa da bere (grazie al tuo lavoro da maestro d'ascia). Ad est puoi vedere il famosissimo bar \"Soleluna\". A ovest noti un cantiere navale."
+            "description": "Sei giunto a Cala sabbia, la spiaggia più affollata dell'isola. Tutti i paesani amano sdraiarsi sul bagnasciuga o nuotare nel mare cristallino. Oggi la spiaggia pullula di ombrelloni e di persone intente a raggiungere il barista per ordinare qualcosa da bere (grazie al tuo lavoro da maestro d'ascia). Ad est puoi vedere il famosissimo bar \"Soleluna\". A ovest noti un cantiere navale, mentre a nord torni ai giardini."
           }
         ]
       }
