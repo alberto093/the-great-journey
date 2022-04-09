@@ -103,6 +103,12 @@
               }
             ]
           }
+        ],
+        "rooms": [
+          {
+            "id": 1,
+            "description": "Sei all'interno dei magnifici giardini, il biglietto da visita del palazzo reale. Intorno a te ci sono maestosi alberi e fontane, farfalle che danzano su piccoli e coloratissimi fiori.\nOggi il palazzo è chiuso in quanto è in corso una riunione top secret. A est c'è l'ingresso della depandance, a nord la lavanderia, mentre a sud vai verso il mare.\n\nLa guardia ha finito il turno e sembra che il cambio turno stia subendo dei ritardi, non vedi nessuno."
+          }
         ]
       }
     },
@@ -190,6 +196,12 @@
           {
             "id": 14,
             "description": "Queste lenzuola enormi potrebbero fungere da vele?"
+          }
+        ],
+        "rooms": [
+          {
+            "id": 2,
+            "description": "Hai raggiunto la lavanderia, il luogo meno bazzicato del palazzo. A sud torni ai giardini."
           }
         ]
       }
@@ -283,6 +295,60 @@
         20
       ],
       "inventoryRequirements": [
+        29,
+        30
+      ]
+    },
+    "output": {
+      "message": "\"Con un po' di fatica e grazie agli attrezzi sei riuscito a portarti dietro il pontile. Sicuramente potrà funzionare come scafo della barca!\"",
+      "editing": {
+        "objects": [
+          {
+            "id": 25,
+            "customCommandMessages": [
+              {
+                "command": "COMBINE",
+                "description": "Sicuramente potrei farci una barca, ma devo scegliere il posto giusto per farla."
+              }
+            ]
+          },
+          {
+            "id": 20,
+            "description": "Assi di legno molto resistenti ed impermeabili. Chissà come si comportano in mare aperto.",
+            "customCommandMessages": [
+              {
+                "command": "COMBINE",
+                "description": "Sicuramente potrei farci una barca, ma devo scegliere il posto giusto per farla."
+              }
+            ]
+          },
+          {
+            "id": 14,
+            "customCommandMessages": [
+              {
+                "command": "COMBINE",
+                "description": "Sicuramente potrei farci una barca, ma devo scegliere il posto giusto per farla."
+              }
+            ]
+          }
+        ],
+        "rooms": [
+          {
+            "id": 3,
+            "description": "Sei giunto a Cala sabbia, la spiaggia più affollata dell'isola. Tutti i paesani amano sdraiarsi sul bagnasciuga o nuotare nel mare cristallino. Oggi la spiaggia pullula di ombrelloni, tuttavia a est puoi vedere il famosissimo bar \"Soleluna\". A ovest noti un cantiere navale, mentre a nord torni a giardini."
+          }
+        ]
+      }
+    },
+    "score": 1
+  },
+  {
+    "input": {
+      "command": "PICK_UP",
+      "objects": [
+        20
+      ],
+      "inventoryRequirements": [
         29
       ]
     },
@@ -322,7 +388,7 @@
         "rooms": [
           {
             "id": 3,
-            "description": "Sei giunto a Cala sabbia, la spiaggia più affollata dell'isola. Tutti i paesani amano sdraiarsi sul bagnasciuga o nuotare nel mare cristallino. Oggi la spiaggia pullula di ombrelloni, mentre a est puoi vedere il famosissimo bar \"Soleluna\". A ovest noti un cantiere navale."
+            "description": "Sei giunto a Cala sabbia, la spiaggia più affollata dell'isola. Tutti i paesani amano sdraiarsi sul bagnasciuga o nuotare nel mare cristallino. Oggi la spiaggia pullula di ombrelloni e di persone intente a raggiungere il barista per ordinare qualcosa da bere (grazie al tuo lavoro da maestro d'ascia). Ad est puoi vedere il famosissimo bar \"Soleluna\". A ovest noti un cantiere navale, mentre a nord torni ai giardini."
           }
         ]
       }
@@ -351,6 +417,9 @@
       "person": 2,
       "objects": [
         30
+      ],
+      "inventoryRequirements": [
+        20
       ]
     },
     "output": {
@@ -371,7 +440,48 @@
         "rooms": [
           {
             "id": 3,
-            "description": "Sei giunto a Cala sabbia, la spiaggia più affollata dell'isola. Tutti i paesani amano sdraiarsi sul bagnasciuga o nuotare nel mare cristallino. Oggi la spiaggia pullula di ombrelloni e di persone intente a raggiungere il barista per ordinare qualcosa da bere (grazie al tuo lavoro da maestro d'ascia). Ad est puoi vedere il famosissimo bar \"Soleluna\". A ovest noti un cantiere navale."
+            "description": "Sei giunto a Cala sabbia, la spiaggia più affollata dell'isola. Tutti i paesani amano sdraiarsi sul bagnasciuga o nuotare nel mare cristallino. Oggi la spiaggia pullula di ombrelloni e di persone intente a raggiungere il barista per ordinare qualcosa da bere (grazie al tuo lavoro da maestro d'ascia). Ad est puoi vedere il famosissimo bar \"Soleluna\". A ovest noti un cantiere navale, mentre a nord torni ai giardini."
+          },
+          {
+            "id": 4,
+            "description": "Sei al Bar Soleluna, il luogo cult dell'isola, famoso per i suoi rum importanti da tutto il mondo.\nL'uscita è a ovest\n\nNel bar svetta un palo d'acciaio lungo e robusto."
+          }
+        ]
+      }
+    },
+    "score": 2
+  },
+  {
+    "input": {
+      "command": "GIVE",
+      "person": 2,
+      "objects": [
+        30
+      ]
+    },
+    "output": {
+      "message": "Consegni la mazzetta di soldi al tuo amico barista affermando di voler offrire da bere a tutti i bagnanti per festeggiare il mio nuovo lavoro da maestro d'ascia. Il barista corre subito in spiaggia a raccogliere le ordinazioni.",
+      "editing": {
+        "objects": [
+          {
+            "id": 25,
+            "canTake": true
+          }
+        ],
+        "people": [
+          {
+            "id": 2,
+            "moveToRoomID": 3
+          }
+        ],
+        "rooms": [
+          {
+            "id": 3,
+            "description": "Sei giunto a Cala sabbia, la spiaggia più affollata dell'isola. Tutti i paesani amano sdraiarsi sul bagnasciuga o nuotare nel mare cristallino. Oggi la spiaggia pullula di ombrelloni e di persone intente a raggiungere il barista per ordinare qualcosa da bere (grazie al tuo lavoro da maestro d'ascia). Ad est puoi vedere il famosissimo bar \"Soleluna\". A ovest noti un cantiere navale, mentre a nord torni ai giardini.\n\nC'è un piccolo pontile di legno che si aggetta sul mare."
+          },
+          {
+            "id": 4,
+            "description": "Sei al Bar Soleluna, il luogo cult dell'isola, famoso per i suoi rum importanti da tutto il mondo.\nL'uscita è a ovest\n\nNel bar svetta un palo d'acciaio lungo e robusto."
           }
         ]
       }
@@ -419,6 +529,12 @@
                 "description": "Sicuramente potrei farci una barca, ma devo scegliere il posto giusto per farla."
               }
             ]
+          }
+        ],
+        "rooms": [
+          {
+            "id": 4,
+            "description": "Sei al Bar Soleluna, il luogo cult dell'isola, famoso per i suoi rum importanti da tutto il mondo.\nL'uscita è a ovest."
           }
         ]
       }

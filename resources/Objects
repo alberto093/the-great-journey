@@ -229,7 +229,7 @@
     "id": 20,
     "room": 3,
     "name": "pontile",
-    "alias": ["ponte", "ponticello", "assi", "asse"],
+    "alias": ["ponte", "ponticello", "assi", "asse", "legno"],
     "description": "Un piccolo pontile fatto da assi di legno massiccio.",
     "customCommandMessages": [{
         "command": "INVENTORY",
