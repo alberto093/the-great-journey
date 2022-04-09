@@ -275,6 +275,8 @@ public class Engine implements Runnable {
         } while (!shouldEnd.isPresent());
 
         if (shouldEnd.get()) {
+            printStream.close();
+            scanner.close();
             System.exit(0);
         }
     }
@@ -314,7 +316,8 @@ public class Engine implements Runnable {
         if (restart.get()) {
             restartGame(false);
         } else {
-
+            printStream.close();
+            scanner.close();
             System.exit(0);
 
         }
