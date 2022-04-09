@@ -1,6 +1,22 @@
 [
   {
     "input": {
+      "command": "LOOK_AT",
+      "objects": [5]
+    },
+    "output": {
+      "editing": {
+        "objects": [
+          {
+            "id": 6,
+            "moveToRoomID": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "input": {
       "command": "SING"
     },
     "output": {

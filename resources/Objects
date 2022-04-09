@@ -78,7 +78,7 @@
   },
   {
     "id": 6,
-    "room": 0,
+    "room": -1,
     "name": "vestiti",
     "alias": ["vestito", "mutande", "calzini", "magliette", "abiti", "indumenti", "vesti", "vestiario", "panni", "panni sporchi"],
     "description": "Per quanto sono sporchi e puzzolenti sarebbe proprio l'ora di lavarli.",
