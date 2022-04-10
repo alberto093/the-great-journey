@@ -16,7 +16,6 @@
  */
 package com.saltarelli.journey;
 
-import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -165,13 +164,9 @@ public class Console extends javax.swing.JFrame {
                 textFieldStream.println(input);
                 textField.setText("");
 
-                StyleContext context = StyleContext.getDefaultStyleContext();
-                AttributeSet attributes = context.addAttribute(
-                        SimpleAttributeSet.EMPTY,
-                        StyleConstants.Foreground,
-                        textField.getForeground());
-
-                attributes = context.addAttribute(attributes, StyleConstants.FontFamily, textField.getFont().getFontName());
+                SimpleAttributeSet attributes = new SimpleAttributeSet();
+                StyleConstants.setBold(attributes, true);
+                StyleConstants.setForeground(attributes, textField.getForeground());
                 textPanePrinter.println(input, attributes);
 
                 synchronized (inputStream) {
