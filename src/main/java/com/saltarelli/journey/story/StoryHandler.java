@@ -94,7 +94,10 @@ public class StoryHandler {
             case HELP:
                 return null;
             default:
-                return StoryHandlerResponse.newMessage(game.getUnknownOutput(), 0, false);
+                return StoryHandlerResponse.newMessage(
+                    Optional.ofNullable(customMessageResponse(output)).orElse(handleLookAtCommand(output)),
+                    0,
+                    false);
         }
     }
 

@@ -16,12 +16,12 @@
  */
 package com.saltarelli.journey;
 
-import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
@@ -52,33 +52,10 @@ import javax.swing.text.StyleContext;
  */
 public class Console extends javax.swing.JFrame {
 
-    public class TextPaneOutputStream extends ByteArrayOutputStream {
-
-        private final JTextPane textPane;
-
-        public TextPaneOutputStream(JTextPane textPane) {
-            this.textPane = textPane;
-        }
-
-        @Override
-        public synchronized void write(byte[] b, int off, int len) {
-            super.write(b, off, len);
-            Document document = textPane.getDocument();
-            try {
-                document.insertString(document.getLength(), toString(), null);
-                textPane.setCaretPosition(document.getLength());
-            } catch (BadLocationException ex) {
-
-            }
-
-            reset();
-        }
-    }
-
     private final PipedInputStream inputStream = new PipedInputStream();
     private final PipedOutputStream outputStream = new PipedOutputStream();
     private final PrintStream textFieldStream;
-    private final PrintStream textAreaStream;
+    private final TextPanePrinter textPanePrinter;
 
     private List<String> previousInputs = new ArrayList<>();
     private Integer previousInputsIndex;
@@ -100,14 +77,12 @@ public class Console extends javax.swing.JFrame {
         textFieldStream = new PrintStream(outputStream);
 
         // start engine
-        textAreaStream = new PrintStream(new TextPaneOutputStream(textPane));
-        Engine engine = new Engine(inputStream, textAreaStream);
+        textPanePrinter = new TextPanePrinter(textPane);
+        Engine engine = new Engine(inputStream, textPanePrinter);
         Thread engineThread = new Thread(engine);
         engineThread.start();
 
         textField.requestFocus();
-        //scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        //scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
     }
 
     /**
@@ -189,23 +164,10 @@ public class Console extends javax.swing.JFrame {
                 textFieldStream.println(input);
                 textField.setText("");
 
-                StyleContext context = StyleContext.getDefaultStyleContext();
-                AttributeSet attributes = context.addAttribute(
-                        SimpleAttributeSet.EMPTY,
-                        StyleConstants.Foreground,
-                        textField.getForeground());
-
-                attributes = context.addAttribute(attributes, StyleConstants.FontFamily, textField.getFont().getFontName());
-
-                Document document = textPane.getDocument();
-
-                textPane.setCharacterAttributes(attributes, false);
-
-                try {
-                    document.insertString(document.getLength(), input, attributes);
-                } catch (BadLocationException ex) {
-
-                }
+                SimpleAttributeSet attributes = new SimpleAttributeSet();
+                StyleConstants.setBold(attributes, true);
+                StyleConstants.setForeground(attributes, textField.getForeground());
+                textPanePrinter.println(input, attributes);
 
                 synchronized (inputStream) {
                     inputStream.notify();
@@ -224,7 +186,7 @@ public class Console extends javax.swing.JFrame {
                         }
                     });
                 }
-                
+
                 break;
             default:
                 break;
