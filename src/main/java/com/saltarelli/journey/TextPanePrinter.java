@@ -52,7 +52,7 @@ public class TextPanePrinter {
         println(x);
     }
 
-    private void updateDocument(String text) {
+    private synchronized void updateDocument(String text) {
         if (currentAttributes != null) {
             textPane.setCharacterAttributes(currentAttributes, true);
             this.currentAttributes = null;

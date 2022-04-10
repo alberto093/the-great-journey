@@ -58,7 +58,7 @@ public class Console extends javax.swing.JFrame {
     private final TextPanePrinter textPanePrinter;
 
     private List<String> previousInputs = new ArrayList<>();
-    private Integer previousInputsIndex;
+    private Integer previousInputsIndex = -1;
 
     /**
      * Creates new form ConsoleUI
@@ -175,16 +175,16 @@ public class Console extends javax.swing.JFrame {
                 break;
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_UP:
+                if (previousInputs.isEmpty()) {
+                    return;
+                }
+                
+                Integer oldIndex = previousInputsIndex;
                 previousInputsIndex += evt.getKeyCode() == KeyEvent.VK_DOWN ? 1 : -1;
-
-                if (previousInputsIndex > 0 && previousInputsIndex < previousInputs.size()) {
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                        public void run() {
-                            if (previousInputsIndex > 0 && previousInputsIndex < previousInputs.size()) {
-                                textField.setText(previousInputs.get(previousInputsIndex));
-                            }
-                        }
-                    });
+                previousInputsIndex = Math.max(0, Math.min(previousInputs.size() - 1, previousInputsIndex));
+                
+                if (previousInputsIndex != oldIndex) {
+                    textField.setText(previousInputs.get(previousInputsIndex));
                 }
 
                 break;
