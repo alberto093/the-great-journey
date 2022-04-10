@@ -14,6 +14,8 @@ import javax.swing.JTextPane;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
 
 /**
  *
@@ -23,15 +25,15 @@ public class TextPanePrinter {
 
     private final JTextPane textPane;
     private AttributeSet currentAttributes;
-
+    
     public TextPanePrinter(JTextPane textPane) {
         this.textPane = textPane;
     }
-    
+
     public void println() {
         updateDocument("\n");
     }
-    
+
     public void print(String x) {
         updateDocument(x);
     }
@@ -51,17 +53,14 @@ public class TextPanePrinter {
     }
 
     private void updateDocument(String text) {
-        Document document = textPane.getDocument();
-
         if (currentAttributes != null) {
-            textPane.setCharacterAttributes(currentAttributes, false);
+            textPane.setCharacterAttributes(currentAttributes, true);
+            this.currentAttributes = null;
+        } else {
+            textPane.setCharacterAttributes(new SimpleAttributeSet(), true);
         }
 
-        try {
-            document.insertString(document.getLength(), text, null);
-            textPane.setCaretPosition(document.getLength());
-        } catch (BadLocationException ex) {
-
-        }
+        textPane.replaceSelection(text);
+        textPane.setCaretPosition(textPane.getDocument().getLength());
     }
 }

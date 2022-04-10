@@ -218,18 +218,13 @@ public class Engine implements Runnable {
             printHelp();
         }
 
-        StyleContext context = StyleContext.getDefaultStyleContext();
-        AttributeSet attributes = context.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Bold, true);
-        attributes = context.addAttribute(attributes, StyleConstants.Foreground, Color.blue);
-        
-        SimpleAttributeSet tryAttr = new SimpleAttributeSet();
-        StyleConstants.setBold(tryAttr, true);
-        StyleConstants.setForeground(tryAttr, Color.blue);
+        SimpleAttributeSet attributes = new SimpleAttributeSet();
+        StyleConstants.setBold(attributes, true);
         
         printer.println(game.getTitle(), attributes);
-        printer.println(game.getDescription(), tryAttr);
+        printer.println(game.getDescription());
         printer.println();
-        printer.println(game.getCurrentRoom().getName());
+        printer.println(game.getCurrentRoom().getName(), attributes);
         printer.println(game.getCurrentRoom().getDescription());
         printer.println();
 
