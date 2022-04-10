@@ -63,9 +63,8 @@ public class Parser {
                 if (tokens.size() > 1) {
                     String firstToken = trim.split("\\s+")[0];
                     tokens = new ArrayList<>(Arrays.asList(firstToken));
-                    tokens.addAll(Arrays.asList(trim.substring(firstToken.length() + 1).split(getStopwordsRegex())));
+                    tokens.addAll(Arrays.asList(trim.substring(firstToken.length()).trim().split(getStopwordsRegex())));
                     tokens = clearTokens(tokens, currentRoom, inventory, directions);
-                    tokens.removeAll(Arrays.asList("", null));
                 }
         }
 
@@ -716,6 +715,7 @@ public class Parser {
 
         return tokens.stream()
                 .flatMap(s -> reduceTokens(Collections.emptyList(), s, visibleObjects, allPeople, directions).stream())
+                .filter(t -> t != null && !t.isEmpty())
                 .collect(Collectors.toList());
     }
 
