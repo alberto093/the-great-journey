@@ -11,6 +11,12 @@
             "id": 6,
             "moveToRoomID": 0
           }
+        ],
+        "rooms": [
+          {
+            "id": 0,
+            "description": "Sei nella depandance, il posto in cui vivi, un arredamento moderno ma con un vecchio frigo che ogni tanto smette di funzionare. Dalla finestra vedi i giardini reali.\nL'uscita è a ovest.\n\nSul letto, ovviamente disfatto, vedi dei vestiti sporchi."
+          }
         ]
       }
     }

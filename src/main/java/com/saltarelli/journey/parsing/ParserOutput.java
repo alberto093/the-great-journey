@@ -18,44 +18,51 @@ import java.util.List;
  * @author Alberto
  */
 public class ParserOutput {
+
     private final Command.Name command;
     private Room room;
     private final Person person;
     private final List<AdvObject> objects;
+    private final String inputMessage;
 
     public ParserOutput(Command.Name command) {
         this.command = command;
         this.room = null;
         this.person = null;
         this.objects = Collections.emptyList();
+        this.inputMessage = null;
     }
-    
-    public ParserOutput(Command.Name command, AdvObject... objects) {
+
+    public ParserOutput(Command.Name command, String inputMessage, AdvObject... objects) {
         this.command = command;
         this.room = null;
         this.person = null;
         this.objects = Arrays.asList(objects);
+        this.inputMessage = inputMessage;
     }
-    
+
     public ParserOutput(Command.Name command, Room room) {
         this.command = command;
         this.room = room;
         this.person = null;
         this.objects = Collections.emptyList();
+        this.inputMessage = null;
     }
-    
-    public ParserOutput(Command.Name command, Person person) {
+
+    public ParserOutput(Command.Name command, Person person, String inputMessage) {
         this.command = command;
         this.room = null;
         this.person = person;
         this.objects = Collections.emptyList();
+        this.inputMessage = inputMessage;
     }
-    
-    public ParserOutput(Command.Name command, Person person, AdvObject... objects) {
+
+    public ParserOutput(Command.Name command, String inputMessage, Person person, AdvObject... objects) {
         this.command = command;
         this.room = null;
         this.person = person;
         this.objects = Arrays.asList(objects);
+        this.inputMessage = inputMessage;
     }
 
     public Command.Name getCommand() {
@@ -65,10 +72,10 @@ public class ParserOutput {
     public Room getRoom() {
         return room;
     }
-    
+
     public void setRoom(Room room) {
         this.room = room;
-    } 
+    }
 
     public Person getPerson() {
         return person;
@@ -76,5 +83,9 @@ public class ParserOutput {
 
     public List<AdvObject> getObjects() {
         return objects;
+    }
+
+    public String getInputMessage() {
+        return inputMessage;
     }
 }

@@ -377,16 +377,21 @@ public class Engine implements Runnable {
                 if (output.getRoom() == null) {
                     output.setRoom(game.getCurrentRoom());
                 }
+                
+                if (output.getInputMessage() != null && !output.getInputMessage().isEmpty()) {
+                    printStream.println("(" + output.getInputMessage() + ")");
+                }
 
                 switch (output.getCommand()) {
                     case END:
+                        moves -= 1;
                         endGame();
                         break;
                     case RESTART:
+                        moves -= 1;
                         restartGame(true);
                         break;
                     case INVENTORY:
-                        moves -= 1;
                         printInventory();
                         break;
                     case SCORE:
@@ -470,12 +475,13 @@ public class Engine implements Runnable {
             switch (ex.getKind()) {
                 case EMPTY_INPUT:
                 case UNKNOWN_COMMAND:
+                case UNKNOWN_ELEMENT:
+                    moves -= 1;
                 case CANT_SPEAK:
                 case MINIMUM_COMBINE:
                 case CANT_COMBINE:
                 case TAKE_FROM_INVENTORY:
                 case INVALID_DIRECTION:
-                case UNKNOWN_ELEMENT:
                 case CANT_USE_SELF:
                 case CANT_USE_PERSON_ON_PERSON:
                 case SUGGEST_COMBINE:
@@ -486,6 +492,7 @@ public class Engine implements Runnable {
                             .orElse(ex.getMessage());
                     break;
                 case LONG_INPUT:
+                    moves -= 1;
                 case CANT_OPEN:
                 case CANT_CLOSE:
                 case CANT_PUSH:
@@ -510,6 +517,7 @@ public class Engine implements Runnable {
                 case MISSING_COMBINE_ELEMENT:
                 case MISSING_DIRECTION:
                 case MISSING_USE_WITH_ELEMENT:
+                    moves -= 1;
                     message = this.exceptions.stream()
                             .filter(e -> e.getName().name().equals(ex.getKind().name()))
                             .findFirst()

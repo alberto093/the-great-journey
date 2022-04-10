@@ -208,7 +208,15 @@ public class Parser {
         switch (tokens.size()) {
             case 0:
                 if (objects.size() == 1) {
-                    return handleBooleanElement(command, objects.iterator().next(), objects.iterator().next().getName(), canDoPredicate, isDonePredicate, checkDo, exceptionCant);
+                    return handleBooleanElement(
+                            command,
+                            input + " " + objects.iterator().next().getName(),
+                            objects.iterator().next(), 
+                            objects.iterator().next().getName(), 
+                            canDoPredicate, 
+                            isDonePredicate, 
+                            checkDo, 
+                            exceptionCant);
                 } else if (people.size() == 1) {
                     throw getCantDoException(people.iterator().next().getName(), exceptionCant, people.iterator().next().customMessageForCommand(command));
                 } else {
@@ -226,7 +234,15 @@ public class Parser {
                         .orElse(null);
 
                 if (element != null) {
-                    return handleBooleanElement(command, element, tokens.get(0), canDoPredicate, isDonePredicate, checkDo, exceptionCant);
+                    return handleBooleanElement(
+                            command, 
+                            null, 
+                            element, 
+                            tokens.get(0), 
+                            canDoPredicate, 
+                            isDonePredicate, 
+                            checkDo, 
+                            exceptionCant);
                 } else {
                     throw new ParserException("Unknown element", ParserException.Kind.UNKNOWN_ELEMENT);
                 }
@@ -237,6 +253,7 @@ public class Parser {
 
     private ParserOutput handleBooleanElement(
             Command.Name command,
+            String inputMessage,
             InteractiveElement element,
             String elementAlias,
             Predicate<? super InteractiveElement> canDoPredicate,
@@ -246,9 +263,9 @@ public class Parser {
 
         if (canDoPredicate.test(element) && checkDo != isDonePredicate.test(element)) {
             if (element instanceof AdvObject) {
-                return new ParserOutput(command, (AdvObject) element);
+                return new ParserOutput(command, inputMessage, (AdvObject) element);
             } else {
-                return new ParserOutput(command, (Person) element);
+                return new ParserOutput(command, inputMessage, (Person) element);
             }
         } else {
             throw getCantDoException(elementAlias, exceptionKind, element.customMessageForCommand(command));
@@ -325,10 +342,11 @@ public class Parser {
                         InteractiveElement element = !objects.isEmpty() ? objects.iterator().next() : people.iterator().next();
 
                         if (element.getCanTake()) {
+                            String inputMessage = input + " " + element.getName();
                             if (element instanceof AdvObject) {
-                                return new ParserOutput(command, (AdvObject) element);
+                                return new ParserOutput(command, inputMessage, (AdvObject) element);
                             } else {
-                                return new ParserOutput(command, (Person) element);
+                                return new ParserOutput(command, inputMessage, (Person) element);
                             }
                         } else {
                             throw new ParserException("Element can't be taken", ParserException.Kind.CANT_TAKE, tokens.get(0), element.customMessageForCommand(command));
@@ -353,9 +371,9 @@ public class Parser {
                     throw new ParserException("Can't take object from inventory", ParserException.Kind.TAKE_FROM_INVENTORY);
                 } else if (element.getCanTake() != null && element.getCanTake()) {
                     if (element instanceof AdvObject) {
-                        return new ParserOutput(command, (AdvObject) element);
+                        return new ParserOutput(command, null, (AdvObject) element);
                     } else {
-                        return new ParserOutput(command, (Person) element);
+                        return new ParserOutput(command, null, (Person) element);
                     }
                 } else {
                     throw new ParserException("Element can't be taken", ParserException.Kind.CANT_TAKE, tokens.get(0), element.customMessageForCommand(command));
@@ -390,11 +408,8 @@ public class Parser {
                             input.substring(0, input.indexOf(tokens.get(0)) + tokens.get(0).length()),
                             "");
                 } else if (inventoryObject != null) {
-                    if (people.size() == 1) {
-                        return new ParserOutput(command, people.iterator().next(), inventoryObject);
-                    } else {
-                        return new ParserOutput(command, Player.getInstance(), inventoryObject);
-                    }
+                    Person outputPerson = people.size() == 1 ? people.iterator().next() : Player.getInstance();
+                    return new ParserOutput(command, input + " " + outputPerson.getName(), outputPerson, inventoryObject);
                 } else if (object != null) {
                     throw new ParserException("Can't give object from a room", ParserException.Kind.CANT_GIVE, tokens.get(0), "");
                 } else {
@@ -426,7 +441,7 @@ public class Parser {
                 inventoryObject = matchableFromToken(tokens.get(objectIndex), inventory);
 
                 if (inventoryObject != null) {
-                    return new ParserOutput(command, person, inventoryObject);
+                    return new ParserOutput(command, null, person, inventoryObject);
                 } else if (object != null) {
                     throw new ParserException("Can't give object from a room", ParserException.Kind.CANT_GIVE, tokens.get(objectIndex), "");
                 } else {
@@ -454,13 +469,13 @@ public class Parser {
                 AdvObject inventoryObject = matchableFromToken(tokens.get(0), inventory);
 
                 if (object != null) {
-                    return new ParserOutput(command, object);
+                    return new ParserOutput(command, null, object);
                 } else if (person != null) {
-                    return new ParserOutput(command, person);
+                    return new ParserOutput(command, null, person);
                 } else if (player != null) {
-                    return new ParserOutput(command, player);
+                    return new ParserOutput(command, null, player);
                 } else if (inventoryObject != null) {
-                    return new ParserOutput(command, inventoryObject);
+                    return new ParserOutput(command, null, inventoryObject);
                 } else {
                     throw new ParserException("Unknown element", ParserException.Kind.UNKNOWN_ELEMENT);
                 }
@@ -485,10 +500,11 @@ public class Parser {
                 switch (numberOfElements) {
                     case 1:
                         InteractiveElement element = !objects.isEmpty() ? objects.iterator().next() : people.iterator().next();
+                        String inputMessage = input + " " + element.getName();
                         if (element instanceof AdvObject) {
-                            return new ParserOutput(command, (AdvObject) element);
+                            return new ParserOutput(command, inputMessage, (AdvObject) element);
                         } else {
-                            return new ParserOutput(command, (Person) element);
+                            return new ParserOutput(command, inputMessage, (Person) element);
                         }
                     default:
                         throw new ParserException("Missing element", ParserException.Kind.MISSING_READ_ELEMENT, commandAlias, "");
@@ -508,9 +524,9 @@ public class Parser {
                     throw new ParserException("Unknown element", ParserException.Kind.UNKNOWN_ELEMENT);
                 } else {
                     if (element instanceof AdvObject) {
-                        return new ParserOutput(command, (AdvObject) element);
+                        return new ParserOutput(command, null, (AdvObject) element);
                     } else {
-                        return new ParserOutput(command, (Person) element);
+                        return new ParserOutput(command, null, (Person) element);
                     }
                 }
             default:
@@ -529,14 +545,19 @@ public class Parser {
 
         switch (tokens.size()) {
             case 0:
+                Person outputPerson;
                 switch (people.size()) {
                     case 0:
-                        return new ParserOutput(command, Player.getInstance());
+                        outputPerson = Player.getInstance();
+                        break;
                     case 1:
-                        return new ParserOutput(command, people.iterator().next());
+                        outputPerson = people.iterator().next();
+                        break;
                     default:
                         throw new ParserException("Missing person", ParserException.Kind.MISSING_SPEAK_ELEMENT, input, "");
                 }
+                
+                return new ParserOutput(command, input + " " + outputPerson.getName(), outputPerson); 
             case 1:
                 AdvObject object = matchableFromToken(tokens.get(0), objects);
                 Person person = matchableFromToken(tokens.get(0), people);
@@ -546,9 +567,9 @@ public class Parser {
                 if (object != null || inventoryObject != null) {
                     throw new ParserException("Can't speak within an object", ParserException.Kind.CANT_SPEAK, "", "");
                 } else if (person != null) {
-                    return new ParserOutput(command, person);
+                    return new ParserOutput(command, null, person);
                 } else if (player != null) {
-                    return new ParserOutput(command, player);
+                    return new ParserOutput(command, null, player);
                 } else {
                     throw new ParserException("Unknown element", ParserException.Kind.UNKNOWN_ELEMENT);
                 }
@@ -576,7 +597,7 @@ public class Parser {
                         .collect(Collectors.toList());
 
                 if (objects.size() == tokens.size()) {
-                    return new ParserOutput(command, objects.toArray(new AdvObject[0]));
+                    return new ParserOutput(command, null, objects.toArray(new AdvObject[0]));
                 } else {
                     throw new ParserException("Can't combine objects/people not in inventory", ParserException.Kind.CANT_COMBINE, "", "");
                 }
@@ -648,9 +669,9 @@ public class Parser {
                                 .findFirst()
                                 .orElse(null);
                                 
-                        return new ParserOutput(command, outputPerson, outputObject);
+                        return new ParserOutput(command, null, outputPerson, outputObject);
                     } else {
-                        return new ParserOutput(command, outputFirstObject, outputSecondObject);
+                        return new ParserOutput(command, null, outputFirstObject, outputSecondObject);
                     }
                 }
             default:
